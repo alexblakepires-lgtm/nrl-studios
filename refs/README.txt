@@ -1,0 +1,3 @@
+Drop optional reference photos here, named after the image they guide:
+  refs/hero-lair.jpg, refs/about-lair.jpg, refs/process.jpg ...
+The generator passes them to Nano Banana 2 with --image. Keep this folder out of git if the photos are private.

@@ -1,0 +1,11 @@
+images/raw/
+.DS_Store
+# private working notes, never publish
+CLAUDE.md
+PROCESS.md
+refs/*.jpg
+refs/*.jpeg
+refs/*.png
+refs/*.webp
+# image experiments, keep local
+looks/

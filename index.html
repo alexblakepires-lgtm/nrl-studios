@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NRL Studios · Netrunner Lair</title>
+<meta name="description" content="NRL Studios is the web and AI studio of Alexandre Pires. Websites and AI products, built end to end, in English and Portuguese.">
+<link rel="canonical" href="https://nrlstudios.com/">
+<meta property="og:url" content="https://nrlstudios.com/">
+<meta name="theme-color" content="#110E17">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NRL Studios · Netrunner Lair">
+<meta property="og:description" content="Websites and AI products, built end to end. English and Portuguese.">
+<meta property="og:image" content="https://nrlstudios.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ground: #110E17;
+    --panel: #1A1622;
+    --panel-2: #221C2C;
+    --line: #2E2739;
+    --text: #ECE7F2;
+    --muted: #A39BB2;
+    --faint: #6F6780;
+    --amber: #FFB547;
+    --amber-soft: #FFC56E;
+    --amber-dim: #7A5A2A;
+    --amber-ink: #1B1206;
+    --display: 'Chakra Petch', 'Arial Narrow', system-ui, sans-serif;
+    --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--ground);
+    color: var(--text);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* Image slots: amber-on-violet fallback shows until the generated image exists */
+  .slot { background:
+      radial-gradient(120% 90% at 70% 30%, rgba(255,181,71,0.16), transparent 60%),
+      linear-gradient(160deg, var(--panel-2), var(--ground)); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px;
+    background: rgba(17,14,23,0.86);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-family: var(--display); font-size: 1.15rem; font-weight: 600;
+    letter-spacing: 0.04em; color: var(--text); text-decoration: none;
+  }
+  .nav-mark {
+    width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--amber);
+    font-size: 0.75rem; font-weight: 700; color: var(--amber);
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%);
+  }
+  .nav-logo span.sub { color: var(--faint); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-lang { display: flex; gap: 2px; }
+  .nav-lang button {
+    cursor: pointer; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--faint); background: none; border: none; min-width: 36px; min-height: 36px;
+  }
+  .nav-lang button[aria-pressed="true"] { color: var(--amber); }
+  .nav-lang button:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 100vh; min-height: 600px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/hero-lair.jpg');
+    background-size: cover; background-position: center 45%;
+    transform: scale(1.04);
+    transition: transform 8s ease-out;
+  }
+  .hero-bg.loaded { transform: scale(1); }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(17,14,23,0.55) 0%,
+      rgba(17,14,23,0.45) 50%,
+      rgba(17,14,23,0.92) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 900px; padding: 0 1.5rem;
+  }
+  .hero-content .section-label { color: var(--muted); margin-bottom: 1.2rem; }
+  .hero-content h1 {
+    font-family: var(--display);
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 700; line-height: 1.02; color: var(--text);
+    letter-spacing: 0; margin-bottom: 1.5rem; text-wrap: balance;
+  }
+  .hero-content h1 em { font-style: normal; color: var(--amber); }
+  .hero-content p {
+    font-size: 1.05rem; color: rgba(236,231,242,0.82);
+    max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8;
+  }
+  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center;
+    gap: 0.4rem; color: var(--faint);
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 40px;
+    background: var(--amber);
+    animation: scrollline 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollline { 0%,100%{opacity:.3;transform:scaleY(.5);transform-origin:top} 50%{opacity:1;transform:scaleY(1)} }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-block; padding: 0.9rem 2rem;
+    font-family: var(--display); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.03em;
+    text-decoration: none; cursor: pointer; border: none;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 12px) 100%, 0 100%);
+    transition: all 200ms var(--ease-out);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--amber); color: var(--amber-ink); }
+  .btn-primary:hover { background: var(--amber-soft); }
+  .btn-outline { background: var(--panel-2); color: var(--text); }
+  .btn-outline:hover { background: var(--line); }
+  .btn-outline-light { background: rgba(236,231,242,0.08); color: var(--text); box-shadow: inset 0 0 0 1px rgba(236,231,242,0.35); }
+  .btn-outline-light:hover { background: rgba(236,231,242,0.14); }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--amber); color: var(--amber-ink);
+    padding: 0.7rem 0; overflow: hidden; white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block; animation: marquee 26s linear infinite;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* SECTIONS */
+  section { padding: 5rem 3rem; }
+  .section-label {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 0.8rem; display: block;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600; line-height: 1.1;
+    color: var(--text); margin-bottom: 1.5rem; text-wrap: balance;
+  }
+
+  /* ABOUT */
+  .about { background: var(--panel); padding: 0; display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+  .about-image { overflow: hidden; }
+  .about-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease-out; }
+  .about-image:hover img { transform: scale(1.03); }
+  .about-text { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+  .about-text p { color: var(--muted); max-width: 460px; margin-bottom: 1.2rem; }
+  .about-text p.lead { color: var(--text); font-size: 1.15rem; }
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+  .pillar { padding: 1.5rem; background: var(--ground); border: 1px solid var(--line); }
+  .pillar-icon { font-family: var(--mono); font-size: 0.8rem; color: var(--amber); margin-bottom: 0.6rem; }
+  .pillar h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .pillar p { font-size: 0.86rem; color: var(--muted); }
+
+  /* STORE (work grid) */
+  .store { background: var(--ground); }
+  .store-filters { display: flex; gap: 0.75rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 0.45rem 1.1rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; border: 1px solid var(--line); background: transparent;
+    color: var(--muted); cursor: pointer; transition: all 200ms var(--ease-out); min-height: 36px;
+  }
+  .filter-btn.active, .filter-btn:hover { background: var(--amber); color: var(--amber-ink); border-color: var(--amber); }
+  .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .product-card { display: block; text-decoration: none; }
+  .product-card[hidden] { display: none; }
+  .product-img {
+    aspect-ratio: 4/3; overflow: hidden; margin-bottom: 1rem;
+    border: 1px solid var(--line);
+  }
+  .product-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 400ms var(--ease-out);
+  }
+  .product-card:hover .product-img img { transform: scale(1.04); }
+  .product-name { font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .product-sub { font-family: var(--mono); font-size: 0.7rem; color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .product-price { font-size: 0.92rem; color: var(--muted); }
+
+  /* KIT (featured client) */
+  .kit-section {
+    position: relative; min-height: 600px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden; padding: 0;
+  }
+  .kit-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/case-bg.jpg');
+    background-size: cover; background-position: center;
+  }
+  .kit-bg-overlay { position: absolute; inset: 0; background: rgba(17,14,23,0.8); }
+  .kit-content {
+    position: relative; z-index: 2;
+    padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center;
+  }
+  .kit-section p { color: rgba(236,231,242,0.78); max-width: 440px; margin-bottom: 1.5rem; }
+  .kit-remedies { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem; margin-bottom: 2rem; }
+  .kit-remedies span { font-size: 0.86rem; color: var(--text); }
+  .kit-remedies span::before { content: '✦ '; color: var(--amber); }
+  .kit-photo {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; padding: 4rem 4rem 4rem 0;
+  }
+  .browser { width: 100%; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+  .browser-bar { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
+  .url { flex: 1; font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--ground); padding: 4px 10px; }
+  .browser img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+
+  /* PROCESS STRIP */
+  .process-strip {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 480px; background: var(--panel);
+  }
+  .process-image { overflow: hidden; }
+  .process-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease-out; }
+  .process-image:hover img { transform: scale(1.03); }
+  .process-text { padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+  .process-text p { color: var(--muted); max-width: 420px; margin-bottom: 1.2rem; }
+  .steps { list-style: none; counter-reset: s; margin: 0.5rem 0 1.5rem; display: grid; gap: 0.6rem; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 2.4rem 1fr; color: var(--text); font-size: 0.95rem; }
+  .steps li::before { content: '0' counter(s); font-family: var(--mono); font-size: 0.8rem; color: var(--amber); padding-top: 0.15rem; }
+
+  /* EDUCATION (services) */
+  .education { background: var(--ground); }
+  .edu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .edu-card { border: 1px solid var(--line); overflow: hidden; background: var(--panel); transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+  .edu-card-img { height: 200px; overflow: hidden; }
+  .edu-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms var(--ease-out); }
+  .edu-card:hover .edu-card-img img { transform: scale(1.04); }
+  .edu-card-header { padding: 2rem 1.5rem 1rem; background: linear-gradient(135deg, var(--panel-2), var(--panel)); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 1.4rem; color: var(--amber); }
+  .edu-card-body { padding: 1.5rem; }
+  .edu-card-body h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .edu-card-body p { font-size: 0.9rem; color: var(--muted); }
+
+  /* TESTIMONIALS (build log) */
+  .testimonials { background: var(--panel); }
+  .testimonials-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center; }
+  .testimonials-image { overflow: hidden; aspect-ratio: 3/4; }
+  .testimonials-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .testimonials-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .testimonial { padding: 1.4rem 1.6rem; border: 1px solid var(--line); background: var(--ground); display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; align-items: baseline; }
+  .testimonial time { font-family: var(--mono); font-size: 0.78rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .testimonial p { font-size: 1rem; color: var(--text); }
+  .log-status { font-family: var(--mono); font-size: 0.8rem; color: var(--amber); display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1.6rem; }
+  .cursor { display: inline-block; width: 8px; height: 15px; background: var(--amber); animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* NEWSLETTER (contact) */
+  .newsletter { background: var(--amber); color: var(--amber-ink); text-align: center; padding: 5rem 3rem; }
+  .newsletter h2 { font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 0.5rem; }
+  .newsletter p { color: rgba(27,18,6,0.78); margin: 0 auto 2rem; max-width: 520px; }
+  .newsletter-form { display: flex; max-width: 460px; margin: 0 auto; }
+  .newsletter-form output { flex: 1; padding: 0.9rem 1.2rem; background: rgba(27,18,6,0.1); color: var(--amber-ink); font-family: var(--mono); font-size: 0.95rem; text-align: left; user-select: all; }
+  .newsletter-form button { padding: 0.9rem 1.5rem; background: var(--amber-ink); color: var(--amber); border: none; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: background 200ms; }
+  .newsletter-form button:hover { background: #000; }
+
+  /* FOOTER */
+  footer { background: #0B0910; color: var(--faint); padding: 3rem; font-size: 0.85rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; }
+  footer h4 { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; color: var(--muted); margin-bottom: 1rem; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 0.4rem; }
+  footer ul a { color: var(--faint); text-decoration: none; font-size: 0.85rem; transition: color 200ms; }
+  footer ul a:hover { color: var(--amber); }
+  .footer-brand { font-family: var(--display); font-size: 1.6rem; font-weight: 600; color: var(--text); letter-spacing: 0.04em; margin-bottom: 0.8rem; }
+  .footer-copy { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); grid-column: 1/-1; font-size: 0.75rem; color: var(--faint); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 3.5rem 1.5rem; }
+    .about { grid-template-columns: 1fr; }
+    .about-image { height: 340px; }
+    .about-text { padding: 3rem 1.5rem; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .products-grid { grid-template-columns: repeat(2,1fr); }
+    .kit-section { grid-template-columns: 1fr; padding: 0; }
+    .kit-photo { padding: 0 1.5rem 3.5rem; }
+    .kit-content { padding: 4rem 1.5rem 2rem; }
+    .process-strip { grid-template-columns: 1fr; }
+    .process-image { height: 320px; }
+    .process-text { padding: 3rem 1.5rem; }
+    .edu-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-inner { grid-template-columns: 1fr; }
+    .testimonials-image { display: none; }
+    footer { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 15px; }
+    .nav-logo span.sub { display: none; }
+    .products-grid { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .kit-remedies { grid-template-columns: 1fr; }
+    .testimonial { grid-template-columns: 1fr; gap: 0.2rem; }
+    .newsletter { padding: 4rem 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+    footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav aria-label="Main">
+  <a class="nav-logo" href="#top" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER LAIR</span></a>
+  <ul class="nav-links">
+    <li><a href="#store" data-i18n="nav_work">Work</a></li>
+    <li><a href="#education" data-i18n="nav_services">Services</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero slot" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="section-label" data-i18n="eyebrow">Web &amp; AI studio · California / Brazil</span>
+    <h1><span data-i18n="h1a">Websites and AI products,</span><br><em data-i18n="h1b">built end to end.</em></h1>
+    <p data-i18n="lede">A small studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary" data-i18n="cta1">Start a project</a>
+      <a href="#store" class="btn btn-outline-light" data-i18n="cta2">See the work</a>
+    </div>
+  </div>
+  <div class="hero-scroll" data-i18n="scroll">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner" data-i18n="marquee"></div>
+</div>
+
+<!-- STORE (WORK) -->
+<section class="store" id="store">
+  <span class="section-label" data-i18n="work_k">Client builds and studio projects</span>
+  <h2 class="section-title" data-i18n="work_h">Work</h2>
+  <div class="store-filters" role="group" aria-label="Filter work">
+    <button class="filter-btn active" data-filter="all" aria-pressed="true" data-i18n="f_all">All</button>
+    <button class="filter-btn" data-filter="client" aria-pressed="false" data-i18n="f_client">Client</button>
+    <button class="filter-btn" data-filter="lab" aria-pressed="false" data-i18n="f_lab">In the lair</button>
+  </div>
+  <div class="products-grid">
+
+    <a class="product-card" data-kind="client" href="https://rzbis.com" target="_blank" rel="noopener">
+      <div class="product-img slot">
+        <img src="images/rzbis-home.jpg" alt="RZBis homepage" loading="lazy" onerror="this.remove()">
+      </div>
+      <div class="product-sub" data-i18n="c1_sub">Client · Curitiba</div>
+      <div class="product-name">RZBis</div>
+      <div class="product-price" data-i18n="c1_p">Raw materials brokerage. Design, build, EN / PT / ES, domain move.</div>
+    </a>
+
+    <div class="product-card" data-kind="lab">
+      <div class="product-img slot">
+        <img src="images/lab-assistant.jpg" alt="Shelves of reference books dissolving into threads of amber light" loading="lazy" onerror="this.remove()">
+      </div>
+      <div class="product-sub" data-i18n="tag1">Private beta</div>
+      <div class="product-name" data-i18n="lab1_h">AI practice assistant</div>
+      <div class="product-price" data-i18n="lab1_p">A conversational assistant for a professional practice that answers only from a curated library of more than 100,000 reference passages. Role-based accounts, per-source access rules and safety checks on every conversation.</div>
+    </div>
+
+    <div class="product-card" data-kind="lab">
+      <div class="product-img slot">
+        <img src="images/lab-humanbridge.jpg" alt="A brass orrery on a dark desk, lit by a single amber lamp" loading="lazy" onerror="this.remove()">
+      </div>
+      <div class="product-sub" data-i18n="tag2">In development</div>
+      <div class="product-name">HumanBridgeAI</div>
+      <div class="product-price" data-i18n="lab2_p">A Human Design app with its own chart engine built on the Swiss Ephemeris, and three modes for reading yourself and the people around you.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- KIT (FEATURED CLIENT) -->
+<section class="kit-section slot" id="kit">
+  <div class="kit-bg"></div>
+  <div class="kit-bg-overlay"></div>
+  <div class="kit-content">
+    <span class="section-label" data-i18n="case_k">Featured client · Raw materials brokerage</span>
+    <h2 class="section-title">RZBis</h2>
+    <p data-i18n="case_p">A site for a Brazilian brokerage selling copper, tungsten and tin ore to international buyers. Built from the client's own field photos and plant footage, and launched on their existing domain without interrupting their company email.</p>
+    <div class="kit-remedies">
+      <span data-i18n="s1">Design and build</span>
+      <span data-i18n="s2">Video hero with parallax</span>
+      <span data-i18n="s3">English, Portuguese, Spanish</span>
+      <span data-i18n="s4">Domain and DNS migration</span>
+      <span data-i18n="s5">Email kept running</span>
+      <span data-i18n="s6">Hosted on GitHub Pages</span>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+      <a href="https://rzbis.com" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="visit">Visit rzbis.com ↗</a>
+    </div>
+  </div>
+  <div class="kit-photo">
+    <a class="browser" href="https://rzbis.com" target="_blank" rel="noopener" aria-label="Open rzbis.com">
+      <div class="browser-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">rzbis.com</span></div>
+      <img src="images/rzbis-home.jpg" alt="RZBis homepage hero" loading="lazy">
+    </a>
+  </div>
+</section>
+
+<!-- PROCESS STRIP -->
+<section class="process-strip" id="process" style="padding:0;">
+  <div class="process-image slot">
+    <img src="images/process.jpg" alt="A workbench with a sketchbook, a keyboard and a single amber lamp" loading="lazy" onerror="this.remove()">
+  </div>
+  <div class="process-text">
+    <span class="section-label" data-i18n="proc_k">How a project runs</span>
+    <h2 class="section-title" data-i18n="proc_h">From idea to live, one person accountable</h2>
+    <ol class="steps">
+      <li data-i18n="st1">A short call to understand what you sell and who buys it</li>
+      <li data-i18n="st2">Design and copy in English and Portuguese</li>
+      <li data-i18n="st3">Build, with imagery made for your brand</li>
+      <li data-i18n="st4">Domain, DNS, email and hosting handled</li>
+      <li data-i18n="st5">Launch, then small changes as you grow</li>
+    </ol>
+    <a href="#contact" class="btn btn-outline" style="align-self:flex-start;" data-i18n="cta1">Start a project</a>
+  </div>
+</section>
+
+<!-- EDUCATION (SERVICES) -->
+<section class="education" id="education">
+  <span class="section-label" data-i18n="svc_k">Services</span>
+  <h2 class="section-title" data-i18n="svc_h">What the studio does</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-card-img slot"><img src="images/svc-websites.jpg" alt="A wireframe architectural model on blueprint paper under an amber desk lamp" loading="lazy" onerror="this.remove()"></div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc1_h">Websites</h3>
+        <p data-i18n="svc1_p">Design, build and launch. Fast, light pages that work on any phone.</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-img slot"><img src="images/svc-ai.jpg" alt="Fiber optic strands glowing amber in violet darkness" loading="lazy" onerror="this.remove()"></div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc2_h">AI products</h3>
+        <p data-i18n="svc2_p">Assistants that answer from your own material, with user accounts, access rules and a path to payments.</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-img slot"><img src="images/svc-bilingual.jpg" alt="Two beams of warm light meeting over a dark ocean horizon" loading="lazy" onerror="this.remove()"></div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc3_h">Bilingual by default</h3>
+        <p data-i18n="svc3_p">Copy and interfaces written in English and Portuguese, with Spanish when your buyers need it.</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-header" aria-hidden="true">@</div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc4_h">Domain and email</h3>
+        <p data-i18n="svc4_p">Domains moved or registered, DNS set up, company email kept running through every change.</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-header" aria-hidden="true">&gt;_</div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc5_h">Hosting</h3>
+        <p data-i18n="svc5_p">Static sites on GitHub Pages or Cloudflare, apps on managed platforms. Low cost, no servers to babysit.</p>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-header" aria-hidden="true">✦</div>
+      <div class="edu-card-body">
+        <h3 data-i18n="svc6_h">Brand imagery</h3>
+        <p data-i18n="svc6_p">Every image on this site was generated for it. Your site gets its own visual language the same way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image slot">
+    <img src="images/about-lair.jpg" alt="A quiet corner of the studio at night, lit in amber" loading="lazy" onerror="this.remove()">
+  </div>
+  <div class="about-text">
+    <span class="section-label" data-i18n="about_k">About</span>
+    <h2 class="section-title" data-i18n="about_h">Who's in the lair</h2>
+    <p class="lead" data-i18n="about_p1">NRL Studios is Alexandre Pires, a Brazilian builder working between California and Brazil.</p>
+    <p data-i18n="about_p2">The studio pairs one accountable person with a set of AI models and tools. You get the reach of a team and a single point of contact who knows every part of your project, from the first sketch to the DNS records.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-icon">01</div>
+        <h3 data-i18n="p1_h">One point of contact</h3>
+        <p data-i18n="p1_p">The person you talk to is the person building it.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">02</div>
+        <h3 data-i18n="p2_h">AI-orchestrated</h3>
+        <p data-i18n="p2_p">Models and tools do the heavy lifting, under human review.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">03</div>
+        <h3 data-i18n="p3_h">EN · PT</h3>
+        <p data-i18n="p3_p">Written natively in both languages.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">04</div>
+        <h3 data-i18n="p4_h">Idea to live</h3>
+        <p data-i18n="p4_p">Design, code, domain, hosting and copy in one place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS (BUILD LOG) -->
+<section class="testimonials">
+  <span class="section-label" data-i18n="log_k">build.log · rzbis.com</span>
+  <h2 class="section-title" data-i18n="log_h">Recent work, as it shipped</h2>
+  <div class="testimonials-inner">
+    <div class="testimonials-image slot">
+      <img src="images/log-terminal.jpg" alt="An amber-lit monitor glowing in a dark room" loading="lazy" onerror="this.remove()">
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial"><time datetime="2026-09-24">2026-09-24</time><p data-i18n="log1">Domain moved from Squarespace to GitHub Pages</p></div>
+      <div class="testimonial"><time datetime="2026-09-24">2026-09-24</time><p data-i18n="log2">Company email records kept intact through the move</p></div>
+      <div class="testimonial"><time datetime="2026-09-25">2026-09-25</time><p data-i18n="log3">Hero video rebuilt from its sharpest seconds</p></div>
+      <div class="testimonial"><time datetime="2026-09-25">2026-09-25</time><p data-i18n="log4">Site now opens in the visitor's language: EN / PT / ES</p></div>
+      <div class="log-status"><span data-i18n="status">status: live</span><span class="cursor" aria-hidden="true"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER (CONTACT) -->
+<div class="newsletter" id="contact">
+  <h2 data-i18n="contact_h">Have a project?</h2>
+  <p data-i18n="contact_p">Tell me what you're building and where it needs to be live. I reply in English or Portuguese.</p>
+  <div class="newsletter-form">
+    <output id="studio-email">hello@nrlstudios.com</output>
+    <button type="button" id="copy-email" data-i18n="copy">Copy email</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">NRL Studios</div>
+    <p style="font-size:0.85rem;max-width:260px;line-height:1.7;" data-i18n="foot_p">Websites and AI products, built end to end. English and Portuguese.</p>
+  </div>
+  <div>
+    <h4 data-i18n="nav_work">Work</h4>
+    <ul>
+      <li><a href="https://rzbis.com" target="_blank" rel="noopener">RZBis</a></li>
+      <li><a href="#store" data-i18n="lab1_h">AI practice assistant</a></li>
+      <li><a href="#store">HumanBridgeAI</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 data-i18n="nav_services">Services</h4>
+    <ul>
+      <li><a href="#education" data-i18n="svc1_h">Websites</a></li>
+      <li><a href="#education" data-i18n="svc2_h">AI products</a></li>
+      <li><a href="#education" data-i18n="svc4_h">Domain and email</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 data-i18n="foot_studio">Studio</h4>
+    <ul>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#process" data-i18n="proc_k">How a project runs</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-copy"><span>© 2026 NRL Studios LLC</span><span style="font-family:var(--mono);">Netrunner Lair</span></div>
+</footer>
+
+<script>
+  // ── Copy (EN / PT) ──
+  const T = {
+    en: {
+      nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact",
+      eyebrow: "Web & AI studio · California / Brazil",
+      h1a: "Websites and AI products,", h1b: "built end to end.",
+      lede: "A small studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
+      cta1: "Start a project", cta2: "See the work", scroll: "Scroll",
+      marquee: "Websites ✦ AI products ✦ English · Português ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner Lair ✦ ",
+      work_k: "Client builds and studio projects", work_h: "Work",
+      f_all: "All", f_client: "Client", f_lab: "In the lair",
+      c1_sub: "Client · Curitiba", c1_p: "Raw materials brokerage. Design, build, EN / PT / ES, domain move.",
+      tag1: "Private beta", tag2: "In development",
+      lab1_h: "AI practice assistant",
+      lab1_p: "A conversational assistant for a professional practice that answers only from a curated library of more than 100,000 reference passages. Role-based accounts, per-source access rules and safety checks on every conversation.",
+      lab2_p: "A Human Design app with its own chart engine built on the Swiss Ephemeris, and three modes for reading yourself and the people around you.",
+      case_k: "Featured client · Raw materials brokerage",
+      case_p: "A site for a Brazilian brokerage selling copper, tungsten and tin ore to international buyers. Built from the client's own field photos and plant footage, and launched on their existing domain without interrupting their company email.",
+      s1: "Design and build", s2: "Video hero with parallax", s3: "English, Portuguese, Spanish",
+      s4: "Domain and DNS migration", s5: "Email kept running", s6: "Hosted on GitHub Pages",
+      visit: "Visit rzbis.com ↗",
+      proc_k: "How a project runs", proc_h: "From idea to live, one person accountable",
+      st1: "A short call to understand what you sell and who buys it", st2: "Design and copy in English and Portuguese",
+      st3: "Build, with imagery made for your brand", st4: "Domain, DNS, email and hosting handled", st5: "Launch, then small changes as you grow",
+      svc_k: "Services", svc_h: "What the studio does",
+      svc1_h: "Websites", svc1_p: "Design, build and launch. Fast, light pages that work on any phone.",
+      svc2_h: "AI products", svc2_p: "Assistants that answer from your own material, with user accounts, access rules and a path to payments.",
+      svc3_h: "Bilingual by default", svc3_p: "Copy and interfaces written in English and Portuguese, with Spanish when your buyers need it.",
+      svc4_h: "Domain and email", svc4_p: "Domains moved or registered, DNS set up, company email kept running through every change.",
+      svc5_h: "Hosting", svc5_p: "Static sites on GitHub Pages or Cloudflare, apps on managed platforms. Low cost, no servers to babysit.",
+      svc6_h: "Brand imagery", svc6_p: "Every image on this site was generated for it. Your site gets its own visual language the same way.",
+      about_k: "About", about_h: "Who's in the lair",
+      about_p1: "NRL Studios is Alexandre Pires, a Brazilian builder working between California and Brazil.",
+      about_p2: "The studio pairs one accountable person with a set of AI models and tools. You get the reach of a team and a single point of contact who knows every part of your project, from the first sketch to the DNS records.",
+      p1_h: "One point of contact", p1_p: "The person you talk to is the person building it.",
+      p2_h: "AI-orchestrated", p2_p: "Models and tools do the heavy lifting, under human review.",
+      p3_h: "EN · PT", p3_p: "Written natively in both languages.",
+      p4_h: "Idea to live", p4_p: "Design, code, domain, hosting and copy in one place.",
+      log_k: "build.log · rzbis.com", log_h: "Recent work, as it shipped",
+      log1: "Domain moved from Squarespace to GitHub Pages", log2: "Company email records kept intact through the move",
+      log3: "Hero video rebuilt from its sharpest seconds", log4: "Site now opens in the visitor's language: EN / PT / ES",
+      status: "status: live",
+      contact_h: "Have a project?", contact_p: "Tell me what you're building and where it needs to be live. I reply in English or Portuguese.",
+      copy: "Copy email", copied: "Copied",
+      foot_p: "Websites and AI products, built end to end. English and Portuguese.", foot_studio: "Studio"
+    },
+    pt: {
+      nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato",
+      eyebrow: "Estúdio de web e IA · Califórnia / Brasil",
+      h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
+      lede: "Um estúdio pequeno comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
+      cta1: "Começar um projeto", cta2: "Ver os trabalhos", scroll: "Role",
+      marquee: "Sites ✦ Produtos de IA ✦ Português · English ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner Lair ✦ ",
+      work_k: "Projetos de clientes e do estúdio", work_h: "Trabalhos",
+      f_all: "Todos", f_client: "Clientes", f_lab: "No laboratório",
+      c1_sub: "Cliente · Curitiba", c1_p: "Corretora de matérias-primas. Design, desenvolvimento, EN / PT / ES, migração de domínio.",
+      tag1: "Beta privado", tag2: "Em desenvolvimento",
+      lab1_h: "Assistente de IA para prática profissional",
+      lab1_p: "Um assistente conversacional para uma prática profissional que responde apenas a partir de uma biblioteca curada com mais de 100 mil trechos de referência. Contas por perfil de acesso, regras de acesso por fonte e verificações de segurança em cada conversa.",
+      lab2_p: "Um app de Design Humano com motor de cálculo próprio, construído sobre as Efemérides Suíças, e três modos para entender a si mesmo e as pessoas ao seu redor.",
+      case_k: "Cliente em destaque · Corretagem de matérias-primas",
+      case_p: "Site para uma corretora brasileira que vende minério de cobre, tungstênio e estanho para compradores internacionais. Feito com as fotos e vídeos da própria operação do cliente e lançado no domínio que ele já tinha, sem interromper o e-mail da empresa.",
+      s1: "Design e desenvolvimento", s2: "Vídeo de abertura com parallax", s3: "Português, inglês e espanhol",
+      s4: "Migração de domínio e DNS", s5: "E-mail funcionando sem parar", s6: "Hospedado no GitHub Pages",
+      visit: "Visitar rzbis.com ↗",
+      proc_k: "Como um projeto acontece", proc_h: "Da ideia ao ar, com uma pessoa responsável",
+      st1: "Uma conversa curta para entender o que você vende e para quem", st2: "Design e textos em português e inglês",
+      st3: "Desenvolvimento, com imagens feitas para a sua marca", st4: "Domínio, DNS, e-mail e hospedagem resolvidos", st5: "Lançamento, e ajustes conforme você cresce",
+      svc_k: "Serviços", svc_h: "O que o estúdio faz",
+      svc1_h: "Sites", svc1_p: "Design, desenvolvimento e lançamento. Páginas rápidas e leves que funcionam em qualquer celular.",
+      svc2_h: "Produtos de IA", svc2_p: "Assistentes que respondem a partir do seu próprio material, com contas de usuário, regras de acesso e caminho para pagamentos.",
+      svc3_h: "Bilíngue por padrão", svc3_p: "Textos e interfaces em português e inglês, com espanhol quando seus compradores precisarem.",
+      svc4_h: "Domínio e e-mail", svc4_p: "Domínios migrados ou registrados, DNS configurado e o e-mail da empresa funcionando em cada mudança.",
+      svc5_h: "Hospedagem", svc5_p: "Sites estáticos no GitHub Pages ou Cloudflare, apps em plataformas gerenciadas. Custo baixo, sem servidor para cuidar.",
+      svc6_h: "Imagens da marca", svc6_p: "Todas as imagens deste site foram geradas para ele. O seu site ganha uma linguagem visual própria do mesmo jeito.",
+      about_k: "Sobre", about_h: "Quem está no laboratório",
+      about_p1: "O NRL Studios é Alexandre Pires, um desenvolvedor brasileiro que trabalha entre a Califórnia e o Brasil.",
+      about_p2: "O estúdio une uma pessoa responsável a um conjunto de modelos e ferramentas de IA. Você tem o alcance de uma equipe e um único contato que conhece cada parte do projeto, do primeiro rascunho aos registros de DNS.",
+      p1_h: "Um único contato", p1_p: "Quem conversa com você é quem constrói.",
+      p2_h: "Orquestrado com IA", p2_p: "Modelos e ferramentas fazem o trabalho pesado, com revisão humana.",
+      p3_h: "PT · EN", p3_p: "Escrito de forma nativa nos dois idiomas.",
+      p4_h: "Da ideia ao ar", p4_p: "Design, código, domínio, hospedagem e textos em um só lugar.",
+      log_k: "build.log · rzbis.com", log_h: "Trabalho recente, como foi entregue",
+      log1: "Domínio migrado do Squarespace para o GitHub Pages", log2: "Registros de e-mail da empresa preservados na migração",
+      log3: "Vídeo de abertura refeito com os trechos mais nítidos", log4: "Site abre no idioma do visitante: EN / PT / ES",
+      status: "status: no ar",
+      contact_h: "Tem um projeto?", contact_p: "Me conta o que você está construindo e onde isso precisa estar no ar. Respondo em português ou inglês.",
+      copy: "Copiar e-mail", copied: "Copiado",
+      foot_p: "Sites e produtos de IA, do início ao fim. Português e inglês.", foot_studio: "Estúdio"
+    }
+  };
+  let current = 'en';
+  function detect() {
+    try { const s = localStorage.getItem('nrlLang'); if (s && T[s]) return s; } catch (e) {}
+    const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (const l of langs) { const c = String(l || '').slice(0, 2).toLowerCase(); if (T[c]) return c; }
+    return 'en';
+  }
+  function apply(lang) {
+    current = lang;
+    const d = T[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (d[k] == null) return;
+      el.textContent = k === 'marquee' ? d[k].repeat(4) : d[k];
+    });
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'));
+  }
+  document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('click', () => {
+    try { localStorage.setItem('nrlLang', b.dataset.lang); } catch (e) {}
+    apply(b.dataset.lang);
+  }));
+  apply(detect());
+
+  // ── Hero ──
+  const heroBg = document.getElementById('heroBg');
+  setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+  window.addEventListener('scroll', () => {
+    heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+  }, { passive: true });
+
+  // ── Work filters ──
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      this.classList.add('active'); this.setAttribute('aria-pressed', 'true');
+      const f = this.dataset.filter;
+      document.querySelectorAll('.product-card').forEach(c => { c.hidden = !(f === 'all' || c.dataset.kind === f); });
+    });
+  });
+
+  // ── Copy email ──
+  const copyBtn = document.getElementById('copy-email');
+  copyBtn.addEventListener('click', () => {
+    const el = document.getElementById('studio-email');
+    const done = () => { copyBtn.textContent = T[current].copied; setTimeout(() => { copyBtn.textContent = T[current].copy; }, 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(el.textContent).then(done, fallback);
+    else fallback();
+  });
+</script>
+
+</body>
+</html>
