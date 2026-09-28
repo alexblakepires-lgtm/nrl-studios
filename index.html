@@ -123,6 +123,10 @@
     letter-spacing: 0; margin-bottom: 1.5rem; text-wrap: balance;
   }
   .hero-content h1 em { font-style: normal; color: var(--amber); }
+  .hero-me { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.8rem; text-decoration: none; color: var(--text); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero-me img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--amber); box-shadow: 0 0 0 4px rgba(255,181,71,0.15); }
+  .hero-me:hover span { color: var(--amber); }
+  .hero-me span { text-align: left; max-width: 22ch; }
   .hero-content p {
     font-size: 1.05rem; color: rgba(236,231,242,0.82);
     max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8;
@@ -395,6 +399,7 @@
     <li><a href="#education" data-i18n="nav_services">Services</a></li>
     <li><a href="#about" data-i18n="nav_about">About</a></li>
     <li><a href="images.html" data-i18n="nav_pack">Image Pack</a></li>
+    <li><a href="artists.html" data-i18n="nav_artists">For artists</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-lang" role="group" aria-label="Language">
@@ -411,6 +416,7 @@
     <span class="section-label" data-i18n="eyebrow">Web &amp; AI studio · California / Brazil</span>
     <h1><span data-i18n="h1a">Websites and AI products,</span><br><em data-i18n="h1b">built end to end.</em></h1>
     <p data-i18n="lede">A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
+    <a class="hero-me" href="#human"><img src="images/ale-face.jpg" alt="Alexandre Pires" width="56" height="56"><span data-i18n="hero_me">This is me · see me at work ↓</span></a>
     <div class="hero-buttons">
       <a href="start.html" class="btn btn-primary" data-i18n="cta1">Start a project</a>
       <a href="#store" class="btn btn-outline-light" data-i18n="cta2">See the work</a>
@@ -682,6 +688,7 @@
     <ul>
       <li><a href="#about" data-i18n="nav_about">About</a></li>
       <li><a href="#process" data-i18n="proc_k">How a project runs</a></li>
+      <li><a href="artists.html" data-i18n="nav_artists">For artists</a></li>
       <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
     </ul>
   </div>
@@ -692,7 +699,7 @@
   // ── Copy (EN / PT) ──
   const T = {
     en: {
-      nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact", nav_pack: "Image Pack",
+      nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact", nav_pack: "Image Pack", nav_artists: "For artists",
       svc6_link: "Image Pack · $199 →", pack_k: "Brand Image Pack · $199", pack_h: "Not ready for a full site? Start with six images.", pack_p: "Six cinematic images of your business in 72 hours. No photoshoot, no stock photos. Ready for your website, Instagram and ads.", pack_btn: "See the Image Pack →",
       eyebrow: "Web & AI studio · California / Brazil",
       h1a: "Websites and AI products,", h1b: "built end to end.",
@@ -728,7 +735,7 @@
       p2_h: "AI-orchestrated", p2_p: "Models and tools do the heavy lifting, under human review.",
       p3_h: "EN · PT", p3_p: "Written natively in both languages.",
       p4_h: "Idea to live", p4_p: "Design, code, domain, hosting and copy in one place.",
-      human_k: "Behind the screen", human_h: "This is me, building your dream.",
+      hero_me: "This is me · see me at work ↓", human_k: "Behind the screen", human_h: "This is me, building your dream.",
       human_p1: "Real hands, real sawdust, a real person who answers your messages.",
       human_p2: "When I build a deck, I level every beam before anything rests on it. I build your site the same way: solid foundations first, then the beautiful part, made to hold weight for years.",
       human_p3: "AI helps me move fast. The listening, the choices and the care are human.",
@@ -742,7 +749,7 @@
       foot_p: "Websites and AI products, built end to end. English and Portuguese.", foot_studio: "Studio"
     },
     pt: {
-      nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato", nav_pack: "Pacote de Imagens",
+      nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato", nav_pack: "Pacote de Imagens", nav_artists: "Para artistas",
       svc6_link: "Pacote de Imagens · $199 →", pack_k: "Pacote de Imagens · $199", pack_h: "Ainda não é hora de um site completo? Comece com seis imagens.", pack_p: "Seis imagens cinematográficas do seu negócio em 72 horas. Sem sessão de fotos, sem banco de imagens. Prontas para o site, o Instagram e anúncios.", pack_btn: "Ver o Pacote de Imagens →",
       eyebrow: "Estúdio de web e IA · Califórnia / Brasil",
       h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
@@ -778,7 +785,7 @@
       p2_h: "Orquestrado com IA", p2_p: "Modelos e ferramentas fazem o trabalho pesado, com revisão humana.",
       p3_h: "PT · EN", p3_p: "Escrito de forma nativa nos dois idiomas.",
       p4_h: "Da ideia ao ar", p4_p: "Design, código, domínio, hospedagem e textos em um só lugar.",
-      human_k: "Por trás da tela", human_h: "Este sou eu, construindo o seu sonho.",
+      hero_me: "Este sou eu · me veja trabalhando ↓", human_k: "Por trás da tela", human_h: "Este sou eu, construindo o seu sonho.",
       human_p1: "Mãos de verdade, serragem de verdade, uma pessoa de verdade que responde suas mensagens.",
       human_p2: "Quando construo um deck, nivelo cada viga antes de qualquer coisa apoiar nela. Construo o seu site do mesmo jeito: base firme primeiro, depois a parte bonita, feito para aguentar peso por anos.",
       human_p3: "A IA me ajuda a ir rápido. A escuta, as escolhas e o cuidado são humanos.",
