@@ -123,10 +123,6 @@
     letter-spacing: 0; margin-bottom: 1.5rem; text-wrap: balance;
   }
   .hero-content h1 em { font-style: normal; color: var(--amber); }
-  .hero-me { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.8rem; text-decoration: none; color: var(--text); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
-  .hero-me img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--amber); box-shadow: 0 0 0 4px rgba(255,181,71,0.15); }
-  .hero-me:hover span { color: var(--amber); }
-  .hero-me span { text-align: left; max-width: 22ch; }
   .hero-content p {
     font-size: 1.05rem; color: rgba(236,231,242,0.82);
     max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8;
@@ -316,22 +312,6 @@
 
   /* RESPONSIVE */
 
-  /* Human section: real photos of Alexandre at work */
-  .human { padding: 6rem 0; border-top: 1px solid var(--line); overflow: hidden; }
-  .human-inner { max-width: 1180px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .human-photos { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  .human-photos figure { margin: 0; background: #F2EDE4; padding: 10px 10px 34px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); transition: transform 400ms var(--ease-out); }
-  .human-photos figure:first-child { transform: rotate(-2.5deg) translateY(10px); }
-  .human-photos figure:last-child { transform: rotate(2deg) translateY(-14px); }
-  .human-photos figure:hover { transform: rotate(0) translateY(0) scale(1.02); }
-  .human-photos figure { min-width: 0; }
-  .human-photos img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
-  .human-photos figcaption { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; color: #5A5364; text-align: center; margin-top: 10px; }
-  .human-text p { color: var(--muted); max-width: 480px; margin-bottom: 1.2rem; }
-  .human-text p.lead { color: var(--text); font-size: 1.15rem; }
-  .human-sign { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--amber); text-transform: uppercase; }
-  @media (max-width: 960px) { .human-inner { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; } }
-  @media (max-width: 600px) { .human { padding: 4rem 0; } .human-inner { padding: 0 16px; } .human-photos { gap: 0.8rem; } .human-photos figure { padding: 6px 6px 26px; } }
   @media (max-width: 960px) {
     nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
@@ -416,7 +396,6 @@
     <span class="section-label" data-i18n="eyebrow">Web &amp; AI studio · California / Brazil</span>
     <h1><span data-i18n="h1a">Websites and AI products,</span><br><em data-i18n="h1b">built end to end.</em></h1>
     <p data-i18n="lede">A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
-    <a class="hero-me" href="#human"><img src="images/ale-face.jpg" alt="Alexandre Pires" width="56" height="56"><span data-i18n="hero_me">This is me · see me at work ↓</span></a>
     <div class="hero-buttons">
       <a href="start.html" class="btn btn-primary" data-i18n="cta1">Start a project</a>
       <a href="#store" class="btn btn-outline-light" data-i18n="cta2">See the work</a>
@@ -605,24 +584,6 @@
 </section>
 
 <!-- TESTIMONIALS (BUILD LOG) -->
-<!-- HUMAN: real photos, not generated -->
-<section class="human" id="human" aria-labelledby="human-h">
-  <div class="human-inner">
-    <div class="human-photos">
-      <figure><img src="images/ale-build-1.jpg" alt="Alexandre smiling on a build site, with a laser level, ladder and fresh beams behind him" loading="lazy" width="960" height="1280"><figcaption data-i18n="human_c1">Measure twice</figcaption></figure>
-      <figure><img src="images/ale-build-2.jpg" alt="Alexandre smiling in front of a new deck frame he is building, tools and notes on the table" loading="lazy" width="960" height="1280"><figcaption data-i18n="human_c2">Build once</figcaption></figure>
-    </div>
-    <div class="human-text">
-      <span class="section-label" data-i18n="human_k">Behind the screen</span>
-      <h2 class="section-title" id="human-h" data-i18n="human_h">This is me, building your dream.</h2>
-      <p class="lead" data-i18n="human_p1">Real hands, real sawdust, a real person who answers your messages.</p>
-      <p data-i18n="human_p2">When I build a deck, I level every beam before anything rests on it. I build your site the same way: solid foundations first, then the beautiful part, made to hold weight for years.</p>
-      <p data-i18n="human_p3">AI helps me move fast. The listening, the choices and the care are human.</p>
-      <span class="human-sign" data-i18n="human_sign">Alexandre · NRL Studios</span>
-    </div>
-  </div>
-</section>
-
 <section class="testimonials">
   <span class="section-label" data-i18n="log_k">build.log · rzbis.com</span>
   <h2 class="section-title" data-i18n="log_h">Recent work, as it shipped</h2>
@@ -735,11 +696,6 @@
       p2_h: "AI-orchestrated", p2_p: "Models and tools do the heavy lifting, under human review.",
       p3_h: "EN · PT", p3_p: "Written natively in both languages.",
       p4_h: "Idea to live", p4_p: "Design, code, domain, hosting and copy in one place.",
-      hero_me: "This is me · see me at work ↓", human_k: "Behind the screen", human_h: "This is me, building your dream.",
-      human_p1: "Real hands, real sawdust, a real person who answers your messages.",
-      human_p2: "When I build a deck, I level every beam before anything rests on it. I build your site the same way: solid foundations first, then the beautiful part, made to hold weight for years.",
-      human_p3: "AI helps me move fast. The listening, the choices and the care are human.",
-      human_sign: "Alexandre · NRL Studios", human_c1: "Measure twice", human_c2: "Build once",
       log_k: "build.log · rzbis.com", log_h: "Recent work, as it shipped",
       log1: "Domain moved from Squarespace to GitHub Pages", log2: "Company email records kept intact through the move",
       log3: "Hero video rebuilt from its sharpest seconds", log4: "Site now opens in the visitor's language: EN / PT / ES",
@@ -785,11 +741,6 @@
       p2_h: "Orquestrado com IA", p2_p: "Modelos e ferramentas fazem o trabalho pesado, com revisão humana.",
       p3_h: "PT · EN", p3_p: "Escrito de forma nativa nos dois idiomas.",
       p4_h: "Da ideia ao ar", p4_p: "Design, código, domínio, hospedagem e textos em um só lugar.",
-      hero_me: "Este sou eu · me veja trabalhando ↓", human_k: "Por trás da tela", human_h: "Este sou eu, construindo o seu sonho.",
-      human_p1: "Mãos de verdade, serragem de verdade, uma pessoa de verdade que responde suas mensagens.",
-      human_p2: "Quando construo um deck, nivelo cada viga antes de qualquer coisa apoiar nela. Construo o seu site do mesmo jeito: base firme primeiro, depois a parte bonita, feito para aguentar peso por anos.",
-      human_p3: "A IA me ajuda a ir rápido. A escuta, as escolhas e o cuidado são humanos.",
-      human_sign: "Alexandre · NRL Studios", human_c1: "Meça duas vezes", human_c2: "Construa uma vez",
       log_k: "build.log · rzbis.com", log_h: "Trabalho recente, como foi entregue",
       log1: "Domínio migrado do Squarespace para o GitHub Pages", log2: "Registros de e-mail da empresa preservados na migração",
       log3: "Vídeo de abertura refeito com os trechos mais nítidos", log4: "Site abre no idioma do visitante: EN / PT / ES",
