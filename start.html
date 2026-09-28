@@ -230,14 +230,6 @@
           <div class="field"><label for="business"><span data-i18n="f_business">Business or project name</span><span class="req">*</span></label><input id="business" name="business" type="text" autocomplete="organization" required></div>
           <div class="field full"><label for="current_site" data-i18n="f_site">Current website, if any</label><input id="current_site" name="current_site" type="url" inputmode="url" placeholder="https://"></div>
         </div>
-        <fieldset class="block">
-          <legend class="legend" data-i18n="f_langs">Languages for the new site</legend>
-          <div class="chips">
-            <label class="chip"><input type="checkbox" name="languages" value="English" checked><span>English</span></label>
-            <label class="chip"><input type="checkbox" name="languages" value="Português"><span>Português</span></label>
-            <label class="chip"><input type="checkbox" name="languages" value="Español"><span>Español</span></label>
-          </div>
-        </fieldset>
       </div>
 
       <!-- 2 BUSINESS -->
@@ -427,6 +419,15 @@
             <label class="chip"><input type="radio" name="budget" value="Not sure yet"><span data-i18n="b_5">Not sure yet</span></label>
           </div>
         </fieldset>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_intl">Do your customers speak other languages?</legend>
+          <p class="hint" data-i18n="h_intl">Your site is written in the language you're using now. Extra languages are an optional add-on to the quote.</p>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="extra_languages" value="English"><span>English</span></label>
+            <label class="chip"><input type="checkbox" name="extra_languages" value="Português"><span>Português</span></label>
+            <label class="chip"><input type="checkbox" name="extra_languages" value="Español"><span>Español</span></label>
+          </div>
+        </fieldset>
         <div class="field block"><label for="notes" data-i18n="f_notes">Anything else we should know?</label><textarea id="notes" name="notes"></textarea></div>
       </div>
 
@@ -485,10 +486,10 @@
     raf = requestAnimationFrame(tick); life--; energy *= 0.94; const age = 1 - life / LIFE;
     ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,' + (0.12 + age * age * 0.4) + ')'; ctx.fillRect(0, 0, innerWidth, innerHeight);
     if (energy > 0.01) {
-      dot.x += (target.x - dot.x) * 0.22; dot.y += (target.y - dot.y) * 0.22; ctx.globalCompositeOperation = 'lighter';
+      dot.x += (target.x - dot.x) * 0.45; dot.y += (target.y - dot.y) * 0.45; ctx.globalCompositeOperation = 'lighter';
       const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
-      g.addColorStop(0, 'rgba(229,228,226,' + (0.15 * energy) + ')'); g.addColorStop(0.35, 'rgba(212,168,84,' + (0.11 * energy) + ')');
-      g.addColorStop(0.7, 'rgba(184,98,52,' + (0.06 * energy) + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(229,228,226,' + (0.10 * energy) + ')'); g.addColorStop(0.35, 'rgba(212,168,84,' + (0.07 * energy) + ')');
+      g.addColorStop(0.7, 'rgba(184,98,52,' + (0.04 * energy) + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
     }
   }
@@ -525,7 +526,7 @@ const T = {
     rail: ["You", "Business", "Structure", "Look", "Imagery", "References", "Practical"], rail_review: "Review",
     step: "Step",
     s1_h: "First, who are you?", s1_p: "So we know who to send your first direction to.",
-    f_name: "Your name", f_email: "Email", f_phone: "WhatsApp or phone", ph_phone: "Optional", f_business: "Business or project name", f_site: "Current website, if any", f_langs: "Languages for the new site",
+    f_name: "Your name", f_email: "Email", f_phone: "WhatsApp or phone", ph_phone: "Optional", f_business: "Business or project name", f_site: "Current website, if any",
     s2_h: "What do you do, and for whom?", s2_p: "Plain words are perfect. This becomes the backbone of your headline and copy.",
     f_what: "In one or two sentences, what does your business do?", ph_what: "We import premium copper ore from Brazil for foundries in the US and Europe.",
     f_audience: "Who is it for?", ph_audience: "Procurement managers at mid-size foundries",
@@ -550,6 +551,7 @@ const T = {
     f_email_domain: "Email on that domain?", e_have: "Already set up", e_want: "Want it", e_no: "Not needed",
     f_when: "When do you want it live?", w_asap: "As soon as possible", w_month: "Within a month", w_quarter: "In 2 to 3 months", w_explore: "Just exploring",
     f_budget: "Budget range (USD)", b_1: "Under $1,500", b_2: "$1,500 to $4,000", b_3: "$4,000 to $10,000", b_4: "$10,000 or more", b_5: "Not sure yet",
+    f_intl: "Do your customers speak other languages?", h_intl: "Your site is written in the language you're using now. Extra languages are an optional add-on to the quote.",
     f_notes: "Anything else we should know?",
     review_count: "Review", s8_h: "Check your answers", s8_p: "If everything looks right, send it. You can edit any step.",
     consent: "I agree that NRL Studios may use these answers to prepare a proposal and a first design direction for me. Nothing is shared with third parties.",
@@ -571,7 +573,7 @@ const T = {
     rail: ["Você", "Negócio", "Estrutura", "Visual", "Imagens", "Referências", "Prático"], rail_review: "Revisão",
     step: "Passo",
     s1_h: "Primeiro, quem é você?", s1_p: "Para sabermos a quem enviar a primeira direção.",
-    f_name: "Seu nome", f_email: "E-mail", f_phone: "WhatsApp ou telefone", ph_phone: "Opcional", f_business: "Nome do negócio ou projeto", f_site: "Site atual, se houver", f_langs: "Idiomas do novo site",
+    f_name: "Seu nome", f_email: "E-mail", f_phone: "WhatsApp ou telefone", ph_phone: "Opcional", f_business: "Nome do negócio ou projeto", f_site: "Site atual, se houver",
     s2_h: "O que você faz, e para quem?", s2_p: "Palavras simples são perfeitas. Isso vira a base do título e do texto.",
     f_what: "Em uma ou duas frases, o que o seu negócio faz?", ph_what: "Exportamos minério de cobre do Brasil para fundições nos EUA e na Europa.",
     f_audience: "Para quem é?", ph_audience: "Gerentes de compras de fundições de médio porte",
@@ -596,6 +598,7 @@ const T = {
     f_email_domain: "E-mail nesse domínio?", e_have: "Já configurado", e_want: "Quero", e_no: "Não preciso",
     f_when: "Quando quer o site no ar?", w_asap: "O quanto antes", w_month: "Em até um mês", w_quarter: "Em 2 a 3 meses", w_explore: "Só explorando",
     f_budget: "Faixa de investimento (USD)", b_1: "Até $1.500", b_2: "$1.500 a $4.000", b_3: "$4.000 a $10.000", b_4: "$10.000 ou mais", b_5: "Ainda não sei",
+    f_intl: "Seus clientes falam outros idiomas?", h_intl: "Seu site é escrito no idioma que você está usando agora. Idiomas extras são um adicional opcional no orçamento.",
     f_notes: "Algo mais que devemos saber?",
     review_count: "Revisão", s8_h: "Confira suas respostas", s8_p: "Se estiver tudo certo, é só enviar. Dá para editar qualquer passo.",
     consent: "Concordo que a NRL Studios use estas respostas para preparar uma proposta e uma primeira direção de design para mim. Nada é compartilhado com terceiros.",
@@ -629,6 +632,7 @@ function applyLang(l) {
   document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if (t[k] != null) el.innerHTML = t[k]; });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (t[k] != null) el.placeholder = t[k]; });
   document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'));
+  document.querySelectorAll('input[name="extra_languages"]').forEach(i => { const own = i.value === (l === 'pt' ? 'Português' : 'English'); i.closest('.chip').hidden = own; if (own) i.checked = false; });
   buildRail(); updateButtons(); if (cur === REVIEW) buildReview();
 }
 document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('click', () => {
@@ -708,7 +712,7 @@ function collect() {
     version: 1, submitted_at: new Date().toISOString(), form_language: lang,
     client: { name: val('name'), email: val('email'), phone: val('phone'), business: val('business'), current_site: val('current_site') },
     site: {
-      slug: slugify(val('business')), languages: checked('languages'),
+      slug: slugify(val('business')), primary_language: lang === 'pt' ? 'Português' : 'English', extra_languages: checked('extra_languages').filter(x => x !== (lang === 'pt' ? 'Português' : 'English')), languages: [lang === 'pt' ? 'Português' : 'English'].concat(checked('extra_languages').filter(x => x !== (lang === 'pt' ? 'Português' : 'English'))),
       what: val('what'), audience: val('audience'), difference: val('difference'), primary_action: one('goal'),
       offers, sections: checked('sections'), shape: one('shape')
     },
@@ -746,14 +750,14 @@ function buildReview() {
   const d = collect(), t = T[lang], r = t.rv, box = document.getElementById('review');
   const lookName = d.brand.mood ? t['l_' + { cinematic: 'cin', commercial: 'com', documentary: 'doc', moody: 'moody', golden: 'gold', bw: 'bw', neon: 'neon' }[d.brand.mood]] : '';
   const rows = [
-    [1, r.name, d.client.name], [1, r.email, d.client.email], [1, r.business, d.client.business], [1, r.languages, d.site.languages.join(', ')],
+    [1, r.name, d.client.name], [1, r.email, d.client.email], [1, r.business, d.client.business], 
     [2, r.what, d.site.what], [2, r.audience, d.site.audience], [2, r.goal, d.site.primary_action],
     [2, r.offers, d.site.offers.map(o => o.name + (o.line ? ' · ' + o.line : '')).join('\n')],
     [3, r.sections, d.site.sections.join(', ')], [3, r.shape, d.site.shape],
     [4, r.look, lookName], [4, r.palette, [d.brand.palette, d.brand.brand_colors].filter(Boolean).join(' · ')],
     [5, r.scenes, d.imagery.scenes.map(s => s.description).join('\n')], [5, r.people, d.imagery.people],
     [6, r.refs, d.references.map(x => x.url + (x.why ? ' · ' + x.why : '')).join('\n')],
-    [7, r.timeline, d.practical.timeline], [7, r.budget, d.practical.budget], [7, r.domain, [d.practical.domain_status, d.practical.domain].filter(Boolean).join(' · ')]
+    [7, r.languages, d.site.languages.join(', ')], [7, r.timeline, d.practical.timeline], [7, r.budget, d.practical.budget], [7, r.domain, [d.practical.domain_status, d.practical.domain].filter(Boolean).join(' · ')]
   ];
   box.innerHTML = '';
   rows.forEach(([s, k, v]) => {
