@@ -371,9 +371,9 @@
   <div class="hero-content">
     <span class="section-label" data-i18n="eyebrow">Web &amp; AI studio · California / Brazil</span>
     <h1><span data-i18n="h1a">Websites and AI products,</span><br><em data-i18n="h1b">built end to end.</em></h1>
-    <p data-i18n="lede">A small studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
+    <p data-i18n="lede">A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
     <div class="hero-buttons">
-      <a href="#contact" class="btn btn-primary" data-i18n="cta1">Start a project</a>
+      <a href="start.html" class="btn btn-primary" data-i18n="cta1">Start a project</a>
       <a href="#store" class="btn btn-outline-light" data-i18n="cta2">See the work</a>
     </div>
   </div>
@@ -398,7 +398,7 @@
 
     <a class="product-card" data-kind="client" href="https://rzbis.com" target="_blank" rel="noopener">
       <div class="product-img slot">
-        <img src="images/rzbis-home.jpg" alt="RZBis homepage" loading="lazy" onerror="this.remove()">
+        <img src="images/rzbis-port.jpg" alt="Bulk carrier loading copper ore at a port terminal at night" loading="lazy" onerror="this.remove()">
       </div>
       <div class="product-sub" data-i18n="c1_sub">Client · Curitiba</div>
       <div class="product-name">RZBis</div>
@@ -449,7 +449,7 @@
   <div class="kit-photo">
     <a class="browser" href="https://rzbis.com" target="_blank" rel="noopener" aria-label="Open rzbis.com">
       <div class="browser-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="url">rzbis.com</span></div>
-      <img src="images/rzbis-home.jpg" alt="RZBis homepage hero" loading="lazy">
+      <img src="images/rzbis-port.jpg" alt="Bulk carrier loading copper ore at a port terminal at night" loading="lazy" onerror="this.remove()">
     </a>
   </div>
 </section>
@@ -469,7 +469,7 @@
       <li data-i18n="st4">Domain, DNS, email and hosting handled</li>
       <li data-i18n="st5">Launch, then small changes as you grow</li>
     </ol>
-    <a href="#contact" class="btn btn-outline" style="align-self:flex-start;" data-i18n="cta1">Start a project</a>
+    <a href="start.html" class="btn btn-outline" style="align-self:flex-start;" data-i18n="cta1">Start a project</a>
   </div>
 </section>
 
@@ -626,7 +626,7 @@
       nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact",
       eyebrow: "Web & AI studio · California / Brazil",
       h1a: "Websites and AI products,", h1b: "built end to end.",
-      lede: "A small studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
+      lede: "A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
       cta1: "Start a project", cta2: "See the work", scroll: "Scroll",
       marquee: "Websites ✦ AI products ✦ English · Português ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner Lair ✦ ",
       work_k: "Client builds and studio projects", work_h: "Work",
@@ -670,7 +670,7 @@
       nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato",
       eyebrow: "Estúdio de web e IA · Califórnia / Brasil",
       h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
-      lede: "Um estúdio pequeno comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
+      lede: "Um estúdio comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
       cta1: "Começar um projeto", cta2: "Ver os trabalhos", scroll: "Role",
       marquee: "Sites ✦ Produtos de IA ✦ Português · English ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner Lair ✦ ",
       work_k: "Projetos de clientes e do estúdio", work_h: "Trabalhos",
@@ -762,6 +762,56 @@
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(el.textContent).then(done, fallback);
     else fallback();
   });
+</script>
+
+
+<!-- Cursor trail: soft platinum-gold-copper glow that follows the mouse (desktop only, off for reduced motion) -->
+<canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
+<script>
+(() => {
+  const fine = matchMedia('(pointer: fine)').matches;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('cursor-trail');
+  if (!fine || still || !cv) { if (cv) cv.remove(); return; }
+  const ctx = cv.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+                       cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+                       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  size(); addEventListener('resize', size);
+
+  const R = 44;                 // glow radius in px
+  const LIFE = 90;              // frames the trail keeps drawing after the mouse stops
+  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0;
+
+  addEventListener('pointermove', e => {
+    target.x = e.clientX; target.y = e.clientY;
+    if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
+    energy = 1; life = LIFE;
+    if (!raf) raf = requestAnimationFrame(tick);
+  }, {passive: true});
+
+  function tick() {
+    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
+    raf = requestAnimationFrame(tick);
+    life--; energy *= 0.94;
+    const age = 1 - life / LIFE;
+    ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
+    ctx.fillStyle = 'rgba(0,0,0,' + (0.12 + age * age * 0.4) + ')';
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
+    if (energy > 0.01) {
+      dot.x += (target.x - dot.x) * 0.22;                     // glide toward the pointer
+      dot.y += (target.y - dot.y) * 0.22;
+      ctx.globalCompositeOperation = 'lighter';               // glows add up like light
+      const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
+      g.addColorStop(0,    'rgba(229,228,226,' + (0.15 * energy) + ')');  // platinum core
+      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.11 * energy) + ')');  // gold
+      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.06 * energy) + ')');  // copper edge
+      g.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+})();
 </script>
 
 </body>

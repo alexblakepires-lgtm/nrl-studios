@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a project · NRL Studios</title>
+<meta name="description" content="Tell NRL Studios what you are building. Seven short steps, and we come back with a first direction for your site.">
+<link rel="canonical" href="https://nrlstudios.com/start.html">
+<meta name="theme-color" content="#110E17">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Start a project · NRL Studios">
+<meta property="og:description" content="Seven short steps. We come back with a first direction for your site.">
+<meta property="og:image" content="https://nrlstudios.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ground: #110E17; --panel: #1A1622; --panel-2: #221C2C; --line: #2E2739;
+    --text: #ECE7F2; --muted: #A39BB2; --faint: #6F6780;
+    --amber: #FFB547; --amber-soft: #FFC56E; --amber-dim: #7A5A2A; --amber-ink: #1B1206;
+    --danger: #FF7A7A;
+    --display: 'Chakra Petch', 'Arial Narrow', system-ui, sans-serif;
+    --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  body { font-family: var(--body); background: var(--ground); color: var(--text); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(90% 60% at 85% -10%, rgba(255,181,71,0.10), transparent 60%),
+                radial-gradient(70% 50% at -10% 110%, rgba(184,98,52,0.08), transparent 60%); }
+
+  /* NAV (same as home) */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px; background: rgba(17,14,23,0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-logo { display: flex; align-items: center; gap: 0.7rem; font-family: var(--display); font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text); text-decoration: none; }
+  .nav-mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--amber); font-size: 0.75rem; font-weight: 700; color: var(--amber);
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
+  .nav-logo span.sub { color: var(--faint); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; font-weight: 400; }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-back { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .nav-back:hover { color: var(--text); }
+  .nav-lang { display: flex; gap: 2px; }
+  .nav-lang button { cursor: pointer; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--faint); background: none; border: none; min-width: 36px; min-height: 36px; }
+  .nav-lang button[aria-pressed="true"] { color: var(--amber); }
+
+  /* LAYOUT */
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 120px 3rem 80px; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 72px; }
+  .eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: -0.01em; margin: 14px 0 18px; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--amber); }
+  .lede { color: var(--muted); max-width: 34ch; }
+
+  /* SIDE RAIL */
+  .wrap > * { min-width: 0; }
+  aside { position: sticky; top: 100px; align-self: start; }
+  .rail { list-style: none; margin-top: 36px; border-left: 1px solid var(--line); }
+  .rail li { position: relative; padding: 9px 0 9px 20px; font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; color: var(--faint); text-transform: uppercase; transition: color 200ms; }
+  .rail li::before { content: ""; position: absolute; left: -1px; top: 0; bottom: 0; width: 2px; background: transparent; transition: background 200ms; }
+  .rail li .n { display: inline-block; width: 2.4em; color: inherit; }
+  .rail li.done { color: var(--muted); }
+  .rail li.done .n { color: var(--amber-dim); }
+  .rail li.on { color: var(--text); }
+  .rail li.on::before { background: var(--amber); }
+  .rail li button { all: unset; cursor: pointer; }
+  .rail li button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+  .meta { margin-top: 32px; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--faint); line-height: 1.9; }
+
+  /* FORM CARD */
+  .card { background: linear-gradient(180deg, rgba(34,28,44,0.92), rgba(26,22,34,0.92)); border: 1px solid var(--line); padding: 44px 48px 36px; position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%); }
+  .progress { position: absolute; top: 0; left: 0; height: 2px; background: var(--amber); transition: width 400ms var(--ease-out); }
+  .step { display: none; }
+  .step.on { display: block; animation: rise 360ms var(--ease-out); }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .step-count { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--faint); text-transform: uppercase; }
+  h2 { font-family: var(--display); font-weight: 600; font-size: 1.7rem; line-height: 1.15; margin: 8px 0 6px; }
+  .step-intro { color: var(--muted); margin-bottom: 30px; max-width: 58ch; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; }
+  .full { grid-column: 1 / -1; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field + .field, .block { margin-top: 0; }
+  .block { margin-top: 30px; }
+  label, .legend { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+  .hint { font-size: 0.8rem; color: var(--faint); margin-top: -2px; }
+  .req { color: var(--amber); margin-left: 3px; }
+  fieldset { border: 0; min-width: 0; }
+  input[type=text], input[type=email], input[type=tel], input[type=url], textarea, select {
+    width: 100%; font: inherit; font-size: 0.95rem; color: var(--text); background: rgba(17,14,23,0.7);
+    border: 1px solid var(--line); padding: 11px 13px; border-radius: 0; transition: border-color 160ms, background 160ms; }
+  textarea { min-height: 92px; resize: vertical; }
+  input::placeholder, textarea::placeholder { color: #5E5670; }
+  input:hover, textarea:hover { border-color: #3D3449; }
+  input:focus, textarea:focus { outline: none; border-color: var(--amber); background: rgba(17,14,23,0.95); }
+  .invalid { border-color: var(--danger) !important; }
+  .err { color: var(--danger); font-size: 0.82rem; min-height: 1.2em; margin-top: 14px; }
+
+  /* CHIPS (checkbox/radio) */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .chip span { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; min-height: 40px; border: 1px solid var(--line); background: rgba(17,14,23,0.5);
+    font-size: 0.88rem; color: var(--muted); transition: all 160ms var(--ease-out); cursor: pointer; }
+  .chip span::before { content: ""; width: 7px; height: 7px; border: 1px solid var(--faint); transition: all 160ms; }
+  .chip input[type=radio] + span::before { border-radius: 50%; }
+  .chip input:checked + span { color: var(--text); border-color: var(--amber-dim); background: rgba(255,181,71,0.07); }
+  .chip input:checked + span::before { background: var(--amber); border-color: var(--amber); }
+  .chip input:focus-visible + span { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .chip:hover span { color: var(--text); }
+
+  /* LOOK CARDS */
+  .looks { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 12px; margin-top: 12px; }
+  .look { position: relative; }
+  .look input { position: absolute; opacity: 0; inset: 0; cursor: pointer; z-index: 2; }
+  .look .face { border: 1px solid var(--line); background: rgba(17,14,23,0.5); transition: all 180ms var(--ease-out); height: 100%; }
+  .look .sw { height: 74px; border-bottom: 1px solid var(--line); }
+  .look .t { padding: 10px 12px 12px; }
+  .look b { display: block; font-family: var(--display); font-weight: 600; font-size: 0.95rem; }
+  .look small { display: block; color: var(--faint); font-size: 0.78rem; line-height: 1.4; margin-top: 3px; }
+  .look input:checked + .face { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber) inset; }
+  .look input:focus-visible + .face { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .look:hover .face { border-color: #4A4056; }
+  .sw.cinematic { background: linear-gradient(135deg, #0d1a24 0%, #28303a 45%, #c47a3a 100%); }
+  .sw.commercial { background: linear-gradient(135deg, #f1ede6 0%, #d9d2c6 55%, #20242a 100%); }
+  .sw.documentary { background: linear-gradient(135deg, #6f7a5a 0%, #b9a77e 55%, #e9dcc0 100%); }
+  .sw.moody { background: radial-gradient(60% 80% at 70% 40%, #5a4a3a, #0b0a0d 70%); }
+  .sw.golden { background: linear-gradient(160deg, #f6c46a 0%, #d9823c 45%, #3a2418 100%); }
+  .sw.bw { background: linear-gradient(135deg, #f2f2f2 0%, #8a8a8a 45%, #0f0f0f 100%); }
+  .sw.neon { background: linear-gradient(135deg, #0b0816 0%, #3a0f4a 45%, #ff3cac 80%, #22d3ee 100%); }
+
+  .pal { display: inline-flex; gap: 0; margin-right: 2px; }
+  .pal i { width: 12px; height: 12px; display: block; }
+
+  /* OFFER ROWS */
+  .offers { display: grid; gap: 10px; margin-top: 10px; }
+  .offer { display: grid; grid-template-columns: 1fr 1.8fr; gap: 10px; }
+
+  /* NAV BUTTONS */
+  .actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 0.85rem 1.8rem; font-family: var(--display); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.03em;
+    text-decoration: none; cursor: pointer; border: none; clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 12px) 100%, 0 100%); transition: all 200ms var(--ease-out); }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--amber); color: var(--amber-ink); }
+  .btn-primary:hover { background: var(--amber-soft); }
+  .btn-ghost { background: none; color: var(--muted); padding-left: 0; clip-path: none; }
+  .btn-ghost:hover { color: var(--text); }
+  .btn[disabled] { opacity: 0.6; cursor: progress; }
+  .kbd { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); letter-spacing: 0.08em; }
+
+  /* REVIEW */
+  .review { display: grid; gap: 2px; margin-top: 6px; }
+  .review .row { display: grid; grid-template-columns: 170px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .review .k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); padding-top: 3px; }
+  .review .v { font-size: 0.92rem; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+  .review .v.empty { color: var(--faint); }
+  .review .edit { all: unset; cursor: pointer; font-family: var(--mono); font-size: 0.66rem; color: var(--amber); letter-spacing: 0.1em; margin-left: 8px; }
+  .consent { display: flex; gap: 12px; align-items: flex-start; margin-top: 24px; font-size: 0.88rem; color: var(--muted); }
+  .consent input { margin-top: 5px; accent-color: var(--amber); width: 16px; height: 16px; flex: none; }
+
+  /* DONE */
+  .done-mark { width: 54px; height: 54px; display: grid; place-items: center; border: 1.5px solid var(--amber); color: var(--amber); font-family: var(--display); font-weight: 700;
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); margin-bottom: 18px; }
+  .next-list { list-style: none; margin-top: 22px; display: grid; gap: 14px; counter-reset: n; }
+  .next-list li { counter-increment: n; display: grid; grid-template-columns: 36px 1fr; color: var(--muted); }
+  .next-list li::before { content: "0" counter(n); font-family: var(--mono); font-size: 0.75rem; color: var(--amber); padding-top: 3px; }
+  .fallback { margin-top: 22px; padding: 16px; border: 1px dashed var(--line); font-size: 0.88rem; color: var(--muted); }
+  .fallback .btn { margin-top: 12px; }
+
+  footer { position: relative; z-index: 1; text-align: center; padding: 24px 16px 40px; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--faint); }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 16px; }
+    .nav-logo span.sub, .nav-back { display: none; }
+    .wrap { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 96px 16px 48px; }
+    aside { position: static; }
+    .rail { display: flex; border-left: 0; border-bottom: 1px solid var(--line); margin-top: 22px; overflow-x: auto; }
+    .rail li { padding: 8px 12px 10px; white-space: nowrap; }
+    .rail li .lbl { display: none; }
+    .rail li::before { left: 0; right: 0; top: auto; bottom: -1px; width: auto; height: 2px; }
+    .meta { display: none; }
+    .card { padding: 28px 18px 24px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .offer { grid-template-columns: 1fr; gap: 6px; padding-bottom: 8px; border-bottom: 1px dashed var(--line); }
+    .review .row { grid-template-columns: 1fr; gap: 4px; }
+    .kbd { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .step.on { animation: none; } .progress { transition: none; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <a class="nav-logo" href="index.html" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER LAIR</span></a>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html" data-i18n="back">Back to site</a>
+    <div class="nav-lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <aside>
+    <div class="eyebrow" data-i18n="eyebrow">Project intake · about 8 minutes</div>
+    <h1 data-i18n-html="title">Tell us what you're building. <em>We'll show you what it could look like.</em></h1>
+    <p class="lede" data-i18n="lede">Seven short steps. From your answers we sketch a first direction for your site: structure, copy and cinematic imagery made for your brand.</p>
+    <ol class="rail" id="rail"></ol>
+    <div class="meta" data-i18n-html="meta">Your answers go only to NRL Studios.<br>English or Portuguese, whichever you prefer.</div>
+  </aside>
+
+  <section class="card" aria-live="polite">
+    <div class="progress" id="progress" style="width:0"></div>
+    <form id="intake" novalidate>
+
+      <!-- 1 YOU -->
+      <div class="step on" data-step="1" data-title="you">
+        <div class="step-count"><span data-i18n="step">Step</span> 01 / 07</div>
+        <h2 data-i18n="s1_h">First, who are you?</h2>
+        <p class="step-intro" data-i18n="s1_p">So we know who to send your first direction to.</p>
+        <div class="grid2">
+          <div class="field"><label for="name"><span data-i18n="f_name">Your name</span><span class="req">*</span></label><input id="name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="email"><span data-i18n="f_email">Email</span><span class="req">*</span></label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="phone" data-i18n="f_phone">WhatsApp or phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" data-i18n-ph="ph_phone" placeholder="Optional"></div>
+          <div class="field"><label for="business"><span data-i18n="f_business">Business or project name</span><span class="req">*</span></label><input id="business" name="business" type="text" autocomplete="organization" required></div>
+          <div class="field full"><label for="current_site" data-i18n="f_site">Current website, if any</label><input id="current_site" name="current_site" type="url" inputmode="url" placeholder="https://"></div>
+        </div>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_langs">Languages for the new site</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="languages" value="English" checked><span>English</span></label>
+            <label class="chip"><input type="checkbox" name="languages" value="Português"><span>Português</span></label>
+            <label class="chip"><input type="checkbox" name="languages" value="Español"><span>Español</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- 2 BUSINESS -->
+      <div class="step" data-step="2" data-title="business">
+        <div class="step-count"><span data-i18n="step">Step</span> 02 / 07</div>
+        <h2 data-i18n="s2_h">What do you do, and for whom?</h2>
+        <p class="step-intro" data-i18n="s2_p">Plain words are perfect. This becomes the backbone of your headline and copy.</p>
+        <div class="grid2">
+          <div class="field full"><label for="what"><span data-i18n="f_what">In one or two sentences, what does your business do?</span><span class="req">*</span></label><textarea id="what" name="what" required data-i18n-ph="ph_what" placeholder="We import premium copper ore from Brazil for foundries in the US and Europe."></textarea></div>
+          <div class="field full"><label for="audience"><span data-i18n="f_audience">Who is it for?</span><span class="req">*</span></label><input id="audience" name="audience" type="text" required data-i18n-ph="ph_audience" placeholder="Procurement managers at mid-size foundries"></div>
+          <div class="field full"><label for="difference" data-i18n="f_diff">Why you and not someone else?</label><input id="difference" name="difference" type="text" data-i18n-ph="ph_diff" placeholder="Twenty years on the ground, lab-verified samples, fast shipping"></div>
+        </div>
+        <fieldset class="block">
+          <legend class="legend"><span data-i18n="f_goal">The one thing a visitor should do</span><span class="req">*</span></legend>
+          <div class="chips" data-required="goal">
+            <label class="chip"><input type="radio" name="goal" value="Contact me"><span data-i18n="g_contact">Contact me</span></label>
+            <label class="chip"><input type="radio" name="goal" value="Message on WhatsApp"><span data-i18n="g_whatsapp">Message on WhatsApp</span></label>
+            <label class="chip"><input type="radio" name="goal" value="Book a call or appointment"><span data-i18n="g_book">Book a call or appointment</span></label>
+            <label class="chip"><input type="radio" name="goal" value="Buy online"><span data-i18n="g_buy">Buy online</span></label>
+            <label class="chip"><input type="radio" name="goal" value="Request a quote"><span data-i18n="g_quote">Request a quote</span></label>
+            <label class="chip"><input type="radio" name="goal" value="Sign up or join"><span data-i18n="g_join">Sign up or join</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_offers">Your main products or services (up to 4)</legend>
+          <p class="hint" data-i18n="h_offers">A name and one line each. Leave empty what you don't need.</p>
+          <div class="offers">
+            <div class="offer"><input type="text" name="offer_name_1" aria-label="Offer 1 name" data-i18n-ph="ph_oname" placeholder="Name"><input type="text" name="offer_desc_1" aria-label="Offer 1 description" data-i18n-ph="ph_odesc" placeholder="One line about it"></div>
+            <div class="offer"><input type="text" name="offer_name_2" aria-label="Offer 2 name" data-i18n-ph="ph_oname" placeholder="Name"><input type="text" name="offer_desc_2" aria-label="Offer 2 description" data-i18n-ph="ph_odesc" placeholder="One line about it"></div>
+            <div class="offer"><input type="text" name="offer_name_3" aria-label="Offer 3 name" data-i18n-ph="ph_oname" placeholder="Name"><input type="text" name="offer_desc_3" aria-label="Offer 3 description" data-i18n-ph="ph_odesc" placeholder="One line about it"></div>
+            <div class="offer"><input type="text" name="offer_name_4" aria-label="Offer 4 name" data-i18n-ph="ph_oname" placeholder="Name"><input type="text" name="offer_desc_4" aria-label="Offer 4 description" data-i18n-ph="ph_odesc" placeholder="One line about it"></div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- 3 STRUCTURE -->
+      <div class="step" data-step="3" data-title="structure">
+        <div class="step-count"><span data-i18n="step">Step</span> 03 / 07</div>
+        <h2 data-i18n="s3_h">What should the site hold?</h2>
+        <p class="step-intro" data-i18n="s3_p">We picked the usual core. Add or remove anything.</p>
+        <fieldset>
+          <legend class="legend" data-i18n="f_sections">Sections</legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="sections" value="Hero" checked><span data-i18n="sec_hero">Opening hero</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="About" checked><span data-i18n="sec_about">About</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Products or services" checked><span data-i18n="sec_services">Products or services</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="How it works"><span data-i18n="sec_process">How it works</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Portfolio or gallery"><span data-i18n="sec_gallery">Portfolio or gallery</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Testimonials"><span data-i18n="sec_testimonials">Testimonials</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="FAQ"><span>FAQ</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Team"><span data-i18n="sec_team">Team</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Store or catalog"><span data-i18n="sec_store">Store or catalog</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Blog or news"><span data-i18n="sec_blog">Blog or news</span></label>
+            <label class="chip"><input type="checkbox" name="sections" value="Contact" checked><span data-i18n="sec_contact">Contact</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_shape">Shape of the site</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="shape" value="One long page" checked><span data-i18n="shape_one">One long page</span></label>
+            <label class="chip"><input type="radio" name="shape" value="A few pages"><span data-i18n="shape_few">A few pages</span></label>
+            <label class="chip"><input type="radio" name="shape" value="Not sure, advise me"><span data-i18n="shape_unsure">Not sure, advise me</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- 4 LOOK -->
+      <div class="step" data-step="4" data-title="look">
+        <div class="step-count"><span data-i18n="step">Step</span> 04 / 07</div>
+        <h2 data-i18n="s4_h">How should it feel?</h2>
+        <p class="step-intro" data-i18n="s4_p">Pick the mood closest to your brand. We handle camera, light and film choices from here.</p>
+        <fieldset>
+          <legend class="legend"><span data-i18n="f_look">Mood</span><span class="req">*</span></legend>
+          <div class="looks" data-required="look">
+            <label class="look"><input type="radio" name="look" value="cinematic"><div class="face"><div class="sw cinematic"></div><div class="t"><b data-i18n="l_cin">Cinematic</b><small data-i18n="l_cin_d">Story-driven, dense, film-like</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="commercial"><div class="face"><div class="sw commercial"></div><div class="t"><b data-i18n="l_com">Clean commercial</b><small data-i18n="l_com_d">Polished, bright, product-first</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="documentary"><div class="face"><div class="sw documentary"></div><div class="t"><b data-i18n="l_doc">Natural documentary</b><small data-i18n="l_doc_d">Real places, daylight, honest</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="moody"><div class="face"><div class="sw moody"></div><div class="t"><b data-i18n="l_moody">Dark and moody</b><small data-i18n="l_moody_d">Deep shadow, one warm light</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="golden"><div class="face"><div class="sw golden"></div><div class="t"><b data-i18n="l_gold">Warm golden hour</b><small data-i18n="l_gold_d">Low sun, calm, human</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="bw"><div class="face"><div class="sw bw"></div><div class="t"><b data-i18n="l_bw">Black and white</b><small data-i18n="l_bw_d">Timeless, graphic, high contrast</small></div></div></label>
+            <label class="look"><input type="radio" name="look" value="neon"><div class="face"><div class="sw neon"></div><div class="t"><b data-i18n="l_neon">Neon night</b><small data-i18n="l_neon_d">Urban, electric, after dark</small></div></div></label>
+          </div>
+        </fieldset>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_palette">Color direction</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="palette" value="Ink and amber"><span><span class="pal"><i style="background:#110E17"></i><i style="background:#FFB547"></i></span><span data-i18n="p_ink">Ink and amber</span></span></label>
+            <label class="chip"><input type="radio" name="palette" value="Bone and charcoal"><span><span class="pal"><i style="background:#EFE9DF"></i><i style="background:#2A2A2A"></i></span><span data-i18n="p_bone">Bone and charcoal</span></span></label>
+            <label class="chip"><input type="radio" name="palette" value="Forest and sand"><span><span class="pal"><i style="background:#2F4A3A"></i><i style="background:#D8C7A3"></i></span><span data-i18n="p_forest">Forest and sand</span></span></label>
+            <label class="chip"><input type="radio" name="palette" value="Ocean and slate"><span><span class="pal"><i style="background:#1D3B53"></i><i style="background:#9FB3C2"></i></span><span data-i18n="p_ocean">Ocean and slate</span></span></label>
+            <label class="chip"><input type="radio" name="palette" value="Copper and stone"><span><span class="pal"><i style="background:#B8623A"></i><i style="background:#8C8A84"></i></span><span data-i18n="p_copper">Copper and stone</span></span></label>
+            <label class="chip"><input type="radio" name="palette" value="Use my brand colors"><span data-i18n="p_brand">Use my brand colors</span></label>
+          </div>
+        </fieldset>
+        <div class="grid2 block">
+          <div class="field"><label for="brand_colors" data-i18n="f_brand">Brand colors or logo link</label><input id="brand_colors" name="brand_colors" type="text" data-i18n-ph="ph_brand" placeholder="#0E4D64, or a link to your logo"></div>
+          <fieldset class="field">
+            <legend class="legend" data-i18n="f_type">Lettering feel</legend>
+            <div class="chips" style="margin-top:3px">
+              <label class="chip"><input type="radio" name="type" value="Editorial serif"><span data-i18n="t_serif">Editorial serif</span></label>
+              <label class="chip"><input type="radio" name="type" value="Modern sans"><span data-i18n="t_sans">Modern sans</span></label>
+              <label class="chip"><input type="radio" name="type" value="Technical"><span data-i18n="t_tech">Technical</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- 5 IMAGERY -->
+      <div class="step" data-step="5" data-title="imagery">
+        <div class="step-count"><span data-i18n="step">Step</span> 05 / 07</div>
+        <h2 data-i18n="s5_h">What should the pictures show?</h2>
+        <p class="step-intro" data-i18n="s5_p">Every image on your site is created for you. Describe scenes in your own words, the way you'd describe a photo to a friend.</p>
+        <div class="grid2">
+          <div class="field full"><label for="scene_hero"><span data-i18n="f_scene_hero">The opening image</span><span class="req">*</span></label><textarea id="scene_hero" name="scene_hero" required data-i18n-ph="ph_scene_hero" placeholder="A cargo ship being loaded with ore at dawn, huge and calm"></textarea></div>
+          <div class="field"><label for="scene_2" data-i18n="f_scene2">Another scene</label><textarea id="scene_2" name="scene_2" data-i18n-ph="ph_scene2" placeholder="Close-up of raw copper ore in a worker's gloved hand"></textarea></div>
+          <div class="field"><label for="scene_3" data-i18n="f_scene3">And another</label><textarea id="scene_3" name="scene_3" data-i18n-ph="ph_scene3" placeholder="A quiet office overlooking the port"></textarea></div>
+        </div>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_people">People in the images</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="people" value="Yes, people" checked><span data-i18n="pp_yes">Yes</span></label>
+            <label class="chip"><input type="radio" name="people" value="Hands and details only"><span data-i18n="pp_hands">Hands and details only</span></label>
+            <label class="chip"><input type="radio" name="people" value="No people"><span data-i18n="pp_no">No people</span></label>
+          </div>
+        </fieldset>
+        <div class="grid2 block">
+          <div class="field"><label for="photos" data-i18n="f_photos">Real photos we can use or match</label><input id="photos" name="photos" type="url" inputmode="url" data-i18n-ph="ph_photos" placeholder="Link to a Drive or Dropbox folder"></div>
+          <div class="field"><label for="avoid" data-i18n="f_avoid">Anything to avoid?</label><input id="avoid" name="avoid" type="text" data-i18n-ph="ph_avoid" placeholder="Stock-photo smiles, blue tech clichés"></div>
+        </div>
+      </div>
+
+      <!-- 6 REFERENCES -->
+      <div class="step" data-step="6" data-title="references">
+        <div class="step-count"><span data-i18n="step">Step</span> 06 / 07</div>
+        <h2 data-i18n="s6_h">Sites you like</h2>
+        <p class="step-intro" data-i18n="s6_p">Any site, any industry. Tell us what caught your eye: the feel, a detail, the way it moves.</p>
+        <div class="grid2">
+          <div class="field"><label for="ref_1" data-i18n="f_ref1">Reference 1</label><input id="ref_1" name="ref_1" type="url" inputmode="url" placeholder="https://"></div>
+          <div class="field"><label for="ref_1_why" data-i18n="f_why">What you like about it</label><input id="ref_1_why" name="ref_1_why" type="text"></div>
+          <div class="field"><label for="ref_2" data-i18n="f_ref2">Reference 2</label><input id="ref_2" name="ref_2" type="url" inputmode="url" placeholder="https://"></div>
+          <div class="field"><label for="ref_2_why" data-i18n="f_why">What you like about it</label><input id="ref_2_why" name="ref_2_why" type="text"></div>
+          <div class="field"><label for="ref_3" data-i18n="f_ref3">Reference 3</label><input id="ref_3" name="ref_3" type="url" inputmode="url" placeholder="https://"></div>
+          <div class="field"><label for="ref_3_why" data-i18n="f_why">What you like about it</label><input id="ref_3_why" name="ref_3_why" type="text"></div>
+        </div>
+      </div>
+
+      <!-- 7 PRACTICAL -->
+      <div class="step" data-step="7" data-title="practical">
+        <div class="step-count"><span data-i18n="step">Step</span> 07 / 07</div>
+        <h2 data-i18n="s7_h">The practical side</h2>
+        <p class="step-intro" data-i18n="s7_p">Last one. This helps us shape a proposal that fits.</p>
+        <fieldset>
+          <legend class="legend" data-i18n="f_domain">Domain</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="domain_status" value="I own a domain"><span data-i18n="d_own">I already own one</span></label>
+            <label class="chip"><input type="radio" name="domain_status" value="I need one"><span data-i18n="d_need">I need one</span></label>
+            <label class="chip"><input type="radio" name="domain_status" value="Not sure"><span data-i18n="d_unsure">Not sure</span></label>
+          </div>
+        </fieldset>
+        <div class="grid2 block">
+          <div class="field"><label for="domain" data-i18n="f_domain_name">Domain name, if you have one</label><input id="domain" name="domain" type="text" placeholder="yourbusiness.com"></div>
+          <fieldset class="field">
+            <legend class="legend" data-i18n="f_email_domain">Email on that domain?</legend>
+            <div class="chips" style="margin-top:3px">
+              <label class="chip"><input type="radio" name="email_domain" value="Already set up"><span data-i18n="e_have">Already set up</span></label>
+              <label class="chip"><input type="radio" name="email_domain" value="Want it"><span data-i18n="e_want">Want it</span></label>
+              <label class="chip"><input type="radio" name="email_domain" value="Not needed"><span data-i18n="e_no">Not needed</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_when">When do you want it live?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="timeline" value="As soon as possible"><span data-i18n="w_asap">As soon as possible</span></label>
+            <label class="chip"><input type="radio" name="timeline" value="Within a month"><span data-i18n="w_month">Within a month</span></label>
+            <label class="chip"><input type="radio" name="timeline" value="In 2 to 3 months"><span data-i18n="w_quarter">In 2 to 3 months</span></label>
+            <label class="chip"><input type="radio" name="timeline" value="Just exploring"><span data-i18n="w_explore">Just exploring</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="block">
+          <legend class="legend" data-i18n="f_budget">Budget range (USD)</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="budget" value="Under $1,500"><span data-i18n="b_1">Under $1,500</span></label>
+            <label class="chip"><input type="radio" name="budget" value="$1,500 to $4,000"><span data-i18n="b_2">$1,500 to $4,000</span></label>
+            <label class="chip"><input type="radio" name="budget" value="$4,000 to $10,000"><span data-i18n="b_3">$4,000 to $10,000</span></label>
+            <label class="chip"><input type="radio" name="budget" value="$10,000 or more"><span data-i18n="b_4">$10,000 or more</span></label>
+            <label class="chip"><input type="radio" name="budget" value="Not sure yet"><span data-i18n="b_5">Not sure yet</span></label>
+          </div>
+        </fieldset>
+        <div class="field block"><label for="notes" data-i18n="f_notes">Anything else we should know?</label><textarea id="notes" name="notes"></textarea></div>
+      </div>
+
+      <!-- 8 REVIEW -->
+      <div class="step" data-step="8" data-title="review">
+        <div class="step-count" data-i18n="review_count">Review</div>
+        <h2 data-i18n="s8_h">Check your answers</h2>
+        <p class="step-intro" data-i18n="s8_p">If everything looks right, send it. You can edit any step.</p>
+        <div class="review" id="review"></div>
+        <label class="consent"><input type="checkbox" id="consent" name="consent" required><span data-i18n="consent">I agree that NRL Studios may use these answers to prepare a proposal and a first design direction for me. Nothing is shared with third parties.</span></label>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      </div>
+
+      <!-- DONE -->
+      <div class="step" data-step="9" data-title="done">
+        <div class="done-mark" aria-hidden="true">✓</div>
+        <h2 data-i18n="done_h">Received. Thank you.</h2>
+        <p class="step-intro" data-i18n="done_p">Your brief is with us. Here is what happens next:</p>
+        <ul class="next-list">
+          <li data-i18n="next1">We read everything and sketch the structure and copy direction for your site.</li>
+          <li data-i18n="next2">We create sample images in the mood you picked, made for your brand.</li>
+          <li data-i18n="next3">Within two business days you hear from us with that first direction and a proposal.</li>
+        </ul>
+        <div class="fallback" id="fallback" hidden>
+          <span data-i18n="fb_p">Your email app should have opened with the brief. If it didn't, copy it and send it to hello@nrlstudios.com.</span><br>
+          <button type="button" class="btn btn-primary" id="copyBrief" data-i18n="fb_copy">Copy my brief</button>
+        </div>
+      </div>
+
+      <div class="err" id="err" role="alert"></div>
+      <div class="actions" id="actions">
+        <button type="button" class="btn btn-ghost" id="back" data-i18n="btn_back">← Back</button>
+        <span class="kbd" data-i18n="kbd">Enter ↵ to continue</span>
+        <button type="submit" class="btn btn-primary" id="next" data-i18n="btn_next">Continue →</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>NRL STUDIOS · NETRUNNER LAIR · <a href="mailto:hello@nrlstudios.com">HELLO@NRLSTUDIOS.COM</a></footer>
+
+<!-- Cursor trail (same as home) -->
+<canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
+<script>
+(() => {
+  const fine = matchMedia('(pointer: fine)').matches, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('cursor-trail');
+  if (!fine || still || !cv) { if (cv) cv.remove(); return; }
+  const ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  size(); addEventListener('resize', size);
+  const R = 44, LIFE = 90; let target = {x:-200,y:-200}, dot = {x:-200,y:-200}, energy = 0, life = 0, raf = 0;
+  addEventListener('pointermove', e => { target.x = e.clientX; target.y = e.clientY; if (dot.x < -100) { dot.x = target.x; dot.y = target.y; } energy = 1; life = LIFE; if (!raf) raf = requestAnimationFrame(tick); }, {passive:true});
+  function tick() {
+    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
+    raf = requestAnimationFrame(tick); life--; energy *= 0.94; const age = 1 - life / LIFE;
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,' + (0.12 + age * age * 0.4) + ')'; ctx.fillRect(0, 0, innerWidth, innerHeight);
+    if (energy > 0.01) {
+      dot.x += (target.x - dot.x) * 0.22; dot.y += (target.y - dot.y) * 0.22; ctx.globalCompositeOperation = 'lighter';
+      const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
+      g.addColorStop(0, 'rgba(229,228,226,' + (0.15 * energy) + ')'); g.addColorStop(0.35, 'rgba(212,168,84,' + (0.11 * energy) + ')');
+      g.addColorStop(0.7, 'rgba(184,98,52,' + (0.06 * energy) + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+})();
+</script>
+
+<script>
+/* ============================================================
+   SETTINGS
+   To receive answers straight in your inbox, create a free key at
+   https://web3forms.com with hello@nrlstudios.com and paste it below.
+   Without a key the page opens the visitor's email app instead.
+   ============================================================ */
+const WEB3FORMS_KEY = "";
+const STUDIO_EMAIL = "hello@nrlstudios.com";
+
+/* Look -> how our image pipeline (Higgsfield + Nano Banana 2, Human Image guide) will shoot it */
+const LOOKS = {
+  cinematic:   { look: "Cinematic narrative",   camera: "ARRI Alexa 35",   lens: "Canon K35 35mm T1.5",        lighting: "Low Key",     stock: "Kodak Vision3 500T 5219" },
+  commercial:  { look: "Cinematic commercial",  camera: "ARRI Alexa 35",   lens: "Canon K35 55mm T1.5",        lighting: "Spotlight",   stock: "Kodak 2383 print" },
+  documentary: { look: "Documentary handheld",  camera: "ARRI Alexa 35",   lens: "Canon K35 24mm T1.5",        lighting: "Golden Hour", stock: "Kodak Vision3 250D 5207" },
+  moody:       { look: "Cinematic tense",       camera: "ARRI Alexa 35",   lens: "Canon K35 55mm T1.5",        lighting: "Chiaroscuro", stock: "Kodak Vision3 500T 5219" },
+  golden:      { look: "Wide scale",            camera: "IMAX MK IV 65mm", lens: "Zeiss Otus 85mm T2.5",       lighting: "Golden Hour", stock: "Kodak Vision3 250D 5207" },
+  bw:          { look: "Monochrome dense",      camera: "IMAX MK IV 65mm", lens: "Zeiss Makro-Planar 65mm T2.2", lighting: "Cutter Lights", stock: "Kodak Double-X 5222" },
+  neon:        { look: "Neon urban night",      camera: "ARRI Alexa 35",   lens: "Canon K35 35mm T1.5",        lighting: "Hard Flash",  stock: "Kodak Vision3 500T 5219" }
+};
+
+const T = {
+  en: {
+    back: "Back to site", eyebrow: "Project intake · about 8 minutes",
+    title: "Tell us what you're building. <em>We'll show you what it could look like.</em>",
+    lede: "Seven short steps. From your answers we sketch a first direction for your site: structure, copy and cinematic imagery made for your brand.",
+    meta: "Your answers go only to NRL Studios.<br>English or Portuguese, whichever you prefer.",
+    rail: ["You", "Business", "Structure", "Look", "Imagery", "References", "Practical"], rail_review: "Review",
+    step: "Step",
+    s1_h: "First, who are you?", s1_p: "So we know who to send your first direction to.",
+    f_name: "Your name", f_email: "Email", f_phone: "WhatsApp or phone", ph_phone: "Optional", f_business: "Business or project name", f_site: "Current website, if any", f_langs: "Languages for the new site",
+    s2_h: "What do you do, and for whom?", s2_p: "Plain words are perfect. This becomes the backbone of your headline and copy.",
+    f_what: "In one or two sentences, what does your business do?", ph_what: "We import premium copper ore from Brazil for foundries in the US and Europe.",
+    f_audience: "Who is it for?", ph_audience: "Procurement managers at mid-size foundries",
+    f_diff: "Why you and not someone else?", ph_diff: "Twenty years on the ground, lab-verified samples, fast shipping",
+    f_goal: "The one thing a visitor should do", g_contact: "Contact me", g_whatsapp: "Message on WhatsApp", g_book: "Book a call or appointment", g_buy: "Buy online", g_quote: "Request a quote", g_join: "Sign up or join",
+    f_offers: "Your main products or services (up to 4)", h_offers: "A name and one line each. Leave empty what you don't need.", ph_oname: "Name", ph_odesc: "One line about it",
+    s3_h: "What should the site hold?", s3_p: "We picked the usual core. Add or remove anything.", f_sections: "Sections",
+    sec_hero: "Opening hero", sec_about: "About", sec_services: "Products or services", sec_process: "How it works", sec_gallery: "Portfolio or gallery", sec_testimonials: "Testimonials", sec_team: "Team", sec_store: "Store or catalog", sec_blog: "Blog or news", sec_contact: "Contact",
+    f_shape: "Shape of the site", shape_one: "One long page", shape_few: "A few pages", shape_unsure: "Not sure, advise me",
+    s4_h: "How should it feel?", s4_p: "Pick the mood closest to your brand. We handle camera, light and film choices from here.", f_look: "Mood",
+    l_cin: "Cinematic", l_cin_d: "Story-driven, dense, film-like", l_com: "Clean commercial", l_com_d: "Polished, bright, product-first", l_doc: "Natural documentary", l_doc_d: "Real places, daylight, honest",
+    l_moody: "Dark and moody", l_moody_d: "Deep shadow, one warm light", l_gold: "Warm golden hour", l_gold_d: "Low sun, calm, human", l_bw: "Black and white", l_bw_d: "Timeless, graphic, high contrast", l_neon: "Neon night", l_neon_d: "Urban, electric, after dark",
+    f_palette: "Color direction", p_ink: "Ink and amber", p_bone: "Bone and charcoal", p_forest: "Forest and sand", p_ocean: "Ocean and slate", p_copper: "Copper and stone", p_brand: "Use my brand colors",
+    f_brand: "Brand colors or logo link", ph_brand: "#0E4D64, or a link to your logo", f_type: "Lettering feel", t_serif: "Editorial serif", t_sans: "Modern sans", t_tech: "Technical",
+    s5_h: "What should the pictures show?", s5_p: "Every image on your site is created for you. Describe scenes in your own words, the way you'd describe a photo to a friend.",
+    f_scene_hero: "The opening image", ph_scene_hero: "A cargo ship being loaded with ore at dawn, huge and calm", f_scene2: "Another scene", ph_scene2: "Close-up of raw copper ore in a worker's gloved hand", f_scene3: "And another", ph_scene3: "A quiet office overlooking the port",
+    f_people: "People in the images", pp_yes: "Yes", pp_hands: "Hands and details only", pp_no: "No people",
+    f_photos: "Real photos we can use or match", ph_photos: "Link to a Drive or Dropbox folder", f_avoid: "Anything to avoid?", ph_avoid: "Stock-photo smiles, blue tech clichés",
+    s6_h: "Sites you like", s6_p: "Any site, any industry. Tell us what caught your eye: the feel, a detail, the way it moves.", f_ref1: "Reference 1", f_ref2: "Reference 2", f_ref3: "Reference 3", f_why: "What you like about it",
+    s7_h: "The practical side", s7_p: "Last one. This helps us shape a proposal that fits.",
+    f_domain: "Domain", d_own: "I already own one", d_need: "I need one", d_unsure: "Not sure", f_domain_name: "Domain name, if you have one",
+    f_email_domain: "Email on that domain?", e_have: "Already set up", e_want: "Want it", e_no: "Not needed",
+    f_when: "When do you want it live?", w_asap: "As soon as possible", w_month: "Within a month", w_quarter: "In 2 to 3 months", w_explore: "Just exploring",
+    f_budget: "Budget range (USD)", b_1: "Under $1,500", b_2: "$1,500 to $4,000", b_3: "$4,000 to $10,000", b_4: "$10,000 or more", b_5: "Not sure yet",
+    f_notes: "Anything else we should know?",
+    review_count: "Review", s8_h: "Check your answers", s8_p: "If everything looks right, send it. You can edit any step.",
+    consent: "I agree that NRL Studios may use these answers to prepare a proposal and a first design direction for me. Nothing is shared with third parties.",
+    done_h: "Received. Thank you.", done_p: "Your brief is with us. Here is what happens next:",
+    next1: "We read everything and sketch the structure and copy direction for your site.",
+    next2: "We create sample images in the mood you picked, made for your brand.",
+    next3: "Within two business days you hear from us with that first direction and a proposal.",
+    fb_p: "Your email app should have opened with the brief. If it didn't, copy it and send it to hello@nrlstudios.com.", fb_copy: "Copy my brief", copied: "Copied",
+    btn_back: "← Back", btn_next: "Continue →", btn_review: "Review answers →", btn_send: "Send my brief →", sending: "Sending…", kbd: "Enter ↵ to continue",
+    edit: "Edit", empty: "Not answered",
+    e_required: "Please fill in the highlighted fields.", e_email: "That email doesn't look right.", e_consent: "Please tick the box to agree before sending.", e_send: "Something went wrong sending. We opened your email app instead.",
+    rv: { name: "Name", email: "Email", phone: "Phone", business: "Business", current_site: "Current site", languages: "Languages", what: "What you do", audience: "Audience", difference: "Why you", goal: "Main action", offers: "Offers", sections: "Sections", shape: "Shape", look: "Mood", palette: "Colors", brand_colors: "Brand colors", type: "Lettering", scenes: "Scenes", people: "People", photos: "Photos", avoid: "Avoid", refs: "References", domain: "Domain", email_domain: "Domain email", timeline: "Timeline", budget: "Budget", notes: "Notes" }
+  },
+  pt: {
+    back: "Voltar ao site", eyebrow: "Briefing do projeto · cerca de 8 minutos",
+    title: "Conte o que você está construindo. <em>A gente mostra como pode ficar.</em>",
+    lede: "Sete passos curtos. Com suas respostas, desenhamos uma primeira direção para o seu site: estrutura, texto e imagens cinematográficas feitas para a sua marca.",
+    meta: "Suas respostas vão só para a NRL Studios.<br>Em português ou inglês, como preferir.",
+    rail: ["Você", "Negócio", "Estrutura", "Visual", "Imagens", "Referências", "Prático"], rail_review: "Revisão",
+    step: "Passo",
+    s1_h: "Primeiro, quem é você?", s1_p: "Para sabermos a quem enviar a primeira direção.",
+    f_name: "Seu nome", f_email: "E-mail", f_phone: "WhatsApp ou telefone", ph_phone: "Opcional", f_business: "Nome do negócio ou projeto", f_site: "Site atual, se houver", f_langs: "Idiomas do novo site",
+    s2_h: "O que você faz, e para quem?", s2_p: "Palavras simples são perfeitas. Isso vira a base do título e do texto.",
+    f_what: "Em uma ou duas frases, o que o seu negócio faz?", ph_what: "Exportamos minério de cobre do Brasil para fundições nos EUA e na Europa.",
+    f_audience: "Para quem é?", ph_audience: "Gerentes de compras de fundições de médio porte",
+    f_diff: "Por que você e não outro?", ph_diff: "Vinte anos de campo, amostras com laudo, embarque rápido",
+    f_goal: "A única coisa que o visitante deve fazer", g_contact: "Entrar em contato", g_whatsapp: "Chamar no WhatsApp", g_book: "Agendar uma conversa", g_buy: "Comprar online", g_quote: "Pedir um orçamento", g_join: "Se cadastrar",
+    f_offers: "Seus principais produtos ou serviços (até 4)", h_offers: "Um nome e uma linha para cada. Deixe vazio o que não precisar.", ph_oname: "Nome", ph_odesc: "Uma linha sobre ele",
+    s3_h: "O que o site deve ter?", s3_p: "Já marcamos o essencial. Adicione ou tire o que quiser.", f_sections: "Seções",
+    sec_hero: "Abertura", sec_about: "Sobre", sec_services: "Produtos ou serviços", sec_process: "Como funciona", sec_gallery: "Portfólio ou galeria", sec_testimonials: "Depoimentos", sec_team: "Equipe", sec_store: "Loja ou catálogo", sec_blog: "Blog ou notícias", sec_contact: "Contato",
+    f_shape: "Formato do site", shape_one: "Uma página longa", shape_few: "Algumas páginas", shape_unsure: "Não sei, me orientem",
+    s4_h: "Qual deve ser a sensação?", s4_p: "Escolha o clima mais próximo da sua marca. Câmera, luz e filme ficam por nossa conta.", f_look: "Clima",
+    l_cin: "Cinematográfico", l_cin_d: "Narrativo, denso, com cara de filme", l_com: "Comercial limpo", l_com_d: "Polido, claro, produto em foco", l_doc: "Documental natural", l_doc_d: "Lugares reais, luz do dia, honesto",
+    l_moody: "Escuro e intenso", l_moody_d: "Sombra profunda, uma luz quente", l_gold: "Hora dourada", l_gold_d: "Sol baixo, calmo, humano", l_bw: "Preto e branco", l_bw_d: "Atemporal, gráfico, alto contraste", l_neon: "Noite neon", l_neon_d: "Urbano, elétrico, depois do anoitecer",
+    f_palette: "Direção de cores", p_ink: "Tinta e âmbar", p_bone: "Osso e carvão", p_forest: "Floresta e areia", p_ocean: "Oceano e ardósia", p_copper: "Cobre e pedra", p_brand: "Usar as cores da minha marca",
+    f_brand: "Cores da marca ou link do logo", ph_brand: "#0E4D64, ou um link para o seu logo", f_type: "Estilo das letras", t_serif: "Serifa editorial", t_sans: "Sem serifa moderna", t_tech: "Técnico",
+    s5_h: "O que as imagens devem mostrar?", s5_p: "Toda imagem do seu site é criada para você. Descreva as cenas com suas palavras, como descreveria uma foto para um amigo.",
+    f_scene_hero: "A imagem de abertura", ph_scene_hero: "Um navio sendo carregado de minério ao amanhecer, enorme e calmo", f_scene2: "Outra cena", ph_scene2: "Close de minério de cobre na mão enluvada de um trabalhador", f_scene3: "E mais uma", ph_scene3: "Um escritório silencioso com vista para o porto",
+    f_people: "Pessoas nas imagens", pp_yes: "Sim", pp_hands: "Só mãos e detalhes", pp_no: "Sem pessoas",
+    f_photos: "Fotos reais para usar ou seguir", ph_photos: "Link para uma pasta no Drive ou Dropbox", f_avoid: "Algo a evitar?", ph_avoid: "Sorrisos de banco de imagem, clichês de tecnologia azul",
+    s6_h: "Sites que você gosta", s6_p: "Qualquer site, de qualquer área. Conte o que chamou sua atenção: o clima, um detalhe, o movimento.", f_ref1: "Referência 1", f_ref2: "Referência 2", f_ref3: "Referência 3", f_why: "O que você gosta nele",
+    s7_h: "A parte prática", s7_p: "Último passo. Isso nos ajuda a montar uma proposta que caiba.",
+    f_domain: "Domínio", d_own: "Já tenho um", d_need: "Preciso de um", d_unsure: "Não sei", f_domain_name: "Nome do domínio, se tiver",
+    f_email_domain: "E-mail nesse domínio?", e_have: "Já configurado", e_want: "Quero", e_no: "Não preciso",
+    f_when: "Quando quer o site no ar?", w_asap: "O quanto antes", w_month: "Em até um mês", w_quarter: "Em 2 a 3 meses", w_explore: "Só explorando",
+    f_budget: "Faixa de investimento (USD)", b_1: "Até $1.500", b_2: "$1.500 a $4.000", b_3: "$4.000 a $10.000", b_4: "$10.000 ou mais", b_5: "Ainda não sei",
+    f_notes: "Algo mais que devemos saber?",
+    review_count: "Revisão", s8_h: "Confira suas respostas", s8_p: "Se estiver tudo certo, é só enviar. Dá para editar qualquer passo.",
+    consent: "Concordo que a NRL Studios use estas respostas para preparar uma proposta e uma primeira direção de design para mim. Nada é compartilhado com terceiros.",
+    done_h: "Recebido. Obrigado.", done_p: "Seu briefing está com a gente. Os próximos passos:",
+    next1: "Lemos tudo e desenhamos a estrutura e a direção de texto do seu site.",
+    next2: "Criamos imagens de amostra no clima que você escolheu, feitas para a sua marca.",
+    next3: "Em até dois dias úteis você recebe essa primeira direção e uma proposta.",
+    fb_p: "Seu app de e-mail deve ter aberto com o briefing. Se não abriu, copie e envie para hello@nrlstudios.com.", fb_copy: "Copiar meu briefing", copied: "Copiado",
+    btn_back: "← Voltar", btn_next: "Continuar →", btn_review: "Revisar respostas →", btn_send: "Enviar meu briefing →", sending: "Enviando…", kbd: "Enter ↵ para continuar",
+    edit: "Editar", empty: "Sem resposta",
+    e_required: "Preencha os campos destacados.", e_email: "Esse e-mail não parece certo.", e_consent: "Marque a caixa para concordar antes de enviar.", e_send: "Algo deu errado no envio. Abrimos seu app de e-mail no lugar.",
+    rv: { name: "Nome", email: "E-mail", phone: "Telefone", business: "Negócio", current_site: "Site atual", languages: "Idiomas", what: "O que faz", audience: "Público", difference: "Diferencial", goal: "Ação principal", offers: "Ofertas", sections: "Seções", shape: "Formato", look: "Clima", palette: "Cores", brand_colors: "Cores da marca", type: "Letras", scenes: "Cenas", people: "Pessoas", photos: "Fotos", avoid: "Evitar", refs: "Referências", domain: "Domínio", email_domain: "E-mail no domínio", timeline: "Prazo", budget: "Investimento", notes: "Notas" }
+  }
+};
+
+const form = document.getElementById('intake');
+const steps = [...form.querySelectorAll('.step')];
+const TOTAL = 7, REVIEW = 8, DONE = 9;
+let cur = 1, lang = 'en', lastBrief = '';
+
+/* ---------- language ---------- */
+function pickLang() {
+  try { const s = localStorage.getItem('nrlLang'); if (s && T[s]) return s; } catch (e) {}
+  const l = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+  return /^pt/i.test(l) ? 'pt' : 'en';
+}
+function applyLang(l) {
+  lang = l; const t = T[l];
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (t[k] != null) el.textContent = t[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if (t[k] != null) el.innerHTML = t[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (t[k] != null) el.placeholder = t[k]; });
+  document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'));
+  buildRail(); updateButtons(); if (cur === REVIEW) buildReview();
+}
+document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('click', () => {
+  try { localStorage.setItem('nrlLang', b.dataset.lang); } catch (e) {}
+  applyLang(b.dataset.lang);
+}));
+
+/* ---------- rail + progress ---------- */
+function buildRail() {
+  const rail = document.getElementById('rail'); const t = T[lang];
+  rail.innerHTML = '';
+  t.rail.concat([t.rail_review]).forEach((name, i) => {
+    const n = i + 1, li = document.createElement('li');
+    li.className = n === cur ? 'on' : (n < cur || cur === DONE ? 'done' : '');
+    const b = document.createElement('button'); b.type = 'button';
+    b.innerHTML = '<span class="n">' + String(n).padStart(2, '0') + '</span><span class="lbl">' + name + '</span>';
+    b.setAttribute('aria-label', name); if (n === cur) b.setAttribute('aria-current', 'step');
+    b.disabled = cur === DONE || n > furthest;
+    if (!b.disabled) b.addEventListener('click', () => go(n));
+    else b.style.cursor = 'default';
+    li.appendChild(b); rail.appendChild(li);
+  });
+  document.getElementById('progress').style.width = (Math.min(cur - 1, TOTAL) / TOTAL * 100) + '%';
+}
+let furthest = 1;
+
+function updateButtons() {
+  const t = T[lang], back = document.getElementById('back'), next = document.getElementById('next');
+  document.getElementById('actions').hidden = cur === DONE;
+  back.style.visibility = cur === 1 ? 'hidden' : 'visible';
+  next.textContent = cur === REVIEW ? t.btn_send : (cur === TOTAL ? t.btn_review : t.btn_next);
+}
+
+function go(n, focus = true) {
+  steps.forEach(s => s.classList.toggle('on', +s.dataset.step === n));
+  cur = n; furthest = Math.max(furthest, n);
+  setErr(''); buildRail(); updateButtons();
+  if (n === REVIEW) buildReview();
+  const card = document.querySelector('.card');
+  if (card.getBoundingClientRect().top < 0) window.scrollTo({ top: card.offsetTop - 90, behavior: 'smooth' });
+  if (focus) { const h = steps[n - 1].querySelector('h2'); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+}
+
+/* ---------- validation ---------- */
+function setErr(m) { document.getElementById('err').textContent = m; }
+function validate(n) {
+  const step = steps[n - 1]; let ok = true, msg = T[lang].e_required;
+  step.querySelectorAll('.invalid').forEach(e => e.classList.remove('invalid'));
+  step.querySelectorAll('input[required], textarea[required]').forEach(el => {
+    if (el.type === 'checkbox') return;
+    if (!el.value.trim()) { el.classList.add('invalid'); ok = false; }
+    else if (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())) { el.classList.add('invalid'); ok = false; msg = T[lang].e_email; }
+  });
+  step.querySelectorAll('[data-required]').forEach(g => {
+    if (!form.querySelector('input[name="' + g.dataset.required + '"]:checked')) { g.querySelectorAll('.face, .chip span').forEach(x => x.classList.add('invalid')); ok = false; }
+  });
+  if (n === REVIEW && !document.getElementById('consent').checked) { ok = false; msg = T[lang].e_consent; }
+  if (!ok) { setErr(msg); const first = step.querySelector('.invalid'); if (first && first.focus) first.focus(); }
+  return ok;
+}
+form.addEventListener('change', e => { const g = e.target.closest('[data-required]'); if (g) g.querySelectorAll('.invalid').forEach(x => x.classList.remove('invalid')); });
+form.addEventListener('input', e => { if (e.target.classList.contains('invalid') && e.target.value.trim()) e.target.classList.remove('invalid'); });
+
+/* ---------- data ---------- */
+const val = n => (form.elements[n] && form.elements[n].value || '').trim();
+const checked = n => [...form.querySelectorAll('input[name="' + n + '"]:checked')].map(i => i.value);
+const one = n => checked(n)[0] || '';
+function slugify(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'project'; }
+
+function collect() {
+  const offers = [1, 2, 3, 4].map(i => ({ name: val('offer_name_' + i), line: val('offer_desc_' + i) })).filter(o => o.name || o.line);
+  const scenes = [['hero', val('scene_hero')], ['scene-2', val('scene_2')], ['scene-3', val('scene_3')]].filter(s => s[1]);
+  const refs = [1, 2, 3].map(i => ({ url: val('ref_' + i), why: val('ref_' + i + '_why') })).filter(r => r.url || r.why);
+  const lookKey = one('look');
+  const people = one('people');
+  return {
+    version: 1, submitted_at: new Date().toISOString(), form_language: lang,
+    client: { name: val('name'), email: val('email'), phone: val('phone'), business: val('business'), current_site: val('current_site') },
+    site: {
+      slug: slugify(val('business')), languages: checked('languages'),
+      what: val('what'), audience: val('audience'), difference: val('difference'), primary_action: one('goal'),
+      offers, sections: checked('sections'), shape: one('shape')
+    },
+    brand: { mood: lookKey, palette: one('palette'), brand_colors: val('brand_colors'), lettering: one('type') },
+    imagery: { scenes: scenes.map(s => ({ slot: s[0], description: s[1] })), people, own_photos: val('photos'), avoid: val('avoid') },
+    references: refs,
+    practical: { domain_status: one('domain_status'), domain: val('domain'), email_on_domain: one('email_domain'), timeline: one('timeline'), budget: one('budget'), notes: val('notes') },
+    /* Ready for our generator: one image job per scene, shot per the Human Image guide */
+    pipeline: {
+      direction: LOOKS[lookKey] || LOOKS.cinematic,
+      people_rule: people === 'No people' ? 'no people in frame' : (people === 'Hands and details only' ? 'hands and details only, faces out of frame' : 'people allowed'),
+      images: scenes.map((s, i) => ({ name: s[0], aspect_ratio: i === 0 ? '16:9' : '3:2', resolution: '2k', model: 'nano_banana_2', brief: s[1] })),
+      output: { page: 'index.html', images_dir: 'images/', host: 'GitHub Pages' }
+    }
+  };
+}
+
+function readable(d) {
+  const r = T.en.rv, L = [];
+  const add = (k, v) => { if (v && (!Array.isArray(v) || v.length)) L.push(r[k] + ': ' + (Array.isArray(v) ? v.join(', ') : v)); };
+  L.push('NEW PROJECT BRIEF · ' + d.client.business, '');
+  add('name', d.client.name); add('email', d.client.email); add('phone', d.client.phone); add('current_site', d.client.current_site); add('languages', d.site.languages);
+  L.push(''); add('what', d.site.what); add('audience', d.site.audience); add('difference', d.site.difference); add('goal', d.site.primary_action);
+  d.site.offers.forEach((o, i) => L.push('Offer ' + (i + 1) + ': ' + o.name + (o.line ? ' · ' + o.line : '')));
+  L.push(''); add('sections', d.site.sections); add('shape', d.site.shape);
+  L.push(''); add('look', d.pipeline.direction.look); add('palette', d.brand.palette); add('brand_colors', d.brand.brand_colors); add('type', d.brand.lettering);
+  L.push(''); d.imagery.scenes.forEach(s => L.push('Scene (' + s.slot + '): ' + s.description)); add('people', d.imagery.people); add('photos', d.imagery.own_photos); add('avoid', d.imagery.avoid);
+  if (d.references.length) { L.push(''); d.references.forEach((x, i) => L.push('Ref ' + (i + 1) + ': ' + x.url + (x.why ? ' · ' + x.why : ''))); }
+  L.push(''); add('domain', [d.practical.domain_status, d.practical.domain].filter(Boolean).join(' · ')); add('email_domain', d.practical.email_on_domain); add('timeline', d.practical.timeline); add('budget', d.practical.budget); add('notes', d.practical.notes);
+  return L.join('\n');
+}
+
+/* ---------- review ---------- */
+function buildReview() {
+  const d = collect(), t = T[lang], r = t.rv, box = document.getElementById('review');
+  const lookName = d.brand.mood ? t['l_' + { cinematic: 'cin', commercial: 'com', documentary: 'doc', moody: 'moody', golden: 'gold', bw: 'bw', neon: 'neon' }[d.brand.mood]] : '';
+  const rows = [
+    [1, r.name, d.client.name], [1, r.email, d.client.email], [1, r.business, d.client.business], [1, r.languages, d.site.languages.join(', ')],
+    [2, r.what, d.site.what], [2, r.audience, d.site.audience], [2, r.goal, d.site.primary_action],
+    [2, r.offers, d.site.offers.map(o => o.name + (o.line ? ' · ' + o.line : '')).join('\n')],
+    [3, r.sections, d.site.sections.join(', ')], [3, r.shape, d.site.shape],
+    [4, r.look, lookName], [4, r.palette, [d.brand.palette, d.brand.brand_colors].filter(Boolean).join(' · ')],
+    [5, r.scenes, d.imagery.scenes.map(s => s.description).join('\n')], [5, r.people, d.imagery.people],
+    [6, r.refs, d.references.map(x => x.url + (x.why ? ' · ' + x.why : '')).join('\n')],
+    [7, r.timeline, d.practical.timeline], [7, r.budget, d.practical.budget], [7, r.domain, [d.practical.domain_status, d.practical.domain].filter(Boolean).join(' · ')]
+  ];
+  box.innerHTML = '';
+  rows.forEach(([s, k, v]) => {
+    const row = document.createElement('div'); row.className = 'row';
+    const kk = document.createElement('div'); kk.className = 'k'; kk.textContent = k;
+    const e = document.createElement('button'); e.type = 'button'; e.className = 'edit'; e.textContent = t.edit; e.addEventListener('click', () => go(s)); kk.appendChild(e);
+    const vv = document.createElement('div'); vv.className = 'v' + (v ? '' : ' empty'); vv.textContent = v || t.empty;
+    row.append(kk, vv); box.appendChild(row);
+  });
+}
+
+/* ---------- submit ---------- */
+function mailtoFallback(d, text) {
+  const subject = 'Project brief · ' + d.client.business;
+  let body = text; if (body.length > 1800) body = body.slice(0, 1800) + '\n…';
+  document.getElementById('fallback').hidden = false;
+  window.location.href = 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+
+async function send() {
+  const d = collect(), text = readable(d), next = document.getElementById('next');
+  lastBrief = text + '\n\n--- machine brief (JSON) ---\n' + JSON.stringify(d, null, 2);
+  if (form.elements.botcheck.checked) { go(DONE); return; }
+  if (!WEB3FORMS_KEY) { go(DONE); mailtoFallback(d, text); return; }
+  next.disabled = true; next.textContent = T[lang].sending;
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: 'Project brief · ' + d.client.business, from_name: 'NRL Studios intake', replyto: d.client.email,
+        email: d.client.email, name: d.client.name, message: text, brief_json: JSON.stringify(d) })
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || out.success === false) throw new Error('send failed');
+    go(DONE);
+  } catch (e) {
+    go(DONE); setErr(T[lang].e_send); mailtoFallback(d, text);
+  } finally { next.disabled = false; updateButtons(); }
+}
+
+document.getElementById('copyBrief').addEventListener('click', e => {
+  const b = e.currentTarget, done = () => { b.textContent = T[lang].copied; setTimeout(() => b.textContent = T[lang].fb_copy, 1600); };
+  if (navigator.clipboard) navigator.clipboard.writeText(lastBrief).then(done, () => {}); else done();
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if (!validate(cur)) return;
+  if (cur < REVIEW) go(cur + 1); else send();
+});
+document.getElementById('back').addEventListener('click', () => { if (cur > 1) go(cur - 1); });
+form.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.tagName === 'TEXTAREA' && !(e.metaKey || e.ctrlKey)) e.stopPropagation(); });
+
+applyLang(pickLang()); go(1, false);
+</script>
+</body>
+</html>

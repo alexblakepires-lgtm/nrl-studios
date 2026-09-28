@@ -46,6 +46,8 @@ while IFS=$'\t' read -r NAME ASPECT PROMPT <&3; do
     echo "skip  $NAME (exists)"; continue
   fi
 
+  # A prompt starting with "!" skips the shared STYLE suffix (for images that need their own look)
+  S="$STYLE"; case "$PROMPT" in '!'*) PROMPT="${PROMPT#!}"; S="" ;; esac
   echo "gen   $NAME  [$ASPECT]"
   LOG="$IMG/raw/$NAME.log"
   # Optional: drop your own photo at refs/<name>.jpg (or .png) to guide this image
@@ -53,10 +55,10 @@ while IFS=$'\t' read -r NAME ASPECT PROMPT <&3; do
   for ext in jpg jpeg png webp; do [ -f "refs/$NAME.$ext" ] && REF="refs/$NAME.$ext" && break; done
   if [ -n "$REF" ]; then
     echo "      using reference $REF"
-    higgsfield generate create "$MODEL" --prompt "$PROMPT$STYLE" --image "$REF" \
+    higgsfield generate create "$MODEL" --prompt "$PROMPT$S" --image "$REF" \
       --aspect_ratio "$ASPECT" --resolution "$RES" --wait > "$LOG" 2>&1 < /dev/null
   else
-    higgsfield generate create "$MODEL" --prompt "$PROMPT$STYLE" \
+    higgsfield generate create "$MODEL" --prompt "$PROMPT$S" \
       --aspect_ratio "$ASPECT" --resolution "$RES" --wait > "$LOG" 2>&1 < /dev/null
   fi
 
