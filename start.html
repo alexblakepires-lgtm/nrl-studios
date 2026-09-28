@@ -17,6 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
   :root {
     --ground: #110E17; --panel: #1A1622; --panel-2: #221C2C; --line: #2E2739;
     --text: #ECE7F2; --muted: #A39BB2; --faint: #6F6780;
@@ -171,6 +172,11 @@
   .fallback { margin-top: 22px; padding: 16px; border: 1px dashed var(--line); font-size: 0.88rem; color: var(--muted); }
   .fallback .btn { margin-top: 12px; }
 
+  .paybox, .upsell { margin-top: 26px; padding: 24px; border: 1px solid var(--amber-dim); background: rgba(255,181,71,0.05); }
+  .paybox h3 { font-family: var(--display); font-weight: 600; font-size: 1.35rem; margin: 6px 0 6px; }
+  .paybox p, .upsell p { color: var(--muted); margin: 6px 0 16px; }
+  .pack-banner { margin-top: 18px; padding: 12px 14px; border-left: 2px solid var(--amber); background: rgba(255,181,71,0.06); font-size: 0.9rem; color: var(--muted); }
+  .pack-banner b { color: var(--text); }
   footer { position: relative; z-index: 1; text-align: center; padding: 24px 16px 40px; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--faint); }
 
   @media (max-width: 960px) {
@@ -210,6 +216,7 @@
     <div class="eyebrow" data-i18n="eyebrow">Project intake · about 8 minutes</div>
     <h1 data-i18n-html="title">Tell us what you're building. <em>We'll show you what it could look like.</em></h1>
     <p class="lede" data-i18n="lede">Seven short steps. From your answers we sketch a first direction for your site: structure, copy and cinematic imagery made for your brand.</p>
+    <div class="pack-banner" id="packBanner" hidden data-i18n-html="pack_banner"><b>Brand Image Pack · $199</b><br>Six images in 72 hours. A few questions, then payment.</div>
     <ol class="rail" id="rail"></ol>
     <div class="meta" data-i18n-html="meta">Your answers go only to NRL Studios.<br>English or Portuguese, whichever you prefer.</div>
   </aside>
@@ -346,6 +353,9 @@
           <div class="field full"><label for="scene_hero"><span data-i18n="f_scene_hero">The opening image</span><span class="req">*</span></label><textarea id="scene_hero" name="scene_hero" required data-i18n-ph="ph_scene_hero" placeholder="A cargo ship being loaded with ore at dawn, huge and calm"></textarea></div>
           <div class="field"><label for="scene_2" data-i18n="f_scene2">Another scene</label><textarea id="scene_2" name="scene_2" data-i18n-ph="ph_scene2" placeholder="Close-up of raw copper ore in a worker's gloved hand"></textarea></div>
           <div class="field"><label for="scene_3" data-i18n="f_scene3">And another</label><textarea id="scene_3" name="scene_3" data-i18n-ph="ph_scene3" placeholder="A quiet office overlooking the port"></textarea></div>
+          <div class="field pack-only" hidden><label for="scene_4" data-i18n="f_scene4">Scene 4</label><textarea id="scene_4" name="scene_4"></textarea></div>
+          <div class="field pack-only" hidden><label for="scene_5" data-i18n="f_scene5">Scene 5</label><textarea id="scene_5" name="scene_5"></textarea></div>
+          <div class="field pack-only full" hidden><label for="scene_6" data-i18n="f_scene6">Scene 6</label><textarea id="scene_6" name="scene_6"></textarea><p class="hint" data-i18n="h_scenes_pack">Leave any empty and we'll choose that scene for you.</p></div>
         </div>
         <fieldset class="block">
           <legend class="legend" data-i18n="f_people">People in the images</legend>
@@ -451,6 +461,18 @@
           <li data-i18n="next2">We create sample images in the mood you picked, made for your brand.</li>
           <li data-i18n="next3">Within two business days you hear from us with that first direction and a proposal.</li>
         </ul>
+        <div class="paybox" id="paybox" hidden>
+          <div class="eyebrow" data-i18n="pay_k">Last step</div>
+          <h3 data-i18n="pay_h">Complete your payment · $199</h3>
+          <p data-i18n="pay_p">Secure checkout by Square. Your 72 hours start as soon as payment is confirmed.</p>
+          <a class="btn btn-primary" id="payBtn" href="#" target="_blank" rel="noopener" data-i18n="pay_btn">Pay $199 securely →</a>
+          <p class="hint" id="payMissing" hidden data-i18n="pay_missing">Online payment is being set up. We'll email you a secure payment link within a few hours.</p>
+        </div>
+        <div class="upsell" id="upsell" hidden>
+          <div class="eyebrow" data-i18n="up_k">Not ready for a full site?</div>
+          <p data-i18n="up_p">Start with the Brand Image Pack: six cinematic images of your business in 72 hours, for $199.</p>
+          <a class="btn btn-primary" href="images.html" data-i18n="up_btn">See the Image Pack →</a>
+        </div>
         <div class="fallback" id="fallback" hidden>
           <span data-i18n="fb_p">Your email app should have opened with the brief. If it didn't, copy it and send it to hello@nrlstudios.com.</span><br>
           <button type="button" class="btn btn-primary" id="copyBrief" data-i18n="fb_copy">Copy my brief</button>
@@ -473,23 +495,52 @@
 <canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
 <script>
 (() => {
-  const fine = matchMedia('(pointer: fine)').matches, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cv = document.getElementById('cursor-trail');
   if (!fine || still || !cv) { if (cv) cv.remove(); return; }
-  const ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  const ctx = cv.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+                       cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+                       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
   size(); addEventListener('resize', size);
-  const R = 44, LIFE = 90; let target = {x:-200,y:-200}, dot = {x:-200,y:-200}, energy = 0, life = 0, raf = 0;
-  addEventListener('pointermove', e => { target.x = e.clientX; target.y = e.clientY; if (dot.x < -100) { dot.x = target.x; dot.y = target.y; } energy = 1; life = LIFE; if (!raf) raf = requestAnimationFrame(tick); }, {passive:true});
-  function tick() {
+
+  // Timing is in seconds, so the trail feels the same on 60 Hz and 120 Hz screens.
+  const R = 44;                 // glow radius in px
+  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor (was about 0.30)
+  const GLOW = 0.62;            // seconds the glow keeps shining after the mouse stops (unchanged)
+  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops (was 1.5)
+  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
+
+  addEventListener('pointermove', e => {
+    target.x = e.clientX; target.y = e.clientY;
+    if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
+    energy = 1; life = LIFE;
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }, {passive: true});
+
+  function tick(now) {
+    const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
     if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
-    raf = requestAnimationFrame(tick); life--; energy *= 0.94; const age = 1 - life / LIFE;
-    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,' + (0.12 + age * age * 0.4) + ')'; ctx.fillRect(0, 0, innerWidth, innerHeight);
+    raf = requestAnimationFrame(tick);
+    life -= dt; energy *= Math.pow(0.1, dt / GLOW);
+    const age = 1 - Math.max(life, 0) / LIFE;
+    const fade = 1 - Math.pow(0.1, dt / TAIL) + age * age * 0.4 * dt * 60;
+    ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
     if (energy > 0.01) {
-      dot.x += (target.x - dot.x) * 0.45; dot.y += (target.y - dot.y) * 0.45; ctx.globalCompositeOperation = 'lighter';
+      const k = 1 - Math.pow(0.55, dt * 60);                  // same tight follow as before
+      dot.x += (target.x - dot.x) * k;                         // glide toward the pointer
+      dot.y += (target.y - dot.y) * k;
+      const e = energy * dt * 60;                              // same brightness at any refresh rate
+      ctx.globalCompositeOperation = 'lighter';               // glows add up like light
       const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
-      g.addColorStop(0, 'rgba(229,228,226,' + (0.10 * energy) + ')'); g.addColorStop(0.35, 'rgba(212,168,84,' + (0.07 * energy) + ')');
-      g.addColorStop(0.7, 'rgba(184,98,52,' + (0.04 * energy) + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0,    'rgba(229,228,226,' + (0.076 * e) + ')');  // platinum core
+      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.053 * e) + ')');  // gold
+      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.030 * e) + ')');  // copper edge
+      g.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
     }
   }
@@ -505,6 +556,8 @@
    ============================================================ */
 const WEB3FORMS_KEY = "";
 const STUDIO_EMAIL = "hello@nrlstudios.com";
+/* Square payment link for the Brand Image Pack ($199). Paste it between the quotes. */
+const SQUARE_PACK_LINK = "";
 
 /* Look -> how our image pipeline (Higgsfield + Nano Banana 2, Human Image guide) will shoot it */
 const LOOKS = {
@@ -553,6 +606,17 @@ const T = {
     f_budget: "Budget range (USD)", b_1: "Under $1,500", b_2: "$1,500 to $4,000", b_3: "$4,000 to $10,000", b_4: "$10,000 or more", b_5: "Not sure yet",
     f_intl: "Do your customers speak other languages?", h_intl: "Your site is written in the language you're using now. Extra languages are an optional add-on to the quote.",
     f_notes: "Anything else we should know?",
+    f_scene4: "Scene 4", f_scene5: "Scene 5", f_scene6: "Scene 6", h_scenes_pack: "Leave any empty and we'll choose that scene for you.",
+    pack_eyebrow: "Brand Image Pack · $199", pack_title: "Tell us about your business. <em>We'll create your six images.</em>",
+    pack_lede: "Four short steps, then secure payment. Your images arrive within 72 hours.",
+    pack_banner: "<b>Brand Image Pack · $199</b><br>Six images in 72 hours. A few questions, then payment.",
+    pack_s5_p: "Describe up to six scenes in your own words. We shoot them in the mood you picked: wide for your website, square and vertical for social.",
+    btn_pay: "Continue to payment →", pack_done_h: "Brief received.", pack_done_p: "One more step and we start on your images:",
+    pack_next1: "Complete the $199 payment below.", pack_next2: "We create your six images in the mood you picked.", pack_next3: "Within 72 hours you get a download link, with one round of changes included.",
+    pay_k: "Last step", pay_h: "Complete your payment · $199", pay_p: "Secure checkout by Square. Your 72 hours start as soon as payment is confirmed.", pay_btn: "Pay $199 securely →",
+    pay_missing: "Online payment is being set up. We'll email you a secure payment link within a few hours.",
+    up_k: "Not ready for a full site?", up_p: "Start with the Brand Image Pack: six cinematic images of your business in 72 hours, for $199.", up_btn: "See the Image Pack →",
+    consent_pack: "I agree that NRL Studios may use these answers to create my images. Nothing is shared with third parties.",
     review_count: "Review", s8_h: "Check your answers", s8_p: "If everything looks right, send it. You can edit any step.",
     consent: "I agree that NRL Studios may use these answers to prepare a proposal and a first design direction for me. Nothing is shared with third parties.",
     done_h: "Received. Thank you.", done_p: "Your brief is with us. Here is what happens next:",
@@ -600,6 +664,17 @@ const T = {
     f_budget: "Faixa de investimento (USD)", b_1: "Até $1.500", b_2: "$1.500 a $4.000", b_3: "$4.000 a $10.000", b_4: "$10.000 ou mais", b_5: "Ainda não sei",
     f_intl: "Seus clientes falam outros idiomas?", h_intl: "Seu site é escrito no idioma que você está usando agora. Idiomas extras são um adicional opcional no orçamento.",
     f_notes: "Algo mais que devemos saber?",
+    f_scene4: "Cena 4", f_scene5: "Cena 5", f_scene6: "Cena 6", h_scenes_pack: "Deixe alguma vazia e nós escolhemos essa cena para você.",
+    pack_eyebrow: "Pacote de Imagens · $199", pack_title: "Conte sobre o seu negócio. <em>Nós criamos suas seis imagens.</em>",
+    pack_lede: "Quatro passos curtos, depois o pagamento seguro. Suas imagens chegam em até 72 horas.",
+    pack_banner: "<b>Pacote de Imagens · $199</b><br>Seis imagens em 72 horas. Algumas perguntas e depois o pagamento.",
+    pack_s5_p: "Descreva até seis cenas com suas palavras. Fotografamos no clima que você escolheu: horizontais para o site, quadradas e verticais para as redes.",
+    btn_pay: "Seguir para o pagamento →", pack_done_h: "Briefing recebido.", pack_done_p: "Mais um passo e começamos suas imagens:",
+    pack_next1: "Conclua o pagamento de $199 abaixo.", pack_next2: "Criamos suas seis imagens no clima que você escolheu.", pack_next3: "Em até 72 horas você recebe um link para baixar, com uma rodada de ajustes incluída.",
+    pay_k: "Último passo", pay_h: "Conclua o pagamento · $199", pay_p: "Pagamento seguro pela Square. Suas 72 horas começam assim que o pagamento for confirmado.", pay_btn: "Pagar $199 com segurança →",
+    pay_missing: "O pagamento online está sendo configurado. Enviaremos um link seguro de pagamento por e-mail em poucas horas.",
+    up_k: "Ainda não é hora de um site completo?", up_p: "Comece pelo Pacote de Imagens: seis imagens cinematográficas do seu negócio em 72 horas, por $199.", up_btn: "Ver o Pacote de Imagens →",
+    consent_pack: "Concordo que a NRL Studios use estas respostas para criar minhas imagens. Nada é compartilhado com terceiros.",
     review_count: "Revisão", s8_h: "Confira suas respostas", s8_p: "Se estiver tudo certo, é só enviar. Dá para editar qualquer passo.",
     consent: "Concordo que a NRL Studios use estas respostas para preparar uma proposta e uma primeira direção de design para mim. Nada é compartilhado com terceiros.",
     done_h: "Recebido. Obrigado.", done_p: "Seu briefing está com a gente. Os próximos passos:",
@@ -617,7 +692,14 @@ const T = {
 const form = document.getElementById('intake');
 const steps = [...form.querySelectorAll('.step')];
 const TOTAL = 7, REVIEW = 8, DONE = 9;
+const PACK = new URLSearchParams(location.search).get('pack') === '1';
+const FLOW = PACK ? [1, 2, 4, 5, 8] : [1, 2, 3, 4, 5, 6, 7, 8];
 let cur = 1, lang = 'en', lastBrief = '';
+if (PACK) {
+  document.querySelectorAll('.pack-only').forEach(e => e.hidden = false);
+  document.getElementById('packBanner').hidden = false;
+  document.querySelector('[data-required="goal"]').removeAttribute('data-required');
+}
 
 /* ---------- language ---------- */
 function pickLang() {
@@ -632,6 +714,16 @@ function applyLang(l) {
   document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if (t[k] != null) el.innerHTML = t[k]; });
   document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (t[k] != null) el.placeholder = t[k]; });
   document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'));
+  if (PACK) {
+    document.querySelector('.eyebrow[data-i18n="eyebrow"]').textContent = t.pack_eyebrow;
+    document.querySelector('h1[data-i18n-html="title"]').innerHTML = t.pack_title;
+    document.querySelector('.lede[data-i18n="lede"]').textContent = t.pack_lede;
+    document.querySelector('[data-i18n="s5_p"]').textContent = t.pack_s5_p;
+    document.querySelector('[data-i18n="consent"]').textContent = t.consent_pack;
+    document.querySelector('[data-i18n="done_h"]').textContent = t.pack_done_h;
+    document.querySelector('[data-i18n="done_p"]').textContent = t.pack_done_p;
+    ['next1','next2','next3'].forEach(k => document.querySelector('[data-i18n="' + k + '"]').textContent = t['pack_' + k]);
+  }
   document.querySelectorAll('input[name="extra_languages"]').forEach(i => { const own = i.value === (l === 'pt' ? 'Português' : 'English'); i.closest('.chip').hidden = own; if (own) i.checked = false; });
   buildRail(); updateButtons(); if (cur === REVIEW) buildReview();
 }
@@ -644,18 +736,22 @@ document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('c
 function buildRail() {
   const rail = document.getElementById('rail'); const t = T[lang];
   rail.innerHTML = '';
-  t.rail.concat([t.rail_review]).forEach((name, i) => {
-    const n = i + 1, li = document.createElement('li');
-    li.className = n === cur ? 'on' : (n < cur || cur === DONE ? 'done' : '');
+  const names = t.rail.concat([t.rail_review]), pos = FLOW.indexOf(cur);
+  FLOW.forEach((n, i) => {
+    const name = names[n - 1], li = document.createElement('li');
+    li.className = n === cur ? 'on' : (i < pos || cur === DONE ? 'done' : '');
     const b = document.createElement('button'); b.type = 'button';
-    b.innerHTML = '<span class="n">' + String(n).padStart(2, '0') + '</span><span class="lbl">' + name + '</span>';
+    b.innerHTML = '<span class="n">' + String(i + 1).padStart(2, '0') + '</span><span class="lbl">' + name + '</span>';
     b.setAttribute('aria-label', name); if (n === cur) b.setAttribute('aria-current', 'step');
-    b.disabled = cur === DONE || n > furthest;
+    b.disabled = cur === DONE || i > FLOW.indexOf(furthest);
     if (!b.disabled) b.addEventListener('click', () => go(n));
     else b.style.cursor = 'default';
     li.appendChild(b); rail.appendChild(li);
   });
-  document.getElementById('progress').style.width = (Math.min(cur - 1, TOTAL) / TOTAL * 100) + '%';
+  const p = cur === DONE ? 1 : FLOW.indexOf(cur) / (FLOW.length - 1);
+  document.getElementById('progress').style.width = (p * 100) + '%';
+  steps.forEach(st => { const c = st.querySelector('.step-count'), k = FLOW.indexOf(+st.dataset.step);
+    if (c && k > -1 && +st.dataset.step !== REVIEW) c.textContent = t.step + ' ' + String(k + 1).padStart(2, '0') + ' / ' + String(FLOW.length - 1).padStart(2, '0'); });
 }
 let furthest = 1;
 
@@ -663,12 +759,13 @@ function updateButtons() {
   const t = T[lang], back = document.getElementById('back'), next = document.getElementById('next');
   document.getElementById('actions').hidden = cur === DONE;
   back.style.visibility = cur === 1 ? 'hidden' : 'visible';
-  next.textContent = cur === REVIEW ? t.btn_send : (cur === TOTAL ? t.btn_review : t.btn_next);
+  const last = FLOW[FLOW.length - 2];
+  next.textContent = cur === REVIEW ? (PACK ? t.btn_pay : t.btn_send) : (cur === last ? t.btn_review : t.btn_next);
 }
 
 function go(n, focus = true) {
   steps.forEach(s => s.classList.toggle('on', +s.dataset.step === n));
-  cur = n; furthest = Math.max(furthest, n);
+  cur = n; if (n !== DONE && FLOW.indexOf(n) > FLOW.indexOf(furthest)) furthest = n;
   setErr(''); buildRail(); updateButtons();
   if (n === REVIEW) buildReview();
   const card = document.querySelector('.card');
@@ -704,12 +801,15 @@ function slugify(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerC
 
 function collect() {
   const offers = [1, 2, 3, 4].map(i => ({ name: val('offer_name_' + i), line: val('offer_desc_' + i) })).filter(o => o.name || o.line);
-  const scenes = [['hero', val('scene_hero')], ['scene-2', val('scene_2')], ['scene-3', val('scene_3')]].filter(s => s[1]);
+  const rawScenes = [['hero', val('scene_hero')], ['scene-2', val('scene_2')], ['scene-3', val('scene_3')]].concat(PACK ? [['scene-4', val('scene_4')], ['scene-5', val('scene_5')], ['scene-6', val('scene_6')]] : []);
+  const scenes = PACK ? rawScenes.map(s => [s[0], s[1] || "Director's choice: a scene that fits the business and mood"]) : rawScenes.filter(s => s[1]);
+  const PACK_RATIOS = ['16:9', '16:9', '1:1', '1:1', '4:5', '9:16'];
   const refs = [1, 2, 3].map(i => ({ url: val('ref_' + i), why: val('ref_' + i + '_why') })).filter(r => r.url || r.why);
   const lookKey = one('look');
   const people = one('people');
   return {
     version: 1, submitted_at: new Date().toISOString(), form_language: lang,
+    order: PACK ? { product: 'Brand Image Pack', price_usd: 199, status: 'awaiting payment', delivery: '6 images, 72 hours, 1 round of changes' } : { product: 'Website project', status: 'lead' },
     client: { name: val('name'), email: val('email'), phone: val('phone'), business: val('business'), current_site: val('current_site') },
     site: {
       slug: slugify(val('business')), primary_language: lang === 'pt' ? 'Português' : 'English', extra_languages: checked('extra_languages').filter(x => x !== (lang === 'pt' ? 'Português' : 'English')), languages: [lang === 'pt' ? 'Português' : 'English'].concat(checked('extra_languages').filter(x => x !== (lang === 'pt' ? 'Português' : 'English'))),
@@ -724,7 +824,7 @@ function collect() {
     pipeline: {
       direction: LOOKS[lookKey] || LOOKS.cinematic,
       people_rule: people === 'No people' ? 'no people in frame' : (people === 'Hands and details only' ? 'hands and details only, faces out of frame' : 'people allowed'),
-      images: scenes.map((s, i) => ({ name: s[0], aspect_ratio: i === 0 ? '16:9' : '3:2', resolution: '2k', model: 'nano_banana_2', brief: s[1] })),
+      images: scenes.map((s, i) => ({ name: s[0], aspect_ratio: PACK ? PACK_RATIOS[i] : (i === 0 ? '16:9' : '3:2'), resolution: '2k', model: 'nano_banana_2', brief: s[1] })),
       output: { page: 'index.html', images_dir: 'images/', host: 'GitHub Pages' }
     }
   };
@@ -733,7 +833,7 @@ function collect() {
 function readable(d) {
   const r = T.en.rv, L = [];
   const add = (k, v) => { if (v && (!Array.isArray(v) || v.length)) L.push(r[k] + ': ' + (Array.isArray(v) ? v.join(', ') : v)); };
-  L.push('NEW PROJECT BRIEF · ' + d.client.business, '');
+  L.push((PACK ? 'IMAGE PACK ORDER ($199, awaiting payment) · ' : 'NEW PROJECT BRIEF · ') + d.client.business, '');
   add('name', d.client.name); add('email', d.client.email); add('phone', d.client.phone); add('current_site', d.client.current_site); add('languages', d.site.languages);
   L.push(''); add('what', d.site.what); add('audience', d.site.audience); add('difference', d.site.difference); add('goal', d.site.primary_action);
   d.site.offers.forEach((o, i) => L.push('Offer ' + (i + 1) + ': ' + o.name + (o.line ? ' · ' + o.line : '')));
@@ -760,7 +860,7 @@ function buildReview() {
     [7, r.languages, d.site.languages.join(', ')], [7, r.timeline, d.practical.timeline], [7, r.budget, d.practical.budget], [7, r.domain, [d.practical.domain_status, d.practical.domain].filter(Boolean).join(' · ')]
   ];
   box.innerHTML = '';
-  rows.forEach(([s, k, v]) => {
+  rows.filter(r0 => FLOW.includes(r0[0]) && !(PACK && r0[1] === r.goal)).forEach(([s, k, v]) => {
     const row = document.createElement('div'); row.className = 'row';
     const kk = document.createElement('div'); kk.className = 'k'; kk.textContent = k;
     const e = document.createElement('button'); e.type = 'button'; e.className = 'edit'; e.textContent = t.edit; e.addEventListener('click', () => go(s)); kk.appendChild(e);
@@ -771,7 +871,7 @@ function buildReview() {
 
 /* ---------- submit ---------- */
 function mailtoFallback(d, text) {
-  const subject = 'Project brief · ' + d.client.business;
+  const subject = (PACK ? 'Image Pack order · ' : 'Project brief · ') + d.client.business;
   let body = text; if (body.length > 1800) body = body.slice(0, 1800) + '\n…';
   document.getElementById('fallback').hidden = false;
   window.location.href = 'mailto:' + STUDIO_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
@@ -786,7 +886,7 @@ async function send() {
   try {
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: 'Project brief · ' + d.client.business, from_name: 'NRL Studios intake', replyto: d.client.email,
+      body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: (PACK ? 'Image Pack order ($199) · ' : 'Project brief · ') + d.client.business, from_name: 'NRL Studios intake', replyto: d.client.email,
         email: d.client.email, name: d.client.name, message: text, brief_json: JSON.stringify(d) })
     });
     const out = await res.json().catch(() => ({}));
@@ -797,6 +897,18 @@ async function send() {
   } finally { next.disabled = false; updateButtons(); }
 }
 
+function afterDone() {
+  const d = collect();
+  if (PACK) {
+    document.getElementById('paybox').hidden = false;
+    const btn = document.getElementById('payBtn');
+    if (SQUARE_PACK_LINK) btn.href = SQUARE_PACK_LINK; else { btn.hidden = true; document.getElementById('payMissing').hidden = false; }
+  } else if (['Under $1,500', 'Not sure yet'].includes(d.practical.budget) || d.practical.timeline === 'Just exploring') {
+    document.getElementById('upsell').hidden = false;
+  }
+}
+const _go = go; go = function (n, f) { _go(n, f); if (n === DONE) afterDone(); };
+
 document.getElementById('copyBrief').addEventListener('click', e => {
   const b = e.currentTarget, done = () => { b.textContent = T[lang].copied; setTimeout(() => b.textContent = T[lang].fb_copy, 1600); };
   if (navigator.clipboard) navigator.clipboard.writeText(lastBrief).then(done, () => {}); else done();
@@ -805,9 +917,9 @@ document.getElementById('copyBrief').addEventListener('click', e => {
 form.addEventListener('submit', e => {
   e.preventDefault();
   if (!validate(cur)) return;
-  if (cur < REVIEW) go(cur + 1); else send();
+  if (cur < REVIEW) go(FLOW[FLOW.indexOf(cur) + 1]); else send();
 });
-document.getElementById('back').addEventListener('click', () => { if (cur > 1) go(cur - 1); });
+document.getElementById('back').addEventListener('click', () => { const i = FLOW.indexOf(cur); if (i > 0) go(FLOW[i - 1]); });
 form.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.tagName === 'TEXTAREA' && !(e.metaKey || e.ctrlKey)) e.stopPropagation(); });
 
 applyLang(pickLang()); go(1, false);

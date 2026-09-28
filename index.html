@@ -18,6 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
 
   :root {
     --ground: #110E17;
@@ -345,6 +346,17 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
+  .pack-link { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); text-decoration: none; }
+  .pack-link:hover { color: var(--amber-soft); }
+  .pack-band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    background: radial-gradient(70% 120% at 100% 0%, rgba(255,181,71,0.10), transparent 60%), var(--panel); }
+  .pack-inner { max-width: 1180px; margin: 0 auto; padding: 64px 3rem; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+  .pack-k { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+  .pack-band h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.15; margin: 10px 0 10px; max-width: 24ch; }
+  .pack-band p { color: var(--muted); max-width: 56ch; }
+  .pack-band .btn { flex: none; }
+  @media (max-width: 760px) { .pack-inner { flex-direction: column; align-items: flex-start; padding: 48px 16px; } }
+
   /* WhatsApp floating button (shows only when WA_NUMBER is set) */
   .wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 90; display: inline-flex; align-items: center; gap: 10px;
     padding: 12px 16px 12px 14px; background: var(--panel-2); color: var(--text); text-decoration: none; border: 1px solid var(--line);
@@ -365,6 +377,7 @@
     <li><a href="#store" data-i18n="nav_work">Work</a></li>
     <li><a href="#education" data-i18n="nav_services">Services</a></li>
     <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="images.html" data-i18n="nav_pack">Image Pack</a></li>
     <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
   <div class="nav-lang" role="group" aria-label="Language">
@@ -527,6 +540,7 @@
       <div class="edu-card-body">
         <h3 data-i18n="svc6_h">Brand imagery</h3>
         <p data-i18n="svc6_p">Every image on this site was generated for it. Your site gets its own visual language the same way.</p>
+        <a class="pack-link" href="images.html" data-i18n="svc6_link">Image Pack · $199 →</a>
       </div>
     </div>
   </div>
@@ -586,6 +600,17 @@
 </section>
 
 <!-- NEWSLETTER (CONTACT) -->
+<section class="pack-band" aria-labelledby="pack-h">
+  <div class="pack-inner">
+    <div>
+      <div class="pack-k" data-i18n="pack_k">Brand Image Pack · $199</div>
+      <h2 id="pack-h" data-i18n="pack_h">Not ready for a full site? Start with six images.</h2>
+      <p data-i18n="pack_p">Six cinematic images of your business in 72 hours. No photoshoot, no stock photos. Ready for your website, Instagram and ads.</p>
+    </div>
+    <a class="btn btn-primary" href="images.html" data-i18n="pack_btn">See the Image Pack →</a>
+  </div>
+</section>
+
 <div class="newsletter" id="contact">
   <h2 data-i18n="contact_h">Have a project?</h2>
   <p data-i18n="contact_p">Tell me what you're building and where it needs to be live. I reply in English or Portuguese.</p>
@@ -632,7 +657,8 @@
   // ── Copy (EN / PT) ──
   const T = {
     en: {
-      nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact",
+      nav_work: "Work", nav_services: "Services", nav_about: "About", nav_contact: "Contact", nav_pack: "Image Pack",
+      svc6_link: "Image Pack · $199 →", pack_k: "Brand Image Pack · $199", pack_h: "Not ready for a full site? Start with six images.", pack_p: "Six cinematic images of your business in 72 hours. No photoshoot, no stock photos. Ready for your website, Instagram and ads.", pack_btn: "See the Image Pack →",
       eyebrow: "Web & AI studio · California / Brazil",
       h1a: "Websites and AI products,", h1b: "built end to end.",
       lede: "A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
@@ -676,7 +702,8 @@
       foot_p: "Websites and AI products, built end to end. English and Portuguese.", foot_studio: "Studio"
     },
     pt: {
-      nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato",
+      nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato", nav_pack: "Pacote de Imagens",
+      svc6_link: "Pacote de Imagens · $199 →", pack_k: "Pacote de Imagens · $199", pack_h: "Ainda não é hora de um site completo? Comece com seis imagens.", pack_p: "Seis imagens cinematográficas do seu negócio em 72 horas. Sem sessão de fotos, sem banco de imagens. Prontas para o site, o Instagram e anúncios.", pack_btn: "Ver o Pacote de Imagens →",
       eyebrow: "Estúdio de web e IA · Califórnia / Brasil",
       h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
       lede: "Um estúdio comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
@@ -809,33 +836,40 @@
                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
   size(); addEventListener('resize', size);
 
+  // Timing is in seconds, so the trail feels the same on 60 Hz and 120 Hz screens.
   const R = 44;                 // glow radius in px
-  const LIFE = 90;              // frames the trail keeps drawing after the mouse stops
-  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0;
+  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor (was about 0.30)
+  const GLOW = 0.62;            // seconds the glow keeps shining after the mouse stops (unchanged)
+  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops (was 1.5)
+  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
 
   addEventListener('pointermove', e => {
     target.x = e.clientX; target.y = e.clientY;
     if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
     energy = 1; life = LIFE;
-    if (!raf) raf = requestAnimationFrame(tick);
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
   }, {passive: true});
 
-  function tick() {
+  function tick(now) {
+    const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
     if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
     raf = requestAnimationFrame(tick);
-    life--; energy *= 0.94;
-    const age = 1 - life / LIFE;
+    life -= dt; energy *= Math.pow(0.1, dt / GLOW);
+    const age = 1 - Math.max(life, 0) / LIFE;
+    const fade = 1 - Math.pow(0.1, dt / TAIL) + age * age * 0.4 * dt * 60;
     ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
-    ctx.fillStyle = 'rgba(0,0,0,' + (0.12 + age * age * 0.4) + ')';
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
     ctx.fillRect(0, 0, innerWidth, innerHeight);
     if (energy > 0.01) {
-      dot.x += (target.x - dot.x) * 0.45;                     // glide toward the pointer
-      dot.y += (target.y - dot.y) * 0.45;
+      const k = 1 - Math.pow(0.55, dt * 60);                  // same tight follow as before
+      dot.x += (target.x - dot.x) * k;                         // glide toward the pointer
+      dot.y += (target.y - dot.y) * k;
+      const e = energy * dt * 60;                              // same brightness at any refresh rate
       ctx.globalCompositeOperation = 'lighter';               // glows add up like light
       const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
-      g.addColorStop(0,    'rgba(229,228,226,' + (0.10 * energy) + ')');  // platinum core
-      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.07 * energy) + ')');  // gold
-      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.04 * energy) + ')');  // copper edge
+      g.addColorStop(0,    'rgba(229,228,226,' + (0.076 * e) + ')');  // platinum core
+      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.053 * e) + ')');  // gold
+      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.030 * e) + ')');  // copper edge
       g.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
     }

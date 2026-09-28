@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Image Pack · NRL Studios</title>
+<meta name="description" content="Six cinematic images of your business in 72 hours, for $199. No photoshoot, no stock photos.">
+<link rel="canonical" href="https://nrlstudios.com/images.html">
+<meta name="theme-color" content="#110E17">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Brand Image Pack · $199 · NRL Studios">
+<meta property="og:description" content="Six cinematic images of your business in 72 hours. No photoshoot, no stock photos.">
+<meta property="og:image" content="https://nrlstudios.com/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+  :root {
+    --ground: #110E17; --panel: #1A1622; --panel-2: #221C2C; --line: #2E2739;
+    --text: #ECE7F2; --muted: #A39BB2; --faint: #6F6780;
+    --amber: #FFB547; --amber-soft: #FFC56E; --amber-dim: #7A5A2A; --amber-ink: #1B1206;
+    --display: 'Chakra Petch', 'Arial Narrow', system-ui, sans-serif;
+    --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--ground); color: var(--text); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px; background: rgba(17,14,23,0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-logo { display: flex; align-items: center; gap: 0.7rem; font-family: var(--display); font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text); text-decoration: none; }
+  .nav-mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--amber); font-size: 0.75rem; font-weight: 700; color: var(--amber);
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
+  .nav-logo span.sub { color: var(--faint); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; font-weight: 400; }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-back { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .nav-back:hover { color: var(--text); }
+  .nav-lang { display: flex; gap: 2px; }
+  .nav-lang button { cursor: pointer; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--faint); background: none; border: none; min-width: 36px; min-height: 36px; }
+  .nav-lang button[aria-pressed="true"] { color: var(--amber); }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 3rem; }
+  .eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.04; letter-spacing: -0.01em; margin: 16px 0 20px; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--amber); }
+  h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.12; margin: 10px 0 14px; text-wrap: balance; }
+  .lede { color: var(--muted); font-size: 1.1rem; max-width: 52ch; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 0.95rem 2rem; font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: 0.03em;
+    text-decoration: none; cursor: pointer; border: none; clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 12px) 100%, 0 100%); transition: all 200ms var(--ease-out); }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--amber); color: var(--amber-ink); }
+  .btn-primary:hover { background: var(--amber-soft); }
+  .btn-ghost { background: rgba(236,231,242,0.08); color: var(--text); box-shadow: inset 0 0 0 1px rgba(236,231,242,0.3); }
+  .btn-ghost:hover { background: rgba(236,231,242,0.14); }
+
+  /* HERO */
+  .hero { position: relative; padding: 150px 0 90px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(80% 70% at 90% 10%, rgba(255,181,71,0.13), transparent 60%), radial-gradient(60% 60% at 0% 100%, rgba(184,98,52,0.10), transparent 60%); }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .price { display: flex; align-items: baseline; gap: 14px; margin: 28px 0 26px; }
+  .price b { font-family: var(--display); font-size: 3rem; line-height: 1; color: var(--text); }
+  .price span { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stack { position: relative; aspect-ratio: 4 / 5; }
+  .stack img { position: absolute; object-fit: cover; border: 1px solid var(--line); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+  .stack .a { width: 78%; height: 62%; top: 0; right: 0; }
+  .stack .b { width: 56%; height: 44%; bottom: 6%; left: 0; }
+  .stack .c { width: 40%; height: 34%; bottom: 0; right: 6%; }
+
+  section { padding: 90px 0; border-top: 1px solid var(--line); }
+
+  /* WHAT YOU GET */
+  .get { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 36px; }
+  .get div { background: var(--ground); padding: 26px 22px; }
+  .get b { display: block; font-family: var(--display); font-size: 2rem; color: var(--amber); line-height: 1; margin-bottom: 12px; }
+  .get h3 { font-family: var(--display); font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+  .get p { color: var(--muted); font-size: 0.92rem; }
+
+  /* GALLERY */
+  .gallery { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 150px; gap: 10px; margin-top: 36px; }
+  .gallery figure { position: relative; overflow: hidden; border: 1px solid var(--line); }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms var(--ease-out); }
+  .gallery figure:hover img { transform: scale(1.04); }
+  .gallery figcaption { position: absolute; left: 10px; bottom: 8px; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(236,231,242,0.8); text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
+  .g1 { grid-column: span 4; grid-row: span 2; } .g2 { grid-column: span 2; grid-row: span 2; }
+  .g3 { grid-column: span 2; } .g4 { grid-column: span 2; } .g5 { grid-column: span 2; }
+  .note { margin-top: 14px; font-size: 0.85rem; color: var(--faint); }
+
+  /* STEPS */
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 36px; counter-reset: s; }
+  .steps li { counter-increment: s; border-top: 2px solid var(--amber); padding-top: 18px; }
+  .steps li::before { content: "0" counter(s); font-family: var(--mono); font-size: 0.75rem; color: var(--amber); letter-spacing: 0.1em; }
+  .steps h3 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; margin: 8px 0 6px; }
+  .steps p { color: var(--muted); font-size: 0.95rem; }
+
+  /* FAQ */
+  .faq { margin-top: 30px; max-width: 820px; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  .faq summary { cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--amber); font-family: var(--mono); }
+  .faq details[open] summary::after { content: "−"; }
+  .faq p { color: var(--muted); margin-top: 10px; max-width: 70ch; }
+
+  /* FINAL CTA */
+  .final { text-align: center; padding: 100px 0 110px; }
+  .final .lede { margin: 0 auto 30px; }
+
+  footer { text-align: center; padding: 26px 16px 40px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--faint); }
+  footer a { text-decoration: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; } .nav-logo span.sub, .nav-back { display: none; }
+    .wrap { padding: 0 16px; }
+    .hero { padding: 110px 0 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .stack { aspect-ratio: 5 / 4; }
+    section { padding: 64px 0; }
+    .get { grid-template-columns: 1fr 1fr; }
+    .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
+    .g1 { grid-column: span 2; grid-row: span 2; } .g2, .g3, .g4, .g5 { grid-column: span 1; grid-row: span 1; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <a class="nav-logo" href="index.html" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER LAIR</span></a>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html" data-i18n="back">Back to site</a>
+    <div class="nav-lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">Brand Image Pack</div>
+      <h1 data-i18n-html="h1">Six cinematic images of your business. <em>In 72 hours.</em></h1>
+      <p class="lede" data-i18n="lede">No photoshoot, no stock photos. Tell us what you do and how it should feel, and we create six images made only for your brand, ready for your website, Instagram and ads.</p>
+      <div class="price"><b>$199</b><span data-i18n="price_note">One-time · 6 images · 72 hours</span></div>
+      <div class="ctas">
+        <a class="btn btn-primary" href="start.html?pack=1" data-i18n="cta">Start my Image Pack →</a>
+        <a class="btn btn-ghost" href="#examples" data-i18n="cta2">See examples</a>
+      </div>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <img class="a" src="images/hero-lair.jpg" alt="" fetchpriority="high">
+      <img class="b" src="images/case-bg.jpg" alt="" loading="lazy">
+      <img class="c" src="images/lab-humanbridge.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="get_k">What you get</div>
+    <h2 data-i18n="get_h">A visual identity, without the photoshoot</h2>
+    <div class="get">
+      <div><b>6</b><h3 data-i18n="g1_h">Images made for you</h3><p data-i18n="g1_p">Each one designed around your business, your customers and the mood you choose.</p></div>
+      <div><b>3</b><h3 data-i18n="g2_h">Shapes that fit</h3><p data-i18n="g2_p">Wide for your website, square for your feed, vertical for stories and reels.</p></div>
+      <div><b>72h</b><h3 data-i18n="g3_h">Fast delivery</h3><p data-i18n="g3_p">A download link in your inbox within 72 hours of payment.</p></div>
+      <div><b>1</b><h3 data-i18n="g4_h">Round of changes</h3><p data-i18n="g4_p">Not quite right? We redo up to two images with your notes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="examples">
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="ex_k">Examples</div>
+    <h2 data-i18n="ex_h">Every image on this site was made this way</h2>
+    <div class="gallery">
+      <figure class="g1"><img src="images/hero-lair.jpg" alt="A studio at night with monitors and a motorcycle" loading="lazy"><figcaption data-i18n="cap1">Hero · 16:9</figcaption></figure>
+      <figure class="g2"><img src="images/about-lair.jpg" alt="A studio corner with a leather chair and electronics" loading="lazy"><figcaption data-i18n="cap2">Portrait · 4:5</figcaption></figure>
+      <figure class="g3"><img src="images/case-bg.jpg" alt="Raw copper and tin ore under a scanning light" loading="lazy"><figcaption data-i18n="cap3">Product</figcaption></figure>
+      <figure class="g4"><img src="images/lab-assistant.jpg" alt="An archive of books dissolving into threads of light" loading="lazy"><figcaption data-i18n="cap4">Concept</figcaption></figure>
+      <figure class="g5"><img src="images/process.jpg" alt="A workbench seen from above" loading="lazy"><figcaption data-i18n="cap5">Detail · 1:1</figcaption></figure>
+    </div>
+    <p class="note" data-i18n="ex_note">These share one neon-noir look because they belong to one brand. Yours can be natural daylight, warm golden hour, clean commercial, black and white, or anything in between.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="how_k">How it works</div>
+    <h2 data-i18n="how_h">Five minutes of your time. We do the rest.</h2>
+    <ol class="steps">
+      <li><h3 data-i18n="s1_h">Tell us about you</h3><p data-i18n="s1_p">A short form: what you do, who it's for, the mood you like and the scenes you imagine.</p></li>
+      <li><h3 data-i18n="s2_h">Pay securely</h3><p data-i18n="s2_p">$199, one time, through Square's secure checkout. No subscription.</p></li>
+      <li><h3 data-i18n="s3_h">Get your images</h3><p data-i18n="s3_p">Within 72 hours you receive all six, ready to use, plus one round of changes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2 data-i18n="faq_h">Good questions</h2>
+    <div class="faq">
+      <details><summary data-i18n="q1">Do they look like real photos?</summary><p data-i18n="a1">Yes. We direct each image like a film shoot, choosing camera, lens, light and film grain, so they read as photography, not as "AI art."</p></details>
+      <details><summary data-i18n="q2">Where can I use them?</summary><p data-i18n="a2">On your website, social media, ads, menus, brochures and presentations.</p></details>
+      <details><summary data-i18n="q3">Can the images show people?</summary><p data-i18n="a3">Yes, people who look real but don't exist. We can't recreate you or any specific real person. If you want yourself in the shots, send us your own photos and we'll match the look around them.</p></details>
+      <details><summary data-i18n="q4">What if I don't like them?</summary><p data-i18n="a4">You get one round of changes on up to two images, with your notes. Most clients use it to adjust color or framing.</p></details>
+      <details><summary data-i18n="q5">Can this become a full website?</summary><p data-i18n="a5">That's often how it starts. The images become the visual language of your site, and we can build it from there.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="eyebrow" data-i18n="fin_k">Brand Image Pack · $199</div>
+    <h2 data-i18n="fin_h">See your business the way it deserves to be seen.</h2>
+    <p class="lede" data-i18n="fin_p">Six images, 72 hours, no photoshoot.</p>
+    <a class="btn btn-primary" href="start.html?pack=1" data-i18n="cta">Start my Image Pack →</a>
+  </div>
+</section>
+
+<footer>NRL STUDIOS · NETRUNNER LAIR · <a href="mailto:hello@nrlstudios.com">HELLO@NRLSTUDIOS.COM</a></footer>
+
+<!-- Cursor trail (same as home) -->
+<canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
+<script>
+(() => {
+  const fine = matchMedia('(pointer: fine)').matches;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('cursor-trail');
+  if (!fine || still || !cv) { if (cv) cv.remove(); return; }
+  const ctx = cv.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+                       cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+                       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  size(); addEventListener('resize', size);
+
+  // Timing is in seconds, so the trail feels the same on 60 Hz and 120 Hz screens.
+  const R = 44;                 // glow radius in px
+  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor (was about 0.30)
+  const GLOW = 0.62;            // seconds the glow keeps shining after the mouse stops (unchanged)
+  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops (was 1.5)
+  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
+
+  addEventListener('pointermove', e => {
+    target.x = e.clientX; target.y = e.clientY;
+    if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
+    energy = 1; life = LIFE;
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }, {passive: true});
+
+  function tick(now) {
+    const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
+    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
+    raf = requestAnimationFrame(tick);
+    life -= dt; energy *= Math.pow(0.1, dt / GLOW);
+    const age = 1 - Math.max(life, 0) / LIFE;
+    const fade = 1 - Math.pow(0.1, dt / TAIL) + age * age * 0.4 * dt * 60;
+    ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
+    if (energy > 0.01) {
+      const k = 1 - Math.pow(0.55, dt * 60);                  // same tight follow as before
+      dot.x += (target.x - dot.x) * k;                         // glide toward the pointer
+      dot.y += (target.y - dot.y) * k;
+      const e = energy * dt * 60;                              // same brightness at any refresh rate
+      ctx.globalCompositeOperation = 'lighter';               // glows add up like light
+      const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
+      g.addColorStop(0,    'rgba(229,228,226,' + (0.076 * e) + ')');  // platinum core
+      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.053 * e) + ')');  // gold
+      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.030 * e) + ')');  // copper edge
+      g.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+})();
+</script>
+
+<script>
+const T = {
+  en: {
+    back: "Back to site", eyebrow: "Brand Image Pack", h1: "Six cinematic images of your business. <em>In 72 hours.</em>",
+    lede: "No photoshoot, no stock photos. Tell us what you do and how it should feel, and we create six images made only for your brand, ready for your website, Instagram and ads.",
+    price_note: "One-time · 6 images · 72 hours", cta: "Start my Image Pack →", cta2: "See examples",
+    get_k: "What you get", get_h: "A visual identity, without the photoshoot",
+    g1_h: "Images made for you", g1_p: "Each one designed around your business, your customers and the mood you choose.",
+    g2_h: "Shapes that fit", g2_p: "Wide for your website, square for your feed, vertical for stories and reels.",
+    g3_h: "Fast delivery", g3_p: "A download link in your inbox within 72 hours of payment.",
+    g4_h: "Round of changes", g4_p: "Not quite right? We redo up to two images with your notes.",
+    ex_k: "Examples", ex_h: "Every image on this site was made this way",
+    cap1: "Hero · 16:9", cap2: "Portrait · 4:5", cap3: "Product", cap4: "Concept", cap5: "Detail · 1:1",
+    ex_note: "These share one neon-noir look because they belong to one brand. Yours can be natural daylight, warm golden hour, clean commercial, black and white, or anything in between.",
+    how_k: "How it works", how_h: "Five minutes of your time. We do the rest.",
+    s1_h: "Tell us about you", s1_p: "A short form: what you do, who it's for, the mood you like and the scenes you imagine.",
+    s2_h: "Pay securely", s2_p: "$199, one time, through Square's secure checkout. No subscription.",
+    s3_h: "Get your images", s3_p: "Within 72 hours you receive all six, ready to use, plus one round of changes.",
+    faq_h: "Good questions",
+    q1: "Do they look like real photos?", a1: "Yes. We direct each image like a film shoot, choosing camera, lens, light and film grain, so they read as photography, not as \"AI art.\"",
+    q2: "Where can I use them?", a2: "On your website, social media, ads, menus, brochures and presentations.",
+    q3: "Can the images show people?", a3: "Yes, people who look real but don't exist. We can't recreate you or any specific real person. If you want yourself in the shots, send us your own photos and we'll match the look around them.",
+    q4: "What if I don't like them?", a4: "You get one round of changes on up to two images, with your notes. Most clients use it to adjust color or framing.",
+    q5: "Can this become a full website?", a5: "That's often how it starts. The images become the visual language of your site, and we can build it from there.",
+    fin_k: "Brand Image Pack · $199", fin_h: "See your business the way it deserves to be seen.", fin_p: "Six images, 72 hours, no photoshoot."
+  },
+  pt: {
+    back: "Voltar ao site", eyebrow: "Pacote de Imagens", h1: "Seis imagens cinematográficas do seu negócio. <em>Em 72 horas.</em>",
+    lede: "Sem sessão de fotos, sem banco de imagens. Conte o que você faz e qual clima quer passar, e criamos seis imagens feitas só para a sua marca, prontas para o site, o Instagram e anúncios.",
+    price_note: "Pagamento único · 6 imagens · 72 horas", cta: "Quero meu Pacote de Imagens →", cta2: "Ver exemplos",
+    get_k: "O que você recebe", get_h: "Uma identidade visual, sem sessão de fotos",
+    g1_h: "Imagens feitas para você", g1_p: "Cada uma pensada para o seu negócio, seus clientes e o clima que você escolher.",
+    g2_h: "Formatos certos", g2_p: "Horizontal para o site, quadrado para o feed, vertical para stories e reels.",
+    g3_h: "Entrega rápida", g3_p: "Um link para baixar no seu e-mail em até 72 horas após o pagamento.",
+    g4_h: "Rodada de ajustes", g4_p: "Não ficou do jeito certo? Refazemos até duas imagens com suas observações.",
+    ex_k: "Exemplos", ex_h: "Todas as imagens deste site foram feitas assim",
+    cap1: "Abertura · 16:9", cap2: "Retrato · 4:5", cap3: "Produto", cap4: "Conceito", cap5: "Detalhe · 1:1",
+    ex_note: "Estas têm o mesmo visual neon-noir porque pertencem a uma só marca. As suas podem ter luz natural, hora dourada, visual comercial limpo, preto e branco, ou o que combinar com você.",
+    how_k: "Como funciona", how_h: "Cinco minutos do seu tempo. O resto é com a gente.",
+    s1_h: "Conte sobre você", s1_p: "Um formulário curto: o que você faz, para quem, o clima que gosta e as cenas que imagina.",
+    s2_h: "Pague com segurança", s2_p: "$199, pagamento único, pelo checkout seguro da Square. Sem assinatura.",
+    s3_h: "Receba suas imagens", s3_p: "Em até 72 horas você recebe as seis, prontas para usar, mais uma rodada de ajustes.",
+    faq_h: "Boas perguntas",
+    q1: "Parecem fotos de verdade?", a1: "Sim. Dirigimos cada imagem como numa filmagem, escolhendo câmera, lente, luz e grão de filme, para que pareçam fotografia, não \"arte de IA\".",
+    q2: "Onde posso usar?", a2: "No seu site, nas redes sociais, em anúncios, cardápios, folders e apresentações.",
+    q3: "As imagens podem ter pessoas?", a3: "Sim, pessoas com aparência real que não existem. Não recriamos você nem nenhuma pessoa real específica. Se quiser aparecer nas imagens, envie suas próprias fotos e criamos o visual em volta delas.",
+    q4: "E se eu não gostar?", a4: "Você tem uma rodada de ajustes em até duas imagens, com suas observações. A maioria usa para ajustar cor ou enquadramento.",
+    q5: "Isso pode virar um site completo?", a5: "Muitas vezes começa assim. As imagens viram a linguagem visual do seu site, e construímos a partir delas.",
+    fin_k: "Pacote de Imagens · $199", fin_h: "Veja o seu negócio do jeito que ele merece ser visto.", fin_p: "Seis imagens, 72 horas, sem sessão de fotos."
+  }
+};
+(() => {
+  let lang;
+  const pick = () => {
+    try { const s = localStorage.getItem('nrlLang'); if (s && T[s]) return s; } catch (e) {}
+    const l = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+    return /^pt/i.test(l) ? 'pt' : 'en';
+  };
+  const apply = l => {
+    lang = l; const t = T[l];
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (t[k] != null) el.textContent = t[k]; });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if (t[k] != null) el.innerHTML = t[k]; });
+    document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'));
+  };
+  document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('click', () => { try { localStorage.setItem('nrlLang', b.dataset.lang); } catch (e) {} apply(b.dataset.lang); }));
+  apply(pick());
+})();
+</script>
+</body>
+</html>
