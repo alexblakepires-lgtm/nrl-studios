@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Artists &amp; Creators · NRL Studios</title>
+<meta name="description" content="Websites, press kits and release pages for musicians, painters, tattoo artists, photographers and creators. Built with an elephant heart: steady, gentle, and made to remember who you are.">
+<link rel="canonical" href="https://nrlstudios.com/artists.html">
+<meta name="theme-color" content="#160B12">
+<meta property="og:type" content="website">
+<meta property="og:title" content="For Artists &amp; Creators · NRL Studios">
+<meta property="og:description" content="A home for your work, with a heart that beats slow and strong.">
+<meta property="og:image" content="https://nrlstudios.com/images/art-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+  :root {
+    /* Elephant Heart: the plum's skin (bronze green ripening to reddish purple), its blood-red flesh,
+       and the elephant's warm gray, gentle strength and golden-hour light */
+    --ground: #160B12; --panel: #21121B; --panel-2: #2B1723; --line: #3D2431;
+    --text: #F4EAEC; --muted: #C3ABB4; --faint: #8C7580;
+    --heart: #C4283F; --heart-soft: #DC4A5F; --heart-ink: #FFF5F6;
+    --plum: #6E2548; --bronze: #A3A25A; --bronze-dim: #5F5E33; --elephant: #9A918C; --gold: #E0AE52;
+    --display: 'Chakra Petch', 'Arial Narrow', system-ui, sans-serif;
+    --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--ground); color: var(--text); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(60vmax 50vmax at 85% -10%, rgba(110,37,72,0.45), transparent 60%), radial-gradient(50vmax 40vmax at -10% 110%, rgba(95,94,51,0.25), transparent 60%); }
+  main, footer, nav { position: relative; z-index: 1; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--heart-soft); outline-offset: 3px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px; background: rgba(22,11,18,0.86); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .nav-logo { display: flex; align-items: center; gap: 0.7rem; font-family: var(--display); font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text); text-decoration: none; }
+  .nav-mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1.5px solid var(--heart-soft); font-size: 0.75rem; font-weight: 700; color: var(--heart-soft);
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%); }
+  .nav-logo span.sub { color: var(--faint); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; font-weight: 400; }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-back { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .nav-back:hover { color: var(--text); }
+  .nav-lang { display: flex; gap: 2px; }
+  .nav-lang button { cursor: pointer; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--faint); background: none; border: none; min-width: 36px; min-height: 36px; }
+  .nav-lang button[aria-pressed="true"] { color: var(--heart-soft); }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 3rem; }
+  .eyebrow { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bronze); }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.04; letter-spacing: -0.01em; margin: 16px 0 20px; text-wrap: balance; }
+  h1 em, h2 em { font-style: normal; color: var(--heart-soft); }
+  h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.12; margin: 10px 0 14px; text-wrap: balance; }
+  h3 { font-family: var(--display); font-weight: 600; font-size: 1.25rem; line-height: 1.2; margin-bottom: 8px; }
+  .lede { color: var(--muted); font-size: 1.12rem; max-width: 54ch; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 0.95rem 2rem; font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: 0.03em; min-height: 48px;
+    text-decoration: none; cursor: pointer; border: none; clip-path: polygon(0 0, 100% 0, 100% 70%, calc(100% - 12px) 100%, 0 100%); transition: all 200ms var(--ease-out); }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--heart); color: var(--heart-ink); }
+  .btn-primary:hover { background: var(--heart-soft); }
+  .btn-ghost { background: rgba(244,234,236,0.07); color: var(--text); box-shadow: inset 0 0 0 1px rgba(244,234,236,0.28); }
+  .btn-ghost:hover { background: rgba(244,234,236,0.13); }
+  .ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+
+  /* image frames fall back to a plum-to-bronze glow until the generated images are in place */
+  .frame { position: relative; overflow: hidden; background: radial-gradient(circle at 50% 58%, rgba(196,40,63,0.55), transparent 32%), radial-gradient(circle at 30% 20%, rgba(163,162,90,0.35), transparent 45%), linear-gradient(160deg, #3A1629, #1C0E17 70%); }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease-out; }
+  .frame:hover img { transform: scale(1.04); }
+
+  /* hero */
+  .hero { padding: 140px 0 90px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+  .hero .frame { aspect-ratio: 4 / 5; border: 1px solid var(--line); }
+  .hero .frame::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 120px rgba(22,11,18,0.7); pointer-events: none; }
+  .who { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .who span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
+
+  /* heart band */
+  .band { padding: 90px 0; border-top: 1px solid var(--line); }
+  .band-head { max-width: 720px; margin-bottom: 44px; }
+  .band-head p { color: var(--muted); }
+  .traits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .trait { background: var(--panel); border: 1px solid var(--line); }
+  .trait .frame { aspect-ratio: 4 / 3; }
+  .trait .body { padding: 24px; }
+  .trait .num { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--heart-soft); margin-bottom: 8px; }
+  .trait p { color: var(--muted); font-size: 0.97rem; }
+
+  /* services */
+  .services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .svc { background: var(--ground); padding: 30px 28px; transition: background 300ms var(--ease-out); }
+  .svc:hover { background: var(--panel); }
+  .svc .tag { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--bronze); margin-bottom: 12px; display: block; }
+  .svc p { color: var(--muted); font-size: 0.95rem; }
+  .svc a { color: var(--heart-soft); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-decoration: none; display: inline-block; margin-top: 12px; }
+  .svc a:hover { text-decoration: underline; }
+
+  /* process */
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; counter-reset: s; }
+  .steps li { counter-increment: s; border-top: 2px solid var(--plum); padding-top: 18px; color: var(--muted); font-size: 0.95rem; }
+  .steps li::before { content: "0" counter(s); display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--gold); margin-bottom: 8px; letter-spacing: 0.1em; }
+  .steps b { display: block; color: var(--text); font-family: var(--display); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px; }
+
+  /* closing */
+  .closing { padding: 100px 0 110px; border-top: 1px solid var(--line); }
+  .closing-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+  .closing .frame { aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--line); box-shadow: 0 0 80px rgba(196,40,63,0.25); }
+  .closing p { color: var(--muted); max-width: 52ch; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--faint); text-transform: uppercase; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { text-decoration: none; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .frame img { transition: none; } }
+
+  @media (max-width: 900px) {
+    .hero-grid, .closing-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero .frame { aspect-ratio: 4 / 3; }
+    .traits, .services { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .closing .frame { max-width: 320px; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 0 16px; }
+    .nav-logo span.sub, .nav-back { display: none; }
+    .wrap { padding: 0 16px; }
+    .hero { padding: 104px 0 64px; }
+    .band, .closing { padding: 64px 0; }
+    .steps { grid-template-columns: 1fr; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <a class="nav-logo" href="index.html" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER'S LAIR</span></a>
+  <div class="nav-right">
+    <a class="nav-back" href="index.html" data-i18n="back">Back to site</a>
+    <div class="nav-lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="eyebrow">For artists &amp; creators</div>
+        <h1 data-i18n-html="h1">A home for your work, with a heart that <em>beats slow and strong.</em></h1>
+        <p class="lede" data-i18n="lede">Websites, press kits and release pages for people who make things. Built with an elephant heart: steady, gentle, and made to remember who you are.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="start.html" data-i18n="cta">Start my artist site →</a>
+          <a class="btn btn-ghost" href="#build" data-i18n="cta2">What we build</a>
+        </div>
+        <div class="who" aria-label="Made for">
+          <span data-i18n="w1">Musicians</span><span data-i18n="w2">Painters</span><span data-i18n="w3">Tattoo artists</span><span data-i18n="w4">Photographers</span><span data-i18n="w5">DJs &amp; producers</span><span data-i18n="w6">Creators</span>
+        </div>
+      </div>
+      <div class="frame"><img src="images/art-hero.jpg" alt="" fetchpriority="high" onerror="this.remove()"></div>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head reveal">
+        <div class="eyebrow" data-i18n="heart_eyebrow">The elephant heart</div>
+        <h2 data-i18n-html="heart_h">Three things elephants know that <em>your site should too.</em></h2>
+        <p data-i18n="heart_p">An elephant's heart is the largest of any land animal, and it beats slowly. That is the energy we build with: big warmth, calm power, no rush.</p>
+      </div>
+      <div class="traits">
+        <article class="trait reveal">
+          <div class="frame"><img src="images/art-memory.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="body"><div class="num">01</div><h3 data-i18n="t1h">Memory</h3><p data-i18n="t1p">Your story, told the same way everywhere. Bio, work, press and links in one place people remember and come back to.</p></div>
+        </article>
+        <article class="trait reveal">
+          <div class="frame"><img src="images/art-strength.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="body"><div class="num">02</div><h3 data-i18n="t2h">Gentle strength</h3><p data-i18n="t2p">Bold design that never shouts over your art. The work leads, the site holds it up.</p></div>
+        </article>
+        <article class="trait reveal">
+          <div class="frame"><img src="images/art-herd.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="body"><div class="num">03</div><h3 data-i18n="t3h">The herd</h3><p data-i18n="t3p">Bring your people close. A mailing list, a way to book you, and a place your fans can find the next thing first.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="build">
+    <div class="wrap">
+      <div class="band-head reveal">
+        <div class="eyebrow" data-i18n="build_eyebrow">What we build</div>
+        <h2 data-i18n-html="build_h">Everything your work needs to <em>travel on its own.</em></h2>
+      </div>
+      <div class="services reveal">
+        <div class="svc"><span class="tag" data-i18n="s1t">Home</span><h3 data-i18n="s1h">Artist website</h3><p data-i18n="s1p">Your work, your story and one clear way to reach you. Fast on phones, easy for you to update.</p></div>
+        <div class="svc"><span class="tag" data-i18n="s2t">Press</span><h3 data-i18n="s2h">Electronic press kit</h3><p data-i18n="s2p">Bio, photos, videos, stats and contacts in one link that bookers, curators and journalists can use in minutes.</p></div>
+        <div class="svc"><span class="tag" data-i18n="s3t">Launch</span><h3 data-i18n="s3h">Release and drop pages</h3><p data-i18n="s3p">A page for each album, collection or show, with pre-saves, tickets or a countdown.</p></div>
+        <div class="svc"><span class="tag" data-i18n="s4t">Sell</span><h3 data-i18n="s4h">Portfolio and shop</h3><p data-i18n="s4p">Originals, prints, merch and commissions, with secure checkout from a trusted payment provider.</p></div>
+        <div class="svc"><span class="tag" data-i18n="s5t">Visuals</span><h3 data-i18n="s5h">Brand Image Pack</h3><p data-i18n="s5p">Six cinematic images for your world, made for your site and feed. $199.</p><a href="images.html" data-i18n="s5a">See the Image Pack →</a></div>
+        <div class="svc"><span class="tag" data-i18n="s6t">Reach</span><h3 data-i18n="s6h">English and Portuguese</h3><p data-i18n="s6p">One site, two languages, always in sync, so your work lands in Brazil and abroad.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head reveal">
+        <div class="eyebrow" data-i18n="how_eyebrow">How it works</div>
+        <h2 data-i18n-html="how_h">Slow where it matters, <em>quick where it counts.</em></h2>
+      </div>
+      <ol class="steps reveal">
+        <li data-i18n-html="st1"><b>Tell us your story</b>A short questionnaire about your work, your people and the feeling you want.</li>
+        <li data-i18n-html="st2"><b>We design around your work</b>Layout, colors and words built to serve the art, not compete with it.</li>
+        <li data-i18n-html="st3"><b>You shape it with us</b>Review a live preview and ask for changes until it feels like you.</li>
+        <li data-i18n-html="st4"><b>Launch and grow</b>Your domain, fast hosting and a site you can keep adding to.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap closing-grid">
+      <div class="frame reveal"><img src="images/art-heart.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="reveal">
+        <div class="eyebrow" data-i18n="close_eyebrow">Ready when you are</div>
+        <h2 data-i18n-html="close_h">Your art already has a heart. <em>Let's give it a home.</em></h2>
+        <p data-i18n="close_p">Answer a few questions in about ten minutes. We reply with a first direction for your site within two business days.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="start.html" data-i18n="cta">Start my artist site →</a>
+          <a class="btn btn-ghost" href="mailto:hello@nrlstudios.com" data-i18n="cta3">Write to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 NRL Studios LLC · Netrunner's Lair</span><a href="mailto:hello@nrlstudios.com">hello@nrlstudios.com</a></div>
+</footer>
+
+<!-- Cursor trail in Elephant Heart colors (desktop only, off for reduced motion) -->
+<canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
+<script>
+(() => {
+  const fine = matchMedia('(pointer: fine)').matches;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('cursor-trail');
+  if (!fine || still || !cv) { if (cv) cv.remove(); return; }
+  const ctx = cv.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+                       cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
+                       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
+  size(); addEventListener('resize', size);
+  const R = 44, TAIL = 0.63, GLOW = 0.62, LIFE = 1.83;
+  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
+  addEventListener('pointermove', e => {
+    target.x = e.clientX; target.y = e.clientY;
+    if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
+    energy = 1; life = LIFE;
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }, {passive: true});
+  function tick(now) {
+    const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
+    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
+    raf = requestAnimationFrame(tick);
+    life -= dt; energy *= Math.pow(0.1, dt / GLOW);
+    const age = 1 - Math.max(life, 0) / LIFE;
+    const fade = 1 - Math.pow(0.1, dt / TAIL) + age * age * 0.4 * dt * 60;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
+    if (energy > 0.01) {
+      const k = 1 - Math.pow(0.55, dt * 60);
+      dot.x += (target.x - dot.x) * k; dot.y += (target.y - dot.y) * k;
+      const e = energy * dt * 60;
+      ctx.globalCompositeOperation = 'lighter';
+      const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
+      g.addColorStop(0,    'rgba(244,214,220,' + (0.070 * e) + ')');  // blush core
+      g.addColorStop(0.35, 'rgba(196,40,63,'   + (0.060 * e) + ')');  // plum flesh red
+      g.addColorStop(0.7,  'rgba(163,162,90,'  + (0.030 * e) + ')');  // bronze-green skin
+      g.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+})();
+</script>
+
+<script>
+(() => {
+const T = {
+  en: {
+    back: "Back to site", eyebrow: "For artists & creators",
+    h1: "A home for your work, with a heart that <em>beats slow and strong.</em>",
+    lede: "Websites, press kits and release pages for people who make things. Built with an elephant heart: steady, gentle, and made to remember who you are.",
+    cta: "Start my artist site →", cta2: "What we build", cta3: "Write to us",
+    w1: "Musicians", w2: "Painters", w3: "Tattoo artists", w4: "Photographers", w5: "DJs & producers", w6: "Creators",
+    heart_eyebrow: "The elephant heart", heart_h: "Three things elephants know that <em>your site should too.</em>",
+    heart_p: "An elephant's heart is the largest of any land animal, and it beats slowly. That is the energy we build with: big warmth, calm power, no rush.",
+    t1h: "Memory", t1p: "Your story, told the same way everywhere. Bio, work, press and links in one place people remember and come back to.",
+    t2h: "Gentle strength", t2p: "Bold design that never shouts over your art. The work leads, the site holds it up.",
+    t3h: "The herd", t3p: "Bring your people close. A mailing list, a way to book you, and a place your fans can find the next thing first.",
+    build_eyebrow: "What we build", build_h: "Everything your work needs to <em>travel on its own.</em>",
+    s1t: "Home", s1h: "Artist website", s1p: "Your work, your story and one clear way to reach you. Fast on phones, easy for you to update.",
+    s2t: "Press", s2h: "Electronic press kit", s2p: "Bio, photos, videos, stats and contacts in one link that bookers, curators and journalists can use in minutes.",
+    s3t: "Launch", s3h: "Release and drop pages", s3p: "A page for each album, collection or show, with pre-saves, tickets or a countdown.",
+    s4t: "Sell", s4h: "Portfolio and shop", s4p: "Originals, prints, merch and commissions, with secure checkout from a trusted payment provider.",
+    s5t: "Visuals", s5h: "Brand Image Pack", s5p: "Six cinematic images for your world, made for your site and feed. $199.", s5a: "See the Image Pack →",
+    s6t: "Reach", s6h: "English and Portuguese", s6p: "One site, two languages, always in sync, so your work lands in Brazil and abroad.",
+    how_eyebrow: "How it works", how_h: "Slow where it matters, <em>quick where it counts.</em>",
+    st1: "<b>Tell us your story</b>A short questionnaire about your work, your people and the feeling you want.",
+    st2: "<b>We design around your work</b>Layout, colors and words built to serve the art, not compete with it.",
+    st3: "<b>You shape it with us</b>Review a live preview and ask for changes until it feels like you.",
+    st4: "<b>Launch and grow</b>Your domain, fast hosting and a site you can keep adding to.",
+    close_eyebrow: "Ready when you are", close_h: "Your art already has a heart. <em>Let's give it a home.</em>",
+    close_p: "Answer a few questions in about ten minutes. We reply with a first direction for your site within two business days."
+  },
+  pt: {
+    back: "Voltar ao site", eyebrow: "Para artistas e criadores",
+    h1: "Uma casa para o seu trabalho, com um coração que <em>bate devagar e forte.</em>",
+    lede: "Sites, press kits e páginas de lançamento para quem cria. Feitos com coração de elefante: firmes, gentis e feitos para lembrar quem você é.",
+    cta: "Começar meu site de artista →", cta2: "O que fazemos", cta3: "Fale com a gente",
+    w1: "Músicos", w2: "Pintores", w3: "Tatuadores", w4: "Fotógrafos", w5: "DJs e produtores", w6: "Criadores",
+    heart_eyebrow: "O coração de elefante", heart_h: "Três coisas que os elefantes sabem e <em>o seu site também deveria saber.</em>",
+    heart_p: "O coração do elefante é o maior entre os animais terrestres, e bate devagar. É com essa energia que criamos: muito calor, força calma, sem pressa.",
+    t1h: "Memória", t1p: "Sua história contada do mesmo jeito em todo lugar. Bio, obra, imprensa e links num lugar que as pessoas lembram e voltam.",
+    t2h: "Força gentil", t2p: "Design marcante que nunca grita mais alto que a sua arte. A obra conduz, o site sustenta.",
+    t3h: "A manada", t3p: "Traga sua gente para perto. Uma lista de e-mails, um jeito de contratar você e um lugar onde os fãs sabem das novidades primeiro.",
+    build_eyebrow: "O que fazemos", build_h: "Tudo o que a sua obra precisa para <em>andar sozinha pelo mundo.</em>",
+    s1t: "Casa", s1h: "Site de artista", s1p: "Sua obra, sua história e um caminho claro para falar com você. Rápido no celular e fácil de atualizar.",
+    s2t: "Imprensa", s2h: "Press kit digital", s2p: "Bio, fotos, vídeos, números e contatos num só link que produtores, curadores e jornalistas usam em minutos.",
+    s3t: "Lançamento", s3h: "Páginas de lançamento", s3p: "Uma página para cada álbum, coleção ou show, com pre-save, ingressos ou contagem regressiva.",
+    s4t: "Venda", s4h: "Portfólio e loja", s4p: "Originais, prints, merch e encomendas, com pagamento seguro por um provedor confiável.",
+    s5t: "Visual", s5h: "Pacote de Imagens da Marca", s5p: "Seis imagens cinematográficas do seu universo, feitas para o seu site e feed. US$ 199.", s5a: "Ver o Pacote de Imagens →",
+    s6t: "Alcance", s6h: "Português e inglês", s6p: "Um site, dois idiomas, sempre iguais, para a sua obra chegar no Brasil e lá fora.",
+    how_eyebrow: "Como funciona", how_h: "Devagar onde importa, <em>rápido onde conta.</em>",
+    st1: "<b>Conte sua história</b>Um questionário curto sobre sua obra, seu público e o sentimento que você quer passar.",
+    st2: "<b>Desenhamos em volta da sua obra</b>Layout, cores e palavras feitos para servir à arte, não competir com ela.",
+    st3: "<b>Você molda com a gente</b>Veja uma prévia ao vivo e peça ajustes até parecer você.",
+    st4: "<b>Lançar e crescer</b>Seu domínio, hospedagem rápida e um site que você pode ir ampliando.",
+    close_eyebrow: "Quando você quiser", close_h: "Sua arte já tem coração. <em>Vamos dar uma casa a ela.</em>",
+    close_p: "Responda algumas perguntas em uns dez minutos. Mandamos uma primeira direção para o seu site em até dois dias úteis."
+  }
+};
+function pick() {
+  try { const s = localStorage.getItem('nrlLang'); if (s && T[s]) return s; } catch (e) {}
+  const l = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+  return /^pt/i.test(l) ? 'pt' : 'en';
+}
+function apply(l) {
+  const t = T[l];
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v != null) el.textContent = v; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const v = t[el.dataset.i18nHtml]; if (v != null) el.innerHTML = v; });
+  document.querySelectorAll('.nav-lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'));
+}
+document.querySelectorAll('.nav-lang button').forEach(b => b.addEventListener('click', () => { try { localStorage.setItem('nrlLang', b.dataset.lang); } catch (e) {} apply(b.dataset.lang); }));
+apply(pick());
+
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 }) : null;
+document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

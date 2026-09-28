@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NRL Studios · Netrunner Lair</title>
+<title>NRL Studios · Netrunner's Lair</title>
 <meta name="description" content="NRL Studios is the web and AI studio of Alexandre Pires. Websites and AI products, built end to end, in English and Portuguese.">
 <link rel="canonical" href="https://nrlstudios.com/">
 <meta property="og:url" content="https://nrlstudios.com/">
 <meta name="theme-color" content="#110E17">
 <meta property="og:type" content="website">
-<meta property="og:title" content="NRL Studios · Netrunner Lair">
+<meta property="og:title" content="NRL Studios · Netrunner's Lair">
 <meta property="og:description" content="Websites and AI products, built end to end. English and Portuguese.">
 <meta property="og:image" content="https://nrlstudios.com/images/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -311,6 +311,23 @@
   .footer-copy { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); grid-column: 1/-1; font-size: 0.75rem; color: var(--faint); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
   /* RESPONSIVE */
+
+  /* Human section: real photos of Alexandre at work */
+  .human { padding: 6rem 0; border-top: 1px solid var(--line); overflow: hidden; }
+  .human-inner { max-width: 1180px; margin: 0 auto; padding: 0 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .human-photos { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .human-photos figure { margin: 0; background: #F2EDE4; padding: 10px 10px 34px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); transition: transform 400ms var(--ease-out); }
+  .human-photos figure:first-child { transform: rotate(-2.5deg) translateY(10px); }
+  .human-photos figure:last-child { transform: rotate(2deg) translateY(-14px); }
+  .human-photos figure:hover { transform: rotate(0) translateY(0) scale(1.02); }
+  .human-photos figure { min-width: 0; }
+  .human-photos img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+  .human-photos figcaption { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; color: #5A5364; text-align: center; margin-top: 10px; }
+  .human-text p { color: var(--muted); max-width: 480px; margin-bottom: 1.2rem; }
+  .human-text p.lead { color: var(--text); font-size: 1.15rem; }
+  .human-sign { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--amber); text-transform: uppercase; }
+  @media (max-width: 960px) { .human-inner { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem; } }
+  @media (max-width: 600px) { .human { padding: 4rem 0; } .human-inner { padding: 0 16px; } .human-photos { gap: 0.8rem; } .human-photos figure { padding: 6px 6px 26px; } }
   @media (max-width: 960px) {
     nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
@@ -372,7 +389,7 @@
 
 <!-- NAV -->
 <nav aria-label="Main">
-  <a class="nav-logo" href="#top" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER LAIR</span></a>
+  <a class="nav-logo" href="#top" aria-label="NRL Studios, home"><span class="nav-mark" aria-hidden="true">NRL</span>NRL Studios <span class="sub">NETRUNNER'S LAIR</span></a>
   <ul class="nav-links">
     <li><a href="#store" data-i18n="nav_work">Work</a></li>
     <li><a href="#education" data-i18n="nav_services">Services</a></li>
@@ -582,6 +599,24 @@
 </section>
 
 <!-- TESTIMONIALS (BUILD LOG) -->
+<!-- HUMAN: real photos, not generated -->
+<section class="human" id="human" aria-labelledby="human-h">
+  <div class="human-inner">
+    <div class="human-photos">
+      <figure><img src="images/ale-build-1.jpg" alt="Alexandre smiling on a build site, with a laser level, ladder and fresh beams behind him" loading="lazy" width="960" height="1280"><figcaption data-i18n="human_c1">Measure twice</figcaption></figure>
+      <figure><img src="images/ale-build-2.jpg" alt="Alexandre smiling in front of a new deck frame he is building, tools and notes on the table" loading="lazy" width="960" height="1280"><figcaption data-i18n="human_c2">Build once</figcaption></figure>
+    </div>
+    <div class="human-text">
+      <span class="section-label" data-i18n="human_k">Behind the screen</span>
+      <h2 class="section-title" id="human-h" data-i18n="human_h">This is me, building your dream.</h2>
+      <p class="lead" data-i18n="human_p1">Real hands, real sawdust, a real person who answers your messages.</p>
+      <p data-i18n="human_p2">When I build a deck, I level every beam before anything rests on it. I build your site the same way: solid foundations first, then the beautiful part, made to hold weight for years.</p>
+      <p data-i18n="human_p3">AI helps me move fast. The listening, the choices and the care are human.</p>
+      <span class="human-sign" data-i18n="human_sign">Alexandre · NRL Studios</span>
+    </div>
+  </div>
+</section>
+
 <section class="testimonials">
   <span class="section-label" data-i18n="log_k">build.log · rzbis.com</span>
   <h2 class="section-title" data-i18n="log_h">Recent work, as it shipped</h2>
@@ -650,7 +685,7 @@
       <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
     </ul>
   </div>
-  <div class="footer-copy"><span>© 2026 NRL Studios LLC</span><span style="font-family:var(--mono);">Netrunner Lair</span></div>
+  <div class="footer-copy"><span>© 2026 NRL Studios LLC</span><span style="font-family:var(--mono);">Netrunner's Lair</span></div>
 </footer>
 
 <script>
@@ -663,7 +698,7 @@
       h1a: "Websites and AI products,", h1b: "built end to end.",
       lede: "A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
       cta1: "Start a project", cta2: "See the work", scroll: "Scroll",
-      marquee: "Websites ✦ AI products ✦ English · Português ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner Lair ✦ ",
+      marquee: "Websites ✦ AI products ✦ English · Português ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner's Lair ✦ ",
       work_k: "Client builds and studio projects", work_h: "Work",
       f_all: "All", f_client: "Client", f_lab: "In the lair",
       c1_sub: "Client · Curitiba", c1_p: "Raw materials brokerage. Design, build, EN / PT / ES, domain move.",
@@ -693,6 +728,11 @@
       p2_h: "AI-orchestrated", p2_p: "Models and tools do the heavy lifting, under human review.",
       p3_h: "EN · PT", p3_p: "Written natively in both languages.",
       p4_h: "Idea to live", p4_p: "Design, code, domain, hosting and copy in one place.",
+      human_k: "Behind the screen", human_h: "This is me, building your dream.",
+      human_p1: "Real hands, real sawdust, a real person who answers your messages.",
+      human_p2: "When I build a deck, I level every beam before anything rests on it. I build your site the same way: solid foundations first, then the beautiful part, made to hold weight for years.",
+      human_p3: "AI helps me move fast. The listening, the choices and the care are human.",
+      human_sign: "Alexandre · NRL Studios", human_c1: "Measure twice", human_c2: "Build once",
       log_k: "build.log · rzbis.com", log_h: "Recent work, as it shipped",
       log1: "Domain moved from Squarespace to GitHub Pages", log2: "Company email records kept intact through the move",
       log3: "Hero video rebuilt from its sharpest seconds", log4: "Site now opens in the visitor's language: EN / PT / ES",
@@ -708,7 +748,7 @@
       h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
       lede: "Um estúdio comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
       cta1: "Começar um projeto", cta2: "Ver os trabalhos", scroll: "Role",
-      marquee: "Sites ✦ Produtos de IA ✦ Português · English ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner Lair ✦ ",
+      marquee: "Sites ✦ Produtos de IA ✦ Português · English ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner's Lair ✦ ",
       work_k: "Projetos de clientes e do estúdio", work_h: "Trabalhos",
       f_all: "Todos", f_client: "Clientes", f_lab: "No laboratório",
       c1_sub: "Cliente · Curitiba", c1_p: "Corretora de matérias-primas. Design, desenvolvimento, EN / PT / ES, migração de domínio.",
@@ -738,6 +778,11 @@
       p2_h: "Orquestrado com IA", p2_p: "Modelos e ferramentas fazem o trabalho pesado, com revisão humana.",
       p3_h: "PT · EN", p3_p: "Escrito de forma nativa nos dois idiomas.",
       p4_h: "Da ideia ao ar", p4_p: "Design, código, domínio, hospedagem e textos em um só lugar.",
+      human_k: "Por trás da tela", human_h: "Este sou eu, construindo o seu sonho.",
+      human_p1: "Mãos de verdade, serragem de verdade, uma pessoa de verdade que responde suas mensagens.",
+      human_p2: "Quando construo um deck, nivelo cada viga antes de qualquer coisa apoiar nela. Construo o seu site do mesmo jeito: base firme primeiro, depois a parte bonita, feito para aguentar peso por anos.",
+      human_p3: "A IA me ajuda a ir rápido. A escuta, as escolhas e o cuidado são humanos.",
+      human_sign: "Alexandre · NRL Studios", human_c1: "Meça duas vezes", human_c2: "Construa uma vez",
       log_k: "build.log · rzbis.com", log_h: "Trabalho recente, como foi entregue",
       log1: "Domínio migrado do Squarespace para o GitHub Pages", log2: "Registros de e-mail da empresa preservados na migração",
       log3: "Vídeo de abertura refeito com os trechos mais nítidos", log4: "Site abre no idioma do visitante: EN / PT / ES",
