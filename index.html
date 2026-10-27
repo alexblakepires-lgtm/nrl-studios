@@ -431,14 +431,14 @@
       <div class="product-price" data-i18n="c1_p">Raw materials brokerage. Design, build, EN / PT / ES, domain move.</div>
     </a>
 
-    <div class="product-card" data-kind="lab">
+    <a class="product-card" data-kind="lab" href="https://homeosophy.com" target="_blank" rel="noopener">
       <div class="product-img slot">
         <img src="images/lab-assistant.jpg" alt="Shelves of reference books dissolving into threads of amber light" loading="lazy" onerror="this.remove()">
       </div>
       <div class="product-sub" data-i18n="tag1">Private beta</div>
       <div class="product-name" data-i18n="lab1_h">AI practice assistant</div>
       <div class="product-price" data-i18n="lab1_p">A conversational assistant for a professional practice that answers only from a curated library of more than 100,000 reference passages. Role-based accounts, per-source access rules and safety checks on every conversation.</div>
-    </div>
+    </a>
 
     <div class="product-card" data-kind="lab">
       <div class="product-img slot">
@@ -634,7 +634,7 @@
     <h4 data-i18n="nav_work">Work</h4>
     <ul>
       <li><a href="https://rzbis.com" target="_blank" rel="noopener">RZBis</a></li>
-      <li><a href="#store" data-i18n="lab1_h">AI practice assistant</a></li>
+      <li><a href="https://homeosophy.com" target="_blank" rel="noopener" data-i18n="lab1_h">AI practice assistant</a></li>
       <li><a href="#store">HumanBridgeAI</a></li>
     </ul>
   </div>
@@ -836,7 +836,7 @@
 })();
 </script>
 
-<!-- Cursor trail: soft platinum-gold-copper glow that follows the mouse (desktop only, off for reduced motion) -->
+<!-- Cursor trail: crystalline light that follows the mouse, a clear core with prism edges and glints (desktop only, off for reduced motion) -->
 <canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
 <script>
 (() => {
@@ -851,12 +851,16 @@
                        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
   size(); addEventListener('resize', size);
 
+  // Colors: a clear core, two prism edges split either side of the stroke, and the glints.
+  const CORE = '245,248,255', EDGE_A = '150,220,255', EDGE_B = '255,200,130', HALO = '200,225,255';
   // Timing is in seconds, so the trail feels the same on 60 Hz and 120 Hz screens.
-  const R = 44;                 // glow radius in px
-  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor (was about 0.30)
-  const GLOW = 0.62;            // seconds the glow keeps shining after the mouse stops (unchanged)
-  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops (was 1.5)
+  const R = 16;                 // halo radius in px (smaller and sharper than the old soft glow)
+  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor
+  const GLOW = 0.62;            // seconds the light keeps shining after the mouse stops
+  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops
+  const FOLLOW = 0.55;          // per-frame lag at 60 Hz; the image magnet uses this same value
   let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
+  const glints = [];
 
   addEventListener('pointermove', e => {
     target.x = e.clientX; target.y = e.clientY;
@@ -865,9 +869,19 @@
     if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
   }, {passive: true});
 
+  const rgba = (c, a) => 'rgba(' + c + ',' + Math.max(0, Math.min(a, 1)).toFixed(3) + ')';
+
+  function star(x, y, s, a) {                                 // four-point glint, like light catching a facet
+    ctx.strokeStyle = rgba(CORE, a); ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(x - s, y); ctx.lineTo(x + s, y); ctx.moveTo(x, y - s); ctx.lineTo(x, y + s); ctx.stroke();
+    ctx.strokeStyle = rgba(HALO, a * 0.5);
+    const d = s * 0.45;
+    ctx.beginPath(); ctx.moveTo(x - d, y - d); ctx.lineTo(x + d, y + d); ctx.moveTo(x - d, y + d); ctx.lineTo(x + d, y - d); ctx.stroke();
+  }
+
   function tick(now) {
     const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
-    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); raf = 0; return; }
+    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); glints.length = 0; raf = 0; return; }
     raf = requestAnimationFrame(tick);
     life -= dt; energy *= Math.pow(0.1, dt / GLOW);
     const age = 1 - Math.max(life, 0) / LIFE;
@@ -875,18 +889,44 @@
     ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
     ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
     ctx.fillRect(0, 0, innerWidth, innerHeight);
+    ctx.globalCompositeOperation = 'lighter';                 // light adds up like light
+    ctx.lineCap = 'round';
+
     if (energy > 0.01) {
-      const k = 1 - Math.pow(0.55, dt * 60);                  // same tight follow as before
-      dot.x += (target.x - dot.x) * k;                         // glide toward the pointer
+      const px = dot.x, py = dot.y;
+      const k = 1 - Math.pow(FOLLOW, dt * 60);
+      dot.x += (target.x - dot.x) * k;
       dot.y += (target.y - dot.y) * k;
+      const dx = dot.x - px, dy = dot.y - py, len = Math.hypot(dx, dy);
+      if (len > 0.3) {
+        const nx = -dy / len, ny = dx / len, split = 1.6;     // prism split, sideways to the motion
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = rgba(EDGE_A, 0.55 * energy);
+        ctx.beginPath(); ctx.moveTo(px + nx * split, py + ny * split); ctx.lineTo(dot.x + nx * split, dot.y + ny * split); ctx.stroke();
+        ctx.strokeStyle = rgba(EDGE_B, 0.55 * energy);
+        ctx.beginPath(); ctx.moveTo(px - nx * split, py - ny * split); ctx.lineTo(dot.x - nx * split, dot.y - ny * split); ctx.stroke();
+        ctx.lineWidth = 1.4;
+        ctx.strokeStyle = rgba(CORE, 0.95 * energy);
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(dot.x, dot.y); ctx.stroke();
+        if (Math.random() < Math.min(len / 24, 0.7)) {         // glints shed along the path, more when moving fast
+          glints.push({ x: dot.x + (Math.random() - 0.5) * 14, y: dot.y + (Math.random() - 0.5) * 14,
+                        s: 2 + Math.random() * 3.5, t: 0, life: 0.35 + Math.random() * 0.45 });
+        }
+      }
       const e = energy * dt * 60;                              // same brightness at any refresh rate
-      ctx.globalCompositeOperation = 'lighter';               // glows add up like light
       const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
-      g.addColorStop(0,    'rgba(229,228,226,' + (0.076 * e) + ')');  // platinum core
-      g.addColorStop(0.35, 'rgba(212,168,84,'  + (0.053 * e) + ')');  // gold
-      g.addColorStop(0.7,  'rgba(184,98,52,'   + (0.030 * e) + ')');  // copper edge
-      g.addColorStop(1,   'rgba(0,0,0,0)');
+      g.addColorStop(0,    rgba(CORE, 0.22 * e));              // clear, bright center
+      g.addColorStop(0.18, rgba(CORE, 0.10 * e));
+      g.addColorStop(0.5,  rgba(HALO, 0.035 * e));             // thin cool halo
+      g.addColorStop(1,    'rgba(0,0,0,0)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
+    }
+
+    for (let i = glints.length - 1; i >= 0; i--) {
+      const p = glints[i]; p.t += dt;
+      if (p.t >= p.life) { glints.splice(i, 1); continue; }
+      const a = Math.sin(Math.PI * p.t / p.life);              // twinkle in, then out
+      star(p.x, p.y, p.s * (0.6 + 0.4 * a), 0.35 * a * dt * 60);
     }
   }
 })();
@@ -921,7 +961,7 @@
 
   function tick(now) {
     const dt = Math.min((now - last) / 1000, 0.05); last = now;
-    const k = 1 - Math.pow(0.002, dt);                 // smooth glide, same feel at 60 Hz and 120 Hz
+    const k = 1 - Math.pow(0.55, dt * 60);             // same follow ratio as the cursor tracer
     let moving = false;
     for (const it of items) {
       if (it.x === it.tx && it.y === it.ty && it.s === it.ts) continue;
