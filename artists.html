@@ -206,7 +206,7 @@
         <div class="svc"><span class="tag" data-i18n="s3t">Launch</span><h3 data-i18n="s3h">Release and drop pages</h3><p data-i18n="s3p">A page for each album, collection or show, with pre-saves, tickets or a countdown.</p></div>
         <div class="svc"><span class="tag" data-i18n="s4t">Sell</span><h3 data-i18n="s4h">Portfolio and shop</h3><p data-i18n="s4p">Originals, prints, merch and commissions, with secure checkout from a trusted payment provider.</p></div>
         <div class="svc"><span class="tag" data-i18n="s5t">Visuals</span><h3 data-i18n="s5h">Brand Image Pack</h3><p data-i18n="s5p">Six cinematic images for your world, made for your site and feed. $199.</p><a href="images.html" data-i18n="s5a">See the Image Pack →</a></div>
-        <div class="svc"><span class="tag" data-i18n="s6t">Reach</span><h3 data-i18n="s6h">English and Portuguese</h3><p data-i18n="s6p">One site, two languages, always in sync, so your work lands in Brazil and abroad.</p></div>
+        <div class="svc"><span class="tag" data-i18n="s6t">Reach</span><h3 data-i18n="s6h">Any language</h3><p data-i18n="s6p">One site in every language your audience speaks, always in sync, so your work lands close to home and far beyond it.</p></div>
       </div>
     </div>
   </section>
@@ -314,7 +314,7 @@ const T = {
     s3t: "Launch", s3h: "Release and drop pages", s3p: "A page for each album, collection or show, with pre-saves, tickets or a countdown.",
     s4t: "Sell", s4h: "Portfolio and shop", s4p: "Originals, prints, merch and commissions, with secure checkout from a trusted payment provider.",
     s5t: "Visuals", s5h: "Brand Image Pack", s5p: "Six cinematic images for your world, made for your site and feed. $199.", s5a: "See the Image Pack →",
-    s6t: "Reach", s6h: "English and Portuguese", s6p: "One site, two languages, always in sync, so your work lands in Brazil and abroad.",
+    s6t: "Reach", s6h: "Any language", s6p: "One site in every language your audience speaks, always in sync, so your work lands close to home and far beyond it.",
     how_eyebrow: "How it works", how_h: "Slow where it matters, <em>quick where it counts.</em>",
     st1: "<b>Tell us your story</b>A short questionnaire about your work, your people and the feeling you want.",
     st2: "<b>We design around your work</b>Layout, colors and words built to serve the art, not compete with it.",
@@ -340,7 +340,7 @@ const T = {
     s3t: "Lançamento", s3h: "Páginas de lançamento", s3p: "Uma página para cada álbum, coleção ou show, com pre-save, ingressos ou contagem regressiva.",
     s4t: "Venda", s4h: "Portfólio e loja", s4p: "Originais, prints, merch e encomendas, com pagamento seguro por um provedor confiável.",
     s5t: "Visual", s5h: "Pacote de Imagens da Marca", s5p: "Seis imagens cinematográficas do seu universo, feitas para o seu site e feed. US$ 199.", s5a: "Ver o Pacote de Imagens →",
-    s6t: "Alcance", s6h: "Português e inglês", s6p: "Um site, dois idiomas, sempre iguais, para a sua obra chegar no Brasil e lá fora.",
+    s6t: "Alcance", s6h: "Qualquer idioma", s6p: "Um site em todos os idiomas do seu público, sempre iguais, para a sua obra chegar perto de casa e muito além.",
     how_eyebrow: "Como funciona", how_h: "Devagar onde importa, <em>rápido onde conta.</em>",
     st1: "<b>Conte sua história</b>Um questionário curto sobre sua obra, seu público e o sentimento que você quer passar.",
     st2: "<b>Desenhamos em volta da sua obra</b>Layout, cores e palavras feitos para servir à arte, não competir com ela.",
@@ -369,5 +369,56 @@ const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.
 document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 })();
 </script>
+<!-- Image magnet: images drift away from the pointer while it hovers over them (desktop only, off for reduced motion) -->
+<script>
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const items = [];
+  let raf = 0, last = 0;
+  const wake = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+
+  // el moves, zone is the area that reacts to the pointer. Backgrounds move the whole layer;
+  // a picture inside a clipped frame shifts and zooms a touch so its edges never show.
+  function add(el, zone, bg) {
+    const it = { el, bg, x: 0, y: 0, s: 1, tx: 0, ty: 0, ts: 1 };
+    items.push(it);
+    zone.addEventListener('pointermove', e => {
+      const r = zone.getBoundingClientRect();
+      const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
+      const side = Math.min(el.offsetWidth, el.offsetHeight) || 1;
+      const push = bg ? 36 : Math.min(18, side * 0.05);
+      it.tx = -nx * push; it.ty = -ny * push;          // the opposite way from the pointer
+      const clipped = !bg && /hidden|clip/.test(getComputedStyle(el.parentElement).overflow);
+      it.ts = clipped ? 1 + (2 * push + 2) / side : 1;
+      wake();
+    }, { passive: true });
+    zone.addEventListener('pointerleave', () => { it.tx = 0; it.ty = 0; it.ts = 1; wake(); });
+  }
+
+  function tick(now) {
+    const dt = Math.min((now - last) / 1000, 0.05); last = now;
+    const k = 1 - Math.pow(0.002, dt);                 // smooth glide, same feel at 60 Hz and 120 Hz
+    let moving = false;
+    for (const it of items) {
+      if (it.x === it.tx && it.y === it.ty && it.s === it.ts) continue;
+      it.x += (it.tx - it.x) * k; it.y += (it.ty - it.y) * k; it.s += (it.ts - it.s) * k;
+      if (Math.abs(it.tx - it.x) < 0.05 && Math.abs(it.ty - it.y) < 0.05 && Math.abs(it.ts - it.s) < 0.0005) {
+        it.x = it.tx; it.y = it.ty; it.s = it.ts;
+      } else moving = true;
+      it.el.style.translate = it.x.toFixed(2) + 'px ' + it.y.toFixed(2) + 'px';
+      if (!it.bg) it.el.style.scale = it.s.toFixed(4);
+    }
+    raf = moving ? requestAnimationFrame(tick) : 0;
+  }
+
+  document.querySelectorAll('.hero-bg, .kit-bg').forEach(bg => add(bg, bg.parentElement, true));
+  document.querySelectorAll('img').forEach(img => {
+    if (img.closest('nav, footer, [data-no-magnet]')) return;
+    add(img, img, false);
+  });
+})();
+</script>
+
 </body>
 </html>

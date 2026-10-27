@@ -353,5 +353,56 @@ const T = {
   apply(pick());
 })();
 </script>
+<!-- Image magnet: images drift away from the pointer while it hovers over them (desktop only, off for reduced motion) -->
+<script>
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const items = [];
+  let raf = 0, last = 0;
+  const wake = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+
+  // el moves, zone is the area that reacts to the pointer. Backgrounds move the whole layer;
+  // a picture inside a clipped frame shifts and zooms a touch so its edges never show.
+  function add(el, zone, bg) {
+    const it = { el, bg, x: 0, y: 0, s: 1, tx: 0, ty: 0, ts: 1 };
+    items.push(it);
+    zone.addEventListener('pointermove', e => {
+      const r = zone.getBoundingClientRect();
+      const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
+      const side = Math.min(el.offsetWidth, el.offsetHeight) || 1;
+      const push = bg ? 36 : Math.min(18, side * 0.05);
+      it.tx = -nx * push; it.ty = -ny * push;          // the opposite way from the pointer
+      const clipped = !bg && /hidden|clip/.test(getComputedStyle(el.parentElement).overflow);
+      it.ts = clipped ? 1 + (2 * push + 2) / side : 1;
+      wake();
+    }, { passive: true });
+    zone.addEventListener('pointerleave', () => { it.tx = 0; it.ty = 0; it.ts = 1; wake(); });
+  }
+
+  function tick(now) {
+    const dt = Math.min((now - last) / 1000, 0.05); last = now;
+    const k = 1 - Math.pow(0.002, dt);                 // smooth glide, same feel at 60 Hz and 120 Hz
+    let moving = false;
+    for (const it of items) {
+      if (it.x === it.tx && it.y === it.ty && it.s === it.ts) continue;
+      it.x += (it.tx - it.x) * k; it.y += (it.ty - it.y) * k; it.s += (it.ts - it.s) * k;
+      if (Math.abs(it.tx - it.x) < 0.05 && Math.abs(it.ty - it.y) < 0.05 && Math.abs(it.ts - it.s) < 0.0005) {
+        it.x = it.tx; it.y = it.ty; it.s = it.ts;
+      } else moving = true;
+      it.el.style.translate = it.x.toFixed(2) + 'px ' + it.y.toFixed(2) + 'px';
+      if (!it.bg) it.el.style.scale = it.s.toFixed(4);
+    }
+    raf = moving ? requestAnimationFrame(tick) : 0;
+  }
+
+  document.querySelectorAll('.hero-bg, .kit-bg').forEach(bg => add(bg, bg.parentElement, true));
+  document.querySelectorAll('img').forEach(img => {
+    if (img.closest('nav, footer, [data-no-magnet]')) return;
+    add(img, img, false);
+  });
+})();
+</script>
+
 </body>
 </html>

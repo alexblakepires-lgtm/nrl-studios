@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NRL Studios · Netrunner's Lair</title>
-<meta name="description" content="NRL Studios is the web and AI studio of Alexandre Pires. Websites and AI products, built end to end, in English and Portuguese.">
+<meta name="description" content="NRL Studios is the web and AI studio of Alexandre Pires. Websites and AI products, built end to end, in any language.">
 <link rel="canonical" href="https://nrlstudios.com/">
 <meta property="og:url" content="https://nrlstudios.com/">
 <meta name="theme-color" content="#110E17">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NRL Studios · Netrunner's Lair">
-<meta property="og:description" content="Websites and AI products, built end to end. English and Portuguese.">
+<meta property="og:description" content="Websites and AI products, built end to end. In any language.">
 <meta property="og:image" content="https://nrlstudios.com/images/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="images/hero-lair.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -97,13 +98,14 @@
     text-align: center; overflow: hidden;
   }
   .hero-bg {
-    position: absolute; inset: 0;
+    position: absolute; inset: -48px;   /* bleed, so the pointer drift never shows an edge */
     background-image: url('images/hero-lair.jpg');
     background-size: cover; background-position: center 45%;
-    transform: scale(1.04);
-    transition: transform 8s ease-out;
+    scale: 1.04;                         /* intro zoom lives on scale; scroll parallax uses transform, untimed */
+    transition: scale 8s ease-out;
+    will-change: transform;
   }
-  .hero-bg.loaded { transform: scale(1); }
+  .hero-bg.loaded { scale: 1; }
   .hero-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(to bottom,
@@ -227,7 +229,7 @@
     overflow: hidden; padding: 0;
   }
   .kit-bg {
-    position: absolute; inset: 0;
+    position: absolute; inset: -48px;
     background-image: url('images/case-bg.jpg');
     background-size: cover; background-position: center;
   }
@@ -395,7 +397,7 @@
   <div class="hero-content">
     <span class="section-label" data-i18n="eyebrow">Web &amp; AI studio · California / Brazil</span>
     <h1><span data-i18n="h1a">Websites and AI products,</span><br><em data-i18n="h1b">built end to end.</em></h1>
-    <p data-i18n="lede">A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.</p>
+    <p data-i18n="lede">A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in any language.</p>
     <div class="hero-buttons">
       <a href="start.html" class="btn btn-primary" data-i18n="cta1">Start a project</a>
       <a href="#store" class="btn btn-outline-light" data-i18n="cta2">See the work</a>
@@ -488,7 +490,7 @@
     <h2 class="section-title" data-i18n="proc_h">From idea to live, one person accountable</h2>
     <ol class="steps">
       <li data-i18n="st1">A short call to understand what you sell and who buys it</li>
-      <li data-i18n="st2">Design and copy in English and Portuguese</li>
+      <li data-i18n="st2">Design and copy in any language</li>
       <li data-i18n="st3">Build, with imagery made for your brand</li>
       <li data-i18n="st4">Domain, DNS, email and hosting handled</li>
       <li data-i18n="st5">Launch, then small changes as you grow</li>
@@ -519,8 +521,8 @@
     <div class="edu-card">
       <div class="edu-card-img slot"><img src="images/svc-bilingual.jpg" alt="Two beams of warm light meeting over a dark ocean horizon" loading="lazy" onerror="this.remove()"></div>
       <div class="edu-card-body">
-        <h3 data-i18n="svc3_h">Bilingual by default</h3>
-        <p data-i18n="svc3_p">Copy and interfaces written in English and Portuguese, with Spanish when your buyers need it.</p>
+        <h3 data-i18n="svc3_h">Any language, by default</h3>
+        <p data-i18n="svc3_p">Copy and interfaces written in whatever languages your customers speak, every version kept in sync.</p>
       </div>
     </div>
     <div class="edu-card">
@@ -615,7 +617,7 @@
 
 <div class="newsletter" id="contact">
   <h2 data-i18n="contact_h">Have a project?</h2>
-  <p data-i18n="contact_p">Tell me what you're building and where it needs to be live. I reply in English or Portuguese.</p>
+  <p data-i18n="contact_p">Tell me what you're building and where it needs to be live. I reply in your language.</p>
   <div class="newsletter-form">
     <output id="studio-email">hello@nrlstudios.com</output>
     <button type="button" id="copy-email" data-i18n="copy">Copy email</button>
@@ -626,7 +628,7 @@
 <footer>
   <div>
     <div class="footer-brand">NRL Studios</div>
-    <p style="font-size:0.85rem;max-width:260px;line-height:1.7;" data-i18n="foot_p">Websites and AI products, built end to end. English and Portuguese.</p>
+    <p style="font-size:0.85rem;max-width:260px;line-height:1.7;" data-i18n="foot_p">Websites and AI products, built end to end. In any language.</p>
   </div>
   <div>
     <h4 data-i18n="nav_work">Work</h4>
@@ -664,9 +666,9 @@
       svc6_link: "Image Pack · $199 →", pack_k: "Brand Image Pack · $199", pack_h: "Not ready for a full site? Start with six images.", pack_p: "Six cinematic images of your business in 72 hours. No photoshoot, no stock photos. Ready for your website, Instagram and ads.", pack_btn: "See the Image Pack →",
       eyebrow: "Web & AI studio · California / Brazil",
       h1a: "Websites and AI products,", h1b: "built end to end.",
-      lede: "A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in English and Portuguese.",
+      lede: "A studio run by Alexandre Pires. I take a project from idea to live: design, code, domain, hosting and copy, in any language.",
       cta1: "Start a project", cta2: "See the work", scroll: "Scroll",
-      marquee: "Websites ✦ AI products ✦ English · Português ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner's Lair ✦ ",
+      marquee: "Websites ✦ AI products ✦ Any language ✦ Design ✦ Code ✦ Domain ✦ Hosting ✦ Netrunner's Lair ✦ ",
       work_k: "Client builds and studio projects", work_h: "Work",
       f_all: "All", f_client: "Client", f_lab: "In the lair",
       c1_sub: "Client · Curitiba", c1_p: "Raw materials brokerage. Design, build, EN / PT / ES, domain move.",
@@ -680,12 +682,12 @@
       s4: "Domain and DNS migration", s5: "Email kept running", s6: "Hosted on GitHub Pages",
       visit: "Visit rzbis.com ↗",
       proc_k: "How a project runs", proc_h: "From idea to live, one person accountable",
-      st1: "A short call to understand what you sell and who buys it", st2: "Design and copy in English and Portuguese",
+      st1: "A short call to understand what you sell and who buys it", st2: "Design and copy in any language",
       st3: "Build, with imagery made for your brand", st4: "Domain, DNS, email and hosting handled", st5: "Launch, then small changes as you grow",
       svc_k: "Services", svc_h: "What the studio does",
       svc1_h: "Websites", svc1_p: "Design, build and launch. Fast, light pages that work on any phone.",
       svc2_h: "AI products", svc2_p: "Assistants that answer from your own material, with user accounts, access rules and a path to payments.",
-      svc3_h: "Bilingual by default", svc3_p: "Copy and interfaces written in English and Portuguese, with Spanish when your buyers need it.",
+      svc3_h: "Any language, by default", svc3_p: "Copy and interfaces written in whatever languages your customers speak, every version kept in sync.",
       svc4_h: "Domain and email", svc4_p: "Domains moved or registered, DNS set up, company email kept running through every change.",
       svc5_h: "Hosting", svc5_p: "Static sites on GitHub Pages or Cloudflare, apps on managed platforms. Low cost, no servers to babysit.",
       svc6_h: "Brand imagery", svc6_p: "Every image on this site was generated for it. Your site gets its own visual language the same way.",
@@ -700,18 +702,18 @@
       log1: "Domain moved from Squarespace to GitHub Pages", log2: "Company email records kept intact through the move",
       log3: "Hero video rebuilt from its sharpest seconds", log4: "Site now opens in the visitor's language: EN / PT / ES",
       status: "status: live",
-      contact_h: "Have a project?", contact_p: "Tell me what you're building and where it needs to be live. I reply in English or Portuguese.",
+      contact_h: "Have a project?", contact_p: "Tell me what you're building and where it needs to be live. I reply in your language.",
       copy: "Copy email", copied: "Copied",
-      foot_p: "Websites and AI products, built end to end. English and Portuguese.", foot_studio: "Studio"
+      foot_p: "Websites and AI products, built end to end. In any language.", foot_studio: "Studio"
     },
     pt: {
       nav_work: "Trabalhos", nav_services: "Serviços", nav_about: "Sobre", nav_contact: "Contato", nav_pack: "Pacote de Imagens", nav_artists: "Para artistas",
       svc6_link: "Pacote de Imagens · $199 →", pack_k: "Pacote de Imagens · $199", pack_h: "Ainda não é hora de um site completo? Comece com seis imagens.", pack_p: "Seis imagens cinematográficas do seu negócio em 72 horas. Sem sessão de fotos, sem banco de imagens. Prontas para o site, o Instagram e anúncios.", pack_btn: "Ver o Pacote de Imagens →",
       eyebrow: "Estúdio de web e IA · Califórnia / Brasil",
       h1a: "Sites e produtos de IA,", h1b: "do início ao fim.",
-      lede: "Um estúdio comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em português e inglês.",
+      lede: "Um estúdio comandado por Alexandre Pires. Levo o projeto da ideia ao ar: design, código, domínio, hospedagem e textos, em qualquer idioma.",
       cta1: "Começar um projeto", cta2: "Ver os trabalhos", scroll: "Role",
-      marquee: "Sites ✦ Produtos de IA ✦ Português · English ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner's Lair ✦ ",
+      marquee: "Sites ✦ Produtos de IA ✦ Qualquer idioma ✦ Design ✦ Código ✦ Domínio ✦ Hospedagem ✦ Netrunner's Lair ✦ ",
       work_k: "Projetos de clientes e do estúdio", work_h: "Trabalhos",
       f_all: "Todos", f_client: "Clientes", f_lab: "No laboratório",
       c1_sub: "Cliente · Curitiba", c1_p: "Corretora de matérias-primas. Design, desenvolvimento, EN / PT / ES, migração de domínio.",
@@ -725,12 +727,12 @@
       s4: "Migração de domínio e DNS", s5: "E-mail funcionando sem parar", s6: "Hospedado no GitHub Pages",
       visit: "Visitar rzbis.com ↗",
       proc_k: "Como um projeto acontece", proc_h: "Da ideia ao ar, com uma pessoa responsável",
-      st1: "Uma conversa curta para entender o que você vende e para quem", st2: "Design e textos em português e inglês",
+      st1: "Uma conversa curta para entender o que você vende e para quem", st2: "Design e textos em qualquer idioma",
       st3: "Desenvolvimento, com imagens feitas para a sua marca", st4: "Domínio, DNS, e-mail e hospedagem resolvidos", st5: "Lançamento, e ajustes conforme você cresce",
       svc_k: "Serviços", svc_h: "O que o estúdio faz",
       svc1_h: "Sites", svc1_p: "Design, desenvolvimento e lançamento. Páginas rápidas e leves que funcionam em qualquer celular.",
       svc2_h: "Produtos de IA", svc2_p: "Assistentes que respondem a partir do seu próprio material, com contas de usuário, regras de acesso e caminho para pagamentos.",
-      svc3_h: "Bilíngue por padrão", svc3_p: "Textos e interfaces em português e inglês, com espanhol quando seus compradores precisarem.",
+      svc3_h: "Qualquer idioma, por padrão", svc3_p: "Textos e interfaces nos idiomas que seus clientes falam, com todas as versões sempre iguais.",
       svc4_h: "Domínio e e-mail", svc4_p: "Domínios migrados ou registrados, DNS configurado e o e-mail da empresa funcionando em cada mudança.",
       svc5_h: "Hospedagem", svc5_p: "Sites estáticos no GitHub Pages ou Cloudflare, apps em plataformas gerenciadas. Custo baixo, sem servidor para cuidar.",
       svc6_h: "Imagens da marca", svc6_p: "Todas as imagens deste site foram geradas para ele. O seu site ganha uma linguagem visual própria do mesmo jeito.",
@@ -745,9 +747,9 @@
       log1: "Domínio migrado do Squarespace para o GitHub Pages", log2: "Registros de e-mail da empresa preservados na migração",
       log3: "Vídeo de abertura refeito com os trechos mais nítidos", log4: "Site abre no idioma do visitante: EN / PT / ES",
       status: "status: no ar",
-      contact_h: "Tem um projeto?", contact_p: "Me conta o que você está construindo e onde isso precisa estar no ar. Respondo em português ou inglês.",
+      contact_h: "Tem um projeto?", contact_p: "Me conta o que você está construindo e onde isso precisa estar no ar. Respondo no seu idioma.",
       copy: "Copiar e-mail", copied: "Copiado",
-      foot_p: "Sites e produtos de IA, do início ao fim. Português e inglês.", foot_studio: "Estúdio"
+      foot_p: "Sites e produtos de IA, do início ao fim. Em qualquer idioma.", foot_studio: "Estúdio"
     }
   };
   let current = 'en';
@@ -778,9 +780,19 @@
   const heroBg = document.getElementById('heroBg');
   setTimeout(() => heroBg.classList.add('loaded'), 100);
 
+  // Parallax: one update per frame, and only while the hero can be on screen,
+  // so scrolling back to the top shows the image right away.
+  const hero = heroBg.parentElement;
+  let paraQueued = false;
+  const parallax = () => {
+    paraQueued = false;
+    const y = Math.min(window.scrollY, hero.offsetHeight);
+    heroBg.style.transform = `translate3d(0, ${(y * 0.3).toFixed(1)}px, 0)`;
+  };
   window.addEventListener('scroll', () => {
-    heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+    if (!paraQueued) { paraQueued = true; requestAnimationFrame(parallax); }
   }, { passive: true });
+  parallax();
 
   // ── Work filters ──
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -877,6 +889,57 @@
       ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
     }
   }
+})();
+</script>
+
+<!-- Image magnet: images drift away from the pointer while it hovers over them (desktop only, off for reduced motion) -->
+<script>
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const items = [];
+  let raf = 0, last = 0;
+  const wake = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } };
+
+  // el moves, zone is the area that reacts to the pointer. Backgrounds move the whole layer;
+  // a picture inside a clipped frame shifts and zooms a touch so its edges never show.
+  function add(el, zone, bg) {
+    const it = { el, bg, x: 0, y: 0, s: 1, tx: 0, ty: 0, ts: 1 };
+    items.push(it);
+    zone.addEventListener('pointermove', e => {
+      const r = zone.getBoundingClientRect();
+      const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+      const ny = ((e.clientY - r.top) / r.height) * 2 - 1;
+      const side = Math.min(el.offsetWidth, el.offsetHeight) || 1;
+      const push = bg ? 36 : Math.min(18, side * 0.05);
+      it.tx = -nx * push; it.ty = -ny * push;          // the opposite way from the pointer
+      const clipped = !bg && /hidden|clip/.test(getComputedStyle(el.parentElement).overflow);
+      it.ts = clipped ? 1 + (2 * push + 2) / side : 1;
+      wake();
+    }, { passive: true });
+    zone.addEventListener('pointerleave', () => { it.tx = 0; it.ty = 0; it.ts = 1; wake(); });
+  }
+
+  function tick(now) {
+    const dt = Math.min((now - last) / 1000, 0.05); last = now;
+    const k = 1 - Math.pow(0.002, dt);                 // smooth glide, same feel at 60 Hz and 120 Hz
+    let moving = false;
+    for (const it of items) {
+      if (it.x === it.tx && it.y === it.ty && it.s === it.ts) continue;
+      it.x += (it.tx - it.x) * k; it.y += (it.ty - it.y) * k; it.s += (it.ts - it.s) * k;
+      if (Math.abs(it.tx - it.x) < 0.05 && Math.abs(it.ty - it.y) < 0.05 && Math.abs(it.ts - it.s) < 0.0005) {
+        it.x = it.tx; it.y = it.ty; it.s = it.ts;
+      } else moving = true;
+      it.el.style.translate = it.x.toFixed(2) + 'px ' + it.y.toFixed(2) + 'px';
+      if (!it.bg) it.el.style.scale = it.s.toFixed(4);
+    }
+    raf = moving ? requestAnimationFrame(tick) : 0;
+  }
+
+  document.querySelectorAll('.hero-bg, .kit-bg').forEach(bg => add(bg, bg.parentElement, true));
+  document.querySelectorAll('img').forEach(img => {
+    if (img.closest('nav, footer, [data-no-magnet]')) return;
+    add(img, img, false);
+  });
 })();
 </script>
 
