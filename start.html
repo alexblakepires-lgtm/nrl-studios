@@ -491,98 +491,69 @@
 
 <footer>NRL STUDIOS · NETRUNNER'S LAIR · <a href="mailto:hello@nrlstudios.com">HELLO@NRLSTUDIOS.COM</a></footer>
 
-<!-- Cursor trail: crystalline light that follows the mouse, a clear core with prism edges and glints (desktop only, off for reduced motion) -->
-<canvas id="cursor-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none"></canvas>
+<!-- Cursor trail: a large, faint glass lens that bends the page beneath the pointer, with a few fading beads behind it (desktop only, off for reduced motion) -->
+<div id="glass-trail" aria-hidden="true" style="position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden"></div>
+<style>
+  #glass-trail .bead {
+    position: absolute; left: 0; top: 0; border-radius: 50%; opacity: 0; will-change: transform, opacity;
+    -webkit-backdrop-filter: blur(2.2px) brightness(1.07) contrast(1.1) saturate(1.2);
+            backdrop-filter: blur(2.2px) brightness(1.07) contrast(1.1) saturate(1.2);
+    background: radial-gradient(circle at 34% 30%, rgba(255,255,255,0.10), rgba(170,215,255,0.05) 38%, rgba(255,210,140,0.04) 62%, transparent 72%);
+    box-shadow: inset 0 0 22px rgba(170,215,255,0.07), inset -6px -8px 18px rgba(255,210,140,0.05);
+    -webkit-mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,0.55) 56%, transparent 72%);
+            mask-image: radial-gradient(circle, #000 34%, rgba(0,0,0,0.55) 56%, transparent 72%);
+  }
+</style>
 <script>
 (() => {
   const fine = matchMedia('(pointer: fine)').matches;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const cv = document.getElementById('cursor-trail');
-  if (!fine || still || !cv) { if (cv) cv.remove(); return; }
-  const ctx = cv.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = () => { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
-                       cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px';
-                       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-  size(); addEventListener('resize', size);
+  const box = document.getElementById('glass-trail');
+  if (!fine || still || !box) { if (box) box.remove(); return; }
 
-  // Colors: a clear core, two prism edges split either side of the stroke, and the glints.
-  const CORE = '245,248,255', EDGE_A = '150,220,255', EDGE_B = '255,200,130', HALO = '200,225,255';
-  // Timing is in seconds, so the trail feels the same on 60 Hz and 120 Hz screens.
-  const R = 16;                 // halo radius in px (smaller and sharper than the old soft glow)
-  const TAIL = 0.63;            // seconds for the trail to fade out behind the cursor
-  const GLOW = 0.62;            // seconds the light keeps shining after the mouse stops
-  const LIFE = 1.83;            // seconds before the canvas is cleared after the mouse stops
+  // Sizes and timing. Timing is in seconds, so it feels the same on 60 Hz and 120 Hz screens.
+  const SIZE = 120;             // lens diameter in px
+  const BEADS = [1, 0.78, 0.6, 0.46, 0.34];   // lens first, then the beads trailing behind it
+  const PEAK = 0.62;            // brightest the lens ever gets (kept low so it stays faint)
+  const FADE = 0.9;             // seconds for the glass to fade out after the mouse stops
   const FOLLOW = 0.55;          // per-frame lag at 60 Hz; the image magnet uses this same value
-  let target = {x: -200, y: -200}, dot = {x: -200, y: -200}, energy = 0, life = 0, raf = 0, last = 0;
-  const glints = [];
+  const CHAIN = 0.62;           // how loosely each bead follows the one ahead of it
 
+  const beads = BEADS.map((s, i) => {
+    const el = document.createElement('div'); el.className = 'bead';
+    const d = SIZE * s; el.style.width = el.style.height = d + 'px';
+    box.appendChild(el);
+    return { el, d, s, x: -400, y: -400, a: PEAK * Math.pow(0.6, i) };
+  });
+
+  let tx = -400, ty = -400, energy = 0, raf = 0, last = 0, seen = false;
   addEventListener('pointermove', e => {
-    target.x = e.clientX; target.y = e.clientY;
-    if (dot.x < -100) { dot.x = target.x; dot.y = target.y; }
-    energy = 1; life = LIFE;
+    tx = e.clientX; ty = e.clientY;
+    if (!seen) { seen = true; beads.forEach(b => { b.x = tx; b.y = ty; }); }
+    energy = 1;
     if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
   }, {passive: true});
-
-  const rgba = (c, a) => 'rgba(' + c + ',' + Math.max(0, Math.min(a, 1)).toFixed(3) + ')';
-
-  function star(x, y, s, a) {                                 // four-point glint, like light catching a facet
-    ctx.strokeStyle = rgba(CORE, a); ctx.lineWidth = 0.8;
-    ctx.beginPath(); ctx.moveTo(x - s, y); ctx.lineTo(x + s, y); ctx.moveTo(x, y - s); ctx.lineTo(x, y + s); ctx.stroke();
-    ctx.strokeStyle = rgba(HALO, a * 0.5);
-    const d = s * 0.45;
-    ctx.beginPath(); ctx.moveTo(x - d, y - d); ctx.lineTo(x + d, y + d); ctx.moveTo(x - d, y + d); ctx.lineTo(x + d, y - d); ctx.stroke();
-  }
+  document.addEventListener('pointerleave', () => { energy = 0; });
 
   function tick(now) {
     const dt = Math.min(Math.max((now - last) / 1000, 0), 0.05); last = now;
-    if (life <= 0) { ctx.clearRect(0, 0, innerWidth, innerHeight); glints.length = 0; raf = 0; return; }
+    energy *= Math.pow(0.05, dt / FADE);
+    if (energy < 0.005) { beads.forEach(b => b.el.style.opacity = 0); raf = 0; return; }
     raf = requestAnimationFrame(tick);
-    life -= dt; energy *= Math.pow(0.1, dt / GLOW);
-    const age = 1 - Math.max(life, 0) / LIFE;
-    const fade = 1 - Math.pow(0.1, dt / TAIL) + age * age * 0.4 * dt * 60;
-    ctx.globalCompositeOperation = 'destination-out';          // fade what was drawn before
-    ctx.fillStyle = 'rgba(0,0,0,' + Math.min(fade, 1) + ')';
-    ctx.fillRect(0, 0, innerWidth, innerHeight);
-    ctx.globalCompositeOperation = 'lighter';                 // light adds up like light
-    ctx.lineCap = 'round';
 
-    if (energy > 0.01) {
-      const px = dot.x, py = dot.y;
-      const k = 1 - Math.pow(FOLLOW, dt * 60);
-      dot.x += (target.x - dot.x) * k;
-      dot.y += (target.y - dot.y) * k;
-      const dx = dot.x - px, dy = dot.y - py, len = Math.hypot(dx, dy);
-      if (len > 0.3) {
-        const nx = -dy / len, ny = dx / len, split = 1.6;     // prism split, sideways to the motion
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = rgba(EDGE_A, 0.55 * energy);
-        ctx.beginPath(); ctx.moveTo(px + nx * split, py + ny * split); ctx.lineTo(dot.x + nx * split, dot.y + ny * split); ctx.stroke();
-        ctx.strokeStyle = rgba(EDGE_B, 0.55 * energy);
-        ctx.beginPath(); ctx.moveTo(px - nx * split, py - ny * split); ctx.lineTo(dot.x - nx * split, dot.y - ny * split); ctx.stroke();
-        ctx.lineWidth = 1.4;
-        ctx.strokeStyle = rgba(CORE, 0.95 * energy);
-        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(dot.x, dot.y); ctx.stroke();
-        if (Math.random() < Math.min(len / 24, 0.7)) {         // glints shed along the path, more when moving fast
-          glints.push({ x: dot.x + (Math.random() - 0.5) * 14, y: dot.y + (Math.random() - 0.5) * 14,
-                        s: 2 + Math.random() * 3.5, t: 0, life: 0.35 + Math.random() * 0.45 });
-        }
-      }
-      const e = energy * dt * 60;                              // same brightness at any refresh rate
-      const g = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, R);
-      g.addColorStop(0,    rgba(CORE, 0.22 * e));              // clear, bright center
-      g.addColorStop(0.18, rgba(CORE, 0.10 * e));
-      g.addColorStop(0.5,  rgba(HALO, 0.035 * e));             // thin cool halo
-      g.addColorStop(1,    'rgba(0,0,0,0)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(dot.x, dot.y, R, 0, Math.PI * 2); ctx.fill();
-    }
-
-    for (let i = glints.length - 1; i >= 0; i--) {
-      const p = glints[i]; p.t += dt;
-      if (p.t >= p.life) { glints.splice(i, 1); continue; }
-      const a = Math.sin(Math.PI * p.t / p.life);              // twinkle in, then out
-      star(p.x, p.y, p.s * (0.6 + 0.4 * a), 0.35 * a * dt * 60);
-    }
+    let ax = tx, ay = ty;
+    beads.forEach((b, i) => {
+      const k = 1 - Math.pow(i === 0 ? FOLLOW : CHAIN, dt * 60);
+      const px = b.x, py = b.y;
+      b.x += (ax - b.x) * k; b.y += (ay - b.y) * k;
+      const vx = (b.x - px) / Math.max(dt, 0.001), vy = (b.y - py) / Math.max(dt, 0.001);
+      const speed = Math.hypot(vx, vy);
+      const st = Math.min(speed / 1800, 0.38);               // stretch along the motion, like a drop of glass
+      const ang = Math.atan2(vy, vx);
+      b.el.style.transform = 'translate(' + (b.x - b.d / 2) + 'px,' + (b.y - b.d / 2) + 'px) rotate(' + ang + 'rad) scale(' + (1 + st) + ',' + (1 - st * 0.45) + ')';
+      b.el.style.opacity = (b.a * energy).toFixed(3);
+      ax = b.x; ay = b.y;
+    });
   }
 })();
 </script>
